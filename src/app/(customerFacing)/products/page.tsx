@@ -49,6 +49,7 @@ export default function ProductsPage({
 async function ProductsSuspense() {
   const products = await getProducts();
 
+  console.log("all products: ", products);
   return products.map((product) => (
     <ProductCard key={product.id} {...product} />
   ));
