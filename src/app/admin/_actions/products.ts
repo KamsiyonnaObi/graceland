@@ -5,6 +5,7 @@ import { z } from "zod";
 import fs from "fs/promises";
 import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { toast } from "sonner";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
@@ -15,13 +16,14 @@ const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   priceInCents: z.coerce.number().int().min(1),
-  file: fileSchema.refine((file) => file.size > 0, "Required"),
+
   image: imageSchema.refine((file) => file.size > 0, "Required"),
 });
 
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {
+    toast.error("Failed to create product");
     return result.error.formErrors.fieldErrors;
   }
 
