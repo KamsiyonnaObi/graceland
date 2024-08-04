@@ -43,7 +43,7 @@ export const usePaystack = (config: PaystackConfig) => {
         console.log("Payment closed");
       },
     });
-  }, [initializePayment]);
+  }, [initializePayment, router]);
 
   return {
     startPayment,
