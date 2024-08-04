@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
-  (file) => file.size === 0 || file.type.startsWith("image/")
+  (file) => file.size === 0 || file.type.startsWith("image/"),
 );
 
 const addSchema = z.object({
@@ -28,14 +28,12 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   const data = result.data;
 
   await fs.mkdir("products", { recursive: true });
-  const filePath = `products/${crypto.randomUUID()}-${data.file.name}`;
-  await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()));
 
   await fs.mkdir("public/products", { recursive: true });
   const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`;
   await fs.writeFile(
     `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
+    Buffer.from(await data.image.arrayBuffer()),
   );
 
   await db.product.create({
@@ -44,7 +42,6 @@ export async function addProduct(prevState: unknown, formData: FormData) {
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
-      filePath,
       imagePath,
     },
   });
@@ -63,7 +60,7 @@ const editSchema = addSchema.extend({
 export async function updateProduct(
   id: string,
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const result = editSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {
@@ -75,20 +72,13 @@ export async function updateProduct(
 
   if (product == null) return notFound();
 
-  let filePath = product.filePath;
-  if (data.file != null && data.file.size > 0) {
-    await fs.unlink(product.filePath);
-    filePath = `products/${crypto.randomUUID()}-${data.file.name}`;
-    await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()));
-  }
-
   let imagePath = product.imagePath;
   if (data.image != null && data.image.size > 0) {
     await fs.unlink(`public${product.imagePath}`);
     imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`;
     await fs.writeFile(
       `public${imagePath}`,
-      Buffer.from(await data.image.arrayBuffer())
+      Buffer.from(await data.image.arrayBuffer()),
     );
   }
 
@@ -98,7 +88,6 @@ export async function updateProduct(
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
-      filePath,
       imagePath,
     },
   });
@@ -111,7 +100,7 @@ export async function updateProduct(
 
 export async function toggleProductAvailability(
   id: string,
-  isAvailableForPurchase: boolean
+  isAvailableForPurchase: boolean,
 ) {
   await db.product.update({ where: { id }, data: { isAvailableForPurchase } });
 
@@ -124,7 +113,6 @@ export async function deleteProduct(id: string) {
 
   if (product == null) return notFound();
 
-  await fs.unlink(product.filePath);
   await fs.unlink(`public${product.imagePath}`);
 
   revalidatePath("/");
