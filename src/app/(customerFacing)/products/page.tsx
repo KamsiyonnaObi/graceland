@@ -1,7 +1,9 @@
+import { getAllProducts } from "@/app/admin/_actions/products";
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
 import Filter from "@/components/productsPage/Filter";
 import db from "@/db/db";
 import { cache } from "@/lib/cache";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 const getProducts = cache(() => {
@@ -47,9 +49,11 @@ export default function ProductsPage({
 }
 
 async function ProductsSuspense() {
-  const products = await getProducts();
+  const products = await getAllProducts();
 
-  console.log("all products: ", products);
+  if (!products) {
+    return notFound();
+  }
   return products.map((product) => (
     <ProductCard key={product.id} {...product} />
   ));

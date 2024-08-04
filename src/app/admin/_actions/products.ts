@@ -20,6 +20,19 @@ const addSchema = z.object({
   image: imageSchema.refine((file) => file.size > 0, "Required"),
 });
 
+export async function getAllProducts() {
+  try {
+    const products = db.product.findMany({
+      where: { isAvailableForPurchase: true },
+      orderBy: { name: "desc" },
+    });
+
+    return products;
+  } catch (error) {
+    console.error("unable to fetch products", error);
+  }
+}
+
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {
