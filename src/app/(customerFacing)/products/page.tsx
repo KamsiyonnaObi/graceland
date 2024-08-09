@@ -6,10 +6,10 @@ import { cache } from "@/lib/cache";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-const getProducts = cache(() => {
+const getProducts = cache((sort: "asc" | "desc" = "desc") => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
-    orderBy: { name: "desc" },
+    orderBy: {priceInCents :sort},
   });
 }, ["/products", "getProducts"]);
 
@@ -18,6 +18,7 @@ export default function ProductsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const sort = (searchParams.sort as "asc" | "desc") || "desc";
   return (
     <div className="page-container">
       <section>
@@ -40,7 +41,7 @@ export default function ProductsPage({
               </>
             }
           >
-            <ProductsSuspense />
+            <ProductsSuspense sort={sort}/>
           </Suspense>
         </div>
       </section>
@@ -48,8 +49,8 @@ export default function ProductsPage({
   );
 }
 
-async function ProductsSuspense() {
-  const products = await getAllProducts();
+async function ProductsSuspense({ sort }: { sort: "asc" | "desc" }) {
+  const products = await getAllProducts({sort});
 
   if (!products) {
     return notFound();
