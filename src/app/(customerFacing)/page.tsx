@@ -15,13 +15,13 @@ export default function HomePage() {
       <section className="padding">
         <PopularProducts />
       </section>
-      <section className="padding">
+      <section id="explore" className="padding">
         <SuperQuality />
       </section>
       <section className="padding-x py-10">
         <Services />
       </section>
-      <section className="padding bg-pale-blue">
+      <section id="testimonials" className="padding bg-pale-blue">
         <CustomerReviews />
       </section>
     </main>

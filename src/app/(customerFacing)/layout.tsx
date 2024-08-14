@@ -20,9 +20,9 @@ export default function Layout({
           </div>
           <div>
             <NavLink href="/">Home</NavLink>
-            <NavLink href="/products">Carriers</NavLink>
-            <NavLink href="/products">Car Seat</NavLink>
-            <NavLink href="/products">Stroller</NavLink>
+            <NavLink href="#explore">About Us</NavLink>
+            <NavLink href="#testimonials">Reviews</NavLink>
+            <NavLink href="/products">Shop</NavLink>
           </div>
           <div className="flex">
             <UserNavbar />
