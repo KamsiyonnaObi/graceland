@@ -50,7 +50,10 @@ export default function ProductsPage({
 }
 
 async function ProductsSuspense({ sort }: { sort: "asc" | "desc" }) {
+  
   const products = await getAllProducts({sort});
+
+  console.log({sort})
 
   if (!products) {
     return notFound();
