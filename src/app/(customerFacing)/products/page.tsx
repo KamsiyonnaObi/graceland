@@ -23,11 +23,11 @@ export default function ProductsPage({
       <section>
         <h1 className="font-palanquin text-3xl font-bold">All Products</h1>
       </section>
-      <section className="flex gap-[60px]">
+      <section className="flex h-[80vh] gap-[60px]">
         <div className="flex w-[300px] p-4">
           <Filter />
         </div>
-        <div className="grid w-full grid-cols-1 content-center gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-6 border-l md:grid-cols-2 lg:grid-cols-4">
           <Suspense
             fallback={
               <>
