@@ -20,8 +20,8 @@ export default function Layout({
           </div>
           <div>
             <NavLink href="/">Home</NavLink>
-            <NavLink href="#explore">About Us</NavLink>
-            <NavLink href="#testimonials">Reviews</NavLink>
+            <NavLink href="/#explore">About us</NavLink>
+            <NavLink href="/#testimonials">Reviews</NavLink>
             <NavLink href="/products">Shop</NavLink>
           </div>
           <div className="flex">
