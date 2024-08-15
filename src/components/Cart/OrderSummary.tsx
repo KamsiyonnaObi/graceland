@@ -31,13 +31,13 @@ const OrderSummary = ({
 }: OrderSummaryProps) => {
   const { shippingFee } = useCartStore();
   return (
-    <Card className="max-w-[375px]">
-      <CardHeader className="rounded-t-lg bg-muted/50 py-3">
+    <Card className="w-full shadow-none max-lg:border-none max-lg:p-0">
+      <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">
         <div className="flex justify-between">
           <CardTitle>Order Summary</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="p-6 text-sm">
+      <CardContent className="p-6 text-sm max-lg:p-0">
         <div className="grid gap-3">
           {cartItems?.map((item) => (
             <CartSummaryItem
@@ -68,7 +68,7 @@ const OrderSummary = ({
         </div>
       </CardContent>
       {!isCheckout && (
-        <CardFooter>
+        <CardFooter className="max-lg:px-0 max-lg:pt-6">
           <Button
             asChild
             size="lg"

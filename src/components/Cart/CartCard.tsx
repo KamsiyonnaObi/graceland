@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import { Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 import {
   Card,
@@ -30,54 +30,55 @@ const CartCard = ({
 }) => {
   const { onRemoveCartItem, toggleCartItemQuantity } = useCartStore();
   return (
-    <Card>
-      <section className="flex w-full pl-6 pt-6">
-        <div className="relative w-[145px]">
+    <Card className="p-4">
+      <section className="flex w-full">
+        <div className="relative w-[100px]">
           <Image src={imagePath} alt={name} className="object-contain" fill />
         </div>
         <div className="w-full">
-          <CardHeader>
-            <div className="flex justify-between">
-              <CardTitle>{name}</CardTitle>
-              <h3 className="px-3 font-bold">
+          <CardHeader className="py-0 pr-0">
+            <div className="mb-2 flex justify-between">
+              <CardTitle className="line-clamp-4 text-sm font-normal">
+                {name}
+              </CardTitle>
+              <h3 className="font-bold">
                 {formatCurrency((price * qty) / 100)}
               </h3>
             </div>
           </CardHeader>
           <CardContent className="space-y-2 pb-0">
-            <p>{formatCurrency(price / 100)} each</p>
-            <div className="flex w-fit items-center rounded-full border px-2">
+            <div className="flex w-fit items-center rounded-full">
               <Button
-                variant="ghost"
-                className="px-2 py-1"
+                variant="default"
+                size="icon"
+                className="h-5 w-5 rounded-full border"
                 onClick={() => toggleCartItemQuantity(id, "dec")}
                 disabled={qty <= 1}
               >
-                -
+                <Minus className="h-2" />
               </Button>
-              <span className="w-auto px-4">{qty}</span>
+              <span className="w-auto px-4 text-sm font-medium">{qty}</span>
               <Button
-                variant="ghost"
-                className="px-2 py-1"
+                variant="default"
+                size="icon"
+                className="h-5 w-5 rounded-full border"
                 onClick={() => toggleCartItemQuantity(id, "inc")}
                 disabled={qty >= 10}
               >
-                +
+                <Plus className="h-2" />
               </Button>
             </div>
+            <Button
+              className="p-0 text-xs"
+              size="sm"
+              variant="ghost"
+              onClick={() => onRemoveCartItem(id)}
+            >
+              <Trash2 className="mr-2 h-4 w-4" color="red" /> Remove
+            </Button>
           </CardContent>
         </div>
       </section>
-      <CardFooter className="flex justify-end gap-3">
-        <Button
-          className="text-xs"
-          size="sm"
-          variant={"ghost"}
-          onClick={() => onRemoveCartItem(id)}
-        >
-          <Trash2 className="mr-2 h-4 w-4" color="red" /> Remove
-        </Button>
-      </CardFooter>
     </Card>
   );
 };
