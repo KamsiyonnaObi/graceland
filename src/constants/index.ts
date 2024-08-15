@@ -18,10 +18,10 @@ import {
 } from "../../public/assets/images";
 
 export const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about-us", label: "About Us" },
-  { href: "#products", label: "Products" },
-  { href: "#contact-us", label: "Contact Us" },
+  { href: "/", label: "Home" },
+  { href: "/#explore", label: "About Us" },
+  { href: "/#testimonials", label: "Reviews" },
+  { href: "/products", label: "Shop" },
 ];
 
 export const strollers = [
