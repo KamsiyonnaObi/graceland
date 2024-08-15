@@ -31,7 +31,7 @@ const OrderSummary = ({
 }: OrderSummaryProps) => {
   const { shippingFee } = useCartStore();
   return (
-    <Card className="w-full shadow-none max-lg:border-none max-lg:p-0">
+    <Card className="max-lg: w-full p-4 shadow-none">
       <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">
         <div className="flex justify-between">
           <CardTitle>Order Summary</CardTitle>
