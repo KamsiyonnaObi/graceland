@@ -76,7 +76,7 @@
   }
 
   .page-container {
-    @apply mx-auto min-h-screen max-w-[1170px] py-[48px];
+    @apply mx-auto min-h-screen max-w-[1170px] px-4 py-[48px] sm:px-12 md:px-6;
   }
   .auth-containers {
     @apply mx-auto flex h-fit w-fit max-w-sm flex-col gap-3 rounded-md bg-white p-5 shadow-md;
