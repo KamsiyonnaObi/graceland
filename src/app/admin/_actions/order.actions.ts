@@ -218,6 +218,8 @@ export const getOrderByTrxref = async (trxref: string) => {
             product: true,
           },
         },
+        paymentInfo: true,
+        billingAddress: true,
       },
     });
 

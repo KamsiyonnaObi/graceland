@@ -2,19 +2,15 @@ import { notFound } from "next/navigation";
 
 import { CircleCheck } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { Separator } from "@/components/ui/separator";
-import { CartSummaryItem } from "@/components/Cart/CartDetails";
 
-import { formatCurrency } from "@/lib/formatters";
 import { getOrderByTrxref } from "@/app/admin/_actions/order.actions";
+
+import OrderStatus from "@/components/checkout/order-success/OrderStatus";
+import PurchasedProductsCard from "@/components/checkout/order-success/PurchasedProductsCard";
+import PaymentInfo from "@/components/checkout/order-success/PaymentInfo";
+import BillingInfo from "@/components/checkout/order-success/BillingInfo";
+import PurchasedOrderSummary from "@/components/checkout/order-success/PurchasedOrderSummary";
 
 const OrderSuccessPage = async ({
   searchParams,
@@ -30,8 +26,8 @@ const OrderSuccessPage = async ({
   }
   return (
     <div className="page-container">
-      <section className="flex w-full gap-5">
-        <div className="flex w-3/5 flex-col space-y-4">
+      <section className="flex w-full flex-col gap-5 lg:flex-row">
+        <div className="flex flex-col space-y-4 lg:w-3/5">
           <div className="flex items-center gap-5">
             <CircleCheck className="h-12 w-12 stroke-secondary-two" />
             <div>
@@ -39,51 +35,58 @@ const OrderSuccessPage = async ({
               <p>Thank you for your purchase! Your order has been confirmed.</p>
             </div>
           </div>
+          <div className="rounded-xl border p-6">
+            <OrderStatus
+              status={orderData.status}
+              orderUpdatedAt={orderData?.updatedAt}
+              pickUpPersonFirstName={orderData.pickUpPersonFirstName}
+              pickUpPersonLastName={orderData.pickUpPersonLastName}
+            />
+          </div>
+          <div className="space-y-2 rounded-xl border p-4">
+            {orderData.orderItems.map((item) => (
+              <PurchasedProductsCard
+                key={item.productId}
+                productId={item.productId}
+                imagePath={item.product.imagePath}
+                priceInCents={item.product.priceInCents}
+                productName={item.product.name}
+                quantity={item.quantity}
+              />
+            ))}
+          </div>
+          <div className="rounded-xl border p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <BillingInfo
+                shippingAddressId={orderData.shippingAddressId}
+                billingAddress={orderData.billingAddress.address}
+                billingCountry={orderData.billingAddress.country}
+                billingState={orderData.billingAddress.state}
+                billingZip={orderData.billingAddress.zipCode}
+                phoneNumber={orderData.phoneNumber}
+              />
+            </div>
+            {orderData.paymentInfo && (
+              <>
+                <Separator className="my-4" />
+                <div className="grid gap-3">
+                  <PaymentInfo
+                    cardNumberLast4={orderData.paymentInfo.cardNumberLast4}
+                    cardType={orderData.paymentInfo.cardType}
+                  />
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        <div className="sticky top-4 mb-[275px] h-fit w-2/5 self-start">
-          <Card className="max-w-[375px]">
-            <CardHeader className="rounded-t-lg bg-muted/50 py-3">
-              <div className="flex justify-between">
-                <CardTitle>Order Summary</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="p-6 text-sm">
-              <div className="grid gap-3">
-                {orderData.orderItems?.map((item) => (
-                  <CartSummaryItem
-                    key={item.id}
-                    name={item.product.name}
-                    quantity={item.quantity}
-                    price={item.product.priceInCents}
-                  />
-                ))}
-                <Separator className="my-2" />
-                <ul className="grid gap-3">
-                  <li className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span>
-                      {orderData.shippingFeeInCents === 0
-                        ? "FREE"
-                        : formatCurrency(orderData.shippingFeeInCents / 100)}
-                    </span>
-                  </li>
-                  {orderData.taxesPaid && (
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">VAT (7.5%)</span>
-                      <span>{formatCurrency(orderData.taxesPaid / 100)}</span>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <div className="flex w-full items-center justify-between font-semibold">
-                <span className="text-muted-foreground">Total</span>
-                <span>{formatCurrency(orderData.totalPriceInCents / 100)}</span>
-              </div>
-            </CardFooter>
-          </Card>
+        <div className="h-fit w-full self-start lg:sticky lg:top-4 lg:mb-[275px] lg:w-[375px]">
+          <PurchasedOrderSummary
+            taxesPaid={orderData.taxesPaid}
+            orderItems={orderData.orderItems}
+            shippingFeeInCents={orderData.shippingFeeInCents}
+            totalPriceInCents={orderData.totalPriceInCents}
+          />
         </div>
       </section>
     </div>

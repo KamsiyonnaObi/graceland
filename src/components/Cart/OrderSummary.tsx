@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 
 import { ShieldCheck } from "lucide-react";
@@ -31,7 +30,7 @@ const OrderSummary = ({
 }: OrderSummaryProps) => {
   const { shippingFee } = useCartStore();
   return (
-    <Card className="max-lg: w-full p-4 shadow-none">
+    <Card className="w-full shadow-none max-lg:p-4">
       <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">
         <div className="flex justify-between">
           <CardTitle>Order Summary</CardTitle>
