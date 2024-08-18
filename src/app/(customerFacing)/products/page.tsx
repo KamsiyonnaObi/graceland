@@ -20,7 +20,6 @@ export default function ProductsPage({
 }) {
 
 
-let sortKeys = Object.keys(searchParams)
 let sortValues  = Object.values(searchParams)
 
 //key map
@@ -31,7 +30,7 @@ const sortKeyMap: { [key: string]: string } = {
 };
 
 
-  const sortField =  sortKeyMap[sortKeys[0] as string]
+  const sortField =  sortKeyMap[sortValues[0] as string]
   const sortOrder = (sortValues[0]  as "asc" | "desc" | "new") || "desc";
   const options = { sortField, sortOrder }; // Prepare the object with field and order
 
@@ -71,7 +70,6 @@ async function ProductsSuspense({ options }: { options: { sortField: string, sor
     options.sortField = 'createdAt'
     options.sortOrder = 'desc'
   }
-
 
   const products = await getAllProducts(options);
 
