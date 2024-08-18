@@ -4,7 +4,7 @@ import Filter from "@/components/productsPage/Filter";
 import db from "@/db/db";
 import { cache } from "@/lib/cache";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { JSX, Suspense } from "react";
 
 const getProducts = cache((sort: "asc" | "desc" = "desc") => {
   return db.product.findMany({
@@ -18,17 +18,33 @@ export default function ProductsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const sort = (searchParams.sort as "asc" | "desc") || "desc";
+
+
+let sortKeys = Object.keys(searchParams)
+let sortValues  = Object.values(searchParams)
+
+//key map
+const sortKeyMap: { [key: string]: string } = {
+  "new": "createdAt",
+  "asc": "priceInCents",
+  "desc": "priceInCents",
+};
+
+
+  const sortField =  sortKeyMap[sortKeys[0] as string]
+  const sortOrder = (sortValues[0]  as "asc" | "desc" | "new") || "desc";
+  const options = { sortField, sortOrder }; // Prepare the object with field and order
+
   return (
     <div className="page-container">
       <section>
         <h1 className="font-palanquin text-3xl font-bold">All Products</h1>
       </section>
-      <section className="flex h-[80vh] gap-[60px]">
+      <section className="flex gap-[60px]">
         <div className="flex w-[300px] p-4">
           <Filter />
         </div>
-        <div className="grid w-full grid-cols-1 gap-6 border-l md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid w-full grid-cols-1 content-center gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Suspense
             fallback={
               <>
@@ -41,7 +57,7 @@ export default function ProductsPage({
               </>
             }
           >
-            <ProductsSuspense sort={sort}/>
+            <ProductsSuspense options={options} />
           </Suspense>
         </div>
       </section>
@@ -49,11 +65,15 @@ export default function ProductsPage({
   );
 }
 
-async function ProductsSuspense({ sort }: { sort: "asc" | "desc" }) {
-  
-  const products = await getAllProducts({sort});
+async function ProductsSuspense({ options }: { options: { sortField: string, sortOrder: "asc" | "desc" | "new" } }) {
 
-  console.log({sort})
+  if(options.sortOrder == 'new'){
+    options.sortField = 'createdAt'
+    options.sortOrder = 'desc'
+  }
+
+
+  const products = await getAllProducts(options);
 
   if (!products) {
     return notFound();

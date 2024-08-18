@@ -10,17 +10,12 @@ import { addSchema, fileSchema, imageSchema } from "@/lib/validations";
 
 
 
-export async function getAllProducts({ sort }: { sort: "asc" | "desc" }) {
-  try {
-    const products = db.product.findMany({
-      where: { isAvailableForPurchase: true },
-      orderBy: {priceInCents : sort},
-    });
+export async function getAllProducts({ sortField = "priceInCents", sortOrder = "desc" }: { sortField?: string, sortOrder?: "asc" | "desc" | "new" }) {
 
-    return products;
-  } catch (error) {
-    console.error("unable to fetch products", error);
-  }
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { [sortField]: sortOrder },
+  });
 }
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
