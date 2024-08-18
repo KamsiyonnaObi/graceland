@@ -25,6 +25,7 @@ function getOrders() {
       id: true,
       totalPriceInCents: true,
       status: true,
+      trxref: true,
       user: { select: { email: true, firstName: true, lastName: true } },
     },
     orderBy: { createdAt: "desc" },
@@ -52,6 +53,7 @@ async function OrdersTable() {
           <TableHead>Customer</TableHead>
           <TableHead>Staus</TableHead>
           <TableHead>Price Paid</TableHead>
+          <TableHead>Reference</TableHead>
           <TableHead className="w-0">
             <span className="sr-only">Actions</span>
           </TableHead>
@@ -74,6 +76,7 @@ async function OrdersTable() {
             <TableCell>
               {formatCurrency(order.totalPriceInCents / 100)}
             </TableCell>
+            <TableCell>{order.trxref}</TableCell>
             <TableCell className="text-center">
               <DropdownMenu>
                 <DropdownMenuTrigger>

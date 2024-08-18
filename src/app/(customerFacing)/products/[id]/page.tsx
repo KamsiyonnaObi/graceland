@@ -19,7 +19,7 @@ const ProductDetailPage = async ({
       <BackButton />
 
       <div className="flex justify-center gap-12">
-        <div className="relative h-[420px] w-[420px] rounded-md bg-slate-100 shadow-md">
+        <div className="relative h-[420px] w-[420px] rounded-md">
           <Image
             src={product.imagePath}
             alt={product.name}

@@ -16,7 +16,7 @@ const UserNavbar = () => {
   const { data: session, status } = useSession();
 
   return (
-    <div className="flex w-fit flex-1 items-center justify-end max-lg:hidden">
+    <div className="flex w-fit flex-1 items-center justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button

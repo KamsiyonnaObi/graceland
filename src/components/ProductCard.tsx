@@ -15,7 +15,7 @@ type ProductCardProps = {
   id: string;
   name: string;
   priceInCents: number;
-  description: string;
+  description?: string;
   imagePath: string;
 };
 
@@ -27,23 +27,21 @@ export function ProductCard({
   imagePath,
 }: ProductCardProps) {
   return (
-    <Card className="flex cursor-pointer flex-col overflow-hidden rounded-md border-none shadow-3xl hover:shadow-xl">
-      <div className="relative h-[200px]">
-        <Image src={imagePath} fill alt={name} className="object-contain" />
-      </div>
-      <CardHeader>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{formatCurrency(priceInCents / 100)}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <p className="line-clamp-4">{description}</p>
-      </CardContent>
-      <CardFooter>
-        <Button asChild size="lg" className="w-full text-white">
-          <Link href={`/products/${id}`}>Add to Cart</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+    <Link href={`/products/${id}`}>
+      <Card className="flex cursor-pointer flex-col overflow-hidden rounded-md border-none shadow-none">
+        <div className="relative h-[200px]">
+          <Image src={imagePath} fill alt={name} className="object-contain" />
+        </div>
+        <CardHeader>
+          <CardTitle className="line-clamp-4 text-sm font-normal">
+            {name}
+          </CardTitle>
+          <CardDescription className="text-sm font-bold text-black">
+            {formatCurrency(priceInCents / 100)}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </Link>
   );
 }
 

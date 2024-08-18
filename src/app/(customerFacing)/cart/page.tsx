@@ -14,9 +14,9 @@ const Cart = () => {
           <h1 className="py-3 font-montserrat text-3xl font-bold">
             Shopping Cart: {cartItems.length} items
           </h1>
-          <section className="grid w-full grid-cols-3 gap-5">
-            <div className="col-span-2">
-              <div className="flex flex-col gap-3">
+          <section className="grid grid-cols-1 gap-5 max-lg:mx-auto max-lg:content-center lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <div className="flex flex-col gap-2">
                 {cartItems.map((item) => (
                   <CartCard
                     key={item.id}
@@ -29,7 +29,7 @@ const Cart = () => {
                 ))}
               </div>
             </div>
-            <div>
+            <div className="max-lg:row-start-1">
               <OrderSummary totalPrice={totalPrice} cartItems={cartItems} />
             </div>
           </section>
