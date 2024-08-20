@@ -1,14 +1,14 @@
 "use server";
-
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth/next";
 
-import { SignUp } from "@/app/(auth)/signup/page";
 import db from "@/db/db";
 import { hashPassword, isValidPassword } from "@/lib/isValidPassword";
-import { notFound } from "next/navigation";
+
+import { SignUp } from "@/app/(auth)/signup/page";
 import { LogIn } from "@/app/(auth)/login/page";
-import { getServerSession } from "next-auth/next";
 
 export async function getCurrentUser() {
   const currentUser: any = await getServerSession();
@@ -127,6 +127,32 @@ export async function signUserIn(signInData: LogIn) {
 export async function signUserOut() {
   const oneDay = 24 * 60 * 60 * 1000;
   cookies().set("token", "", { expires: Date.now() - oneDay });
+}
+
+export async function getUserOrders() {
+  const currentUserId = await getCurrentUser();
+
+  if (!currentUserId?.id) {
+    return { status: 401, message: "Unauthorized" };
+  }
+  const usersOrders = await db.user.findUnique({
+    where: { id: currentUserId.id },
+    select: {
+      firstName: true,
+      lastName: true,
+      orders: {
+        select: {
+          id: true,
+          trxref: true,
+          updatedAt: true,
+          status: true,
+          totalPriceInCents: true,
+        },
+      },
+    },
+  });
+
+  return { status: 200, message: "success", orderDetails: usersOrders };
 }
 
 export async function deleteUser(id: string) {
