@@ -1,5 +1,6 @@
 import { getAllProducts } from "@/app/admin/_actions/products";
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
+import { getSortOptions } from "@/utils/checkoutHelpers";
 import Filter from "@/components/productsPage/Filter";
 import db from "@/db/db";
 import { cache } from "@/lib/cache";
@@ -19,20 +20,8 @@ export default function ProductsPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
 
+let options = getSortOptions(searchParams)
 
-let sortValues  = Object.values(searchParams)
-
-//key map
-const sortKeyMap: { [key: string]: string } = {
-  "new": "createdAt",
-  "asc": "priceInCents",
-  "desc": "priceInCents",
-};
-
-
-  const sortField =  sortKeyMap[sortValues[0] as string]
-  const sortOrder = (sortValues[0]  as "asc" | "desc" | "new") || "desc";
-  const options = { sortField, sortOrder }; // Prepare the object with field and order
 
   return (
     <div className="page-container">
@@ -44,32 +33,30 @@ const sortKeyMap: { [key: string]: string } = {
           <Filter />
         </div>
         <div className="grid w-full grid-cols-1 content-center gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Suspense
-            fallback={
-              <>
-                <ProductCardSkeleton />
-                <ProductCardSkeleton />
-                <ProductCardSkeleton />
-                <ProductCardSkeleton />
-                <ProductCardSkeleton />
-                <ProductCardSkeleton />
-              </>
-            }
-          >
+        <Suspense fallback={<LoadingSkeletons count={6} />}>
             <ProductsSuspense options={options} />
           </Suspense>
+          
         </div>
+        
       </section>
     </div>
   );
 }
 
-async function ProductsSuspense({ options }: { options: { sortField: string, sortOrder: "asc" | "desc" | "new" } }) {
+// Component to display loading skeletons while data is loading
+function LoadingSkeletons({ count }: { count: number }) {
+  return (
+    <>
+      {Array.from({ length: count }, (_, i) => (
+        <ProductCardSkeleton key={i} />
+      ))}
+    </>
+  );
+}
 
-  if(options.sortOrder == 'new'){
-    options.sortField = 'createdAt'
-    options.sortOrder = 'desc'
-  }
+async function ProductsSuspense({ options }: { options: { sortField: string, sortOrder: "asc" | "desc" | "new" } }) {
+console.log(options)
 
   const products = await getAllProducts(options);
 
