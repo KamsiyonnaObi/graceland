@@ -24,6 +24,7 @@ export function RadioGroupFilters() {
         }}
       >
         {sortOptions.map((option) => (
+        
           <div key={option.id} className="flex items-center space-x-2">
             <RadioGroupItem value={option.value} id={option.id} />
             <Label htmlFor={option.id}>{option.label}</Label>
