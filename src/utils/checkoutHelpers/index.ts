@@ -20,23 +20,3 @@ const sendOrderConfirmation = (orderDetails: any) => {
   // Send an email or display a confirmation message
   console.log("Order confirmed:", orderDetails);
 };
-
-export const getSortOptions = (searchParams: any) => {
-  let sortValues  = Object.values(searchParams)
-
-  //key map
-  const sortKeyMap: { [key: string]: string } = {
-    "new": "createdAt",
-    "asc": "priceInCents",
-    "desc": "priceInCents",
-  };
-  
-  
-    const sortField =  sortKeyMap[sortValues[0] as string]
-    const sortOrder = sortValues[0] === "new" ? "desc" : sortValues[0] || "desc";
-    const options = { sortField, sortOrder }; // Prepare the object with field and order
-
-
-   
-    return options
-}
