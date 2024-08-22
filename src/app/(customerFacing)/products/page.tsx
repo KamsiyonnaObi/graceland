@@ -10,7 +10,7 @@ import { JSX, Suspense } from "react";
 const getProducts = cache((sort: "asc" | "desc" = "desc") => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
-    orderBy: {priceInCents :sort},
+    orderBy: { priceInCents: sort },
   });
 }, ["/products", "getProducts"]);
 
@@ -19,9 +19,8 @@ export default function ProductsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-
-let options = getSortOptions(searchParams)
-
+  const options = getSortOptions(searchParams);
+  console.log(options);
 
   return (
     <div className="page-container">
@@ -33,12 +32,10 @@ let options = getSortOptions(searchParams)
           <Filter />
         </div>
         <div className="grid w-full grid-cols-1 content-center gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Suspense fallback={<LoadingSkeletons count={6} />}>
+          <Suspense fallback={<LoadingSkeletons count={6} />}>
             <ProductsSuspense options={options} />
           </Suspense>
-          
         </div>
-        
       </section>
     </div>
   );
@@ -55,9 +52,10 @@ function LoadingSkeletons({ count }: { count: number }) {
   );
 }
 
-async function ProductsSuspense({ options }: { options: { sortField: string, sortOrder: "asc" | "desc" | "new" } }) {
-console.log(options)
+async function ProductsSuspense({ options }: { options: { sortField: string, sortOrder: "desc" |"asc"   } }) {
 
+
+  // Adjust sort options if "new" was passed
   const products = await getAllProducts(options);
 
   if (!products) {

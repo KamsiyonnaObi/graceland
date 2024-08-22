@@ -33,10 +33,8 @@ export const getSortOptions = (searchParams: any) => {
   
   
     const sortField =  sortKeyMap[sortValues[0] as string]
-    const sortOrder = sortValues[0] === "new" ? "desc" : sortValues[0] || "desc";
-    const options = { sortField, sortOrder }; // Prepare the object with field and order
+  
+    const sortOrder: "asc" | "desc" = sortValues[0] === "new" || sortValues[0] === "desc" ? "desc" : "asc";
 
-
-   
-    return options
+    return { sortField, sortOrder };
 }
