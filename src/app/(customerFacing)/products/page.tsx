@@ -35,7 +35,7 @@ export default function ProductsPage({
         <div className="flex w-[300px] p-4">
           <Filter />
         </div>
-        <div className="grid w-full grid-cols-1 content-center gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid w-full grid-cols-1 content-center gap-6 border-l md:grid-cols-2 lg:grid-cols-4">
           <Suspense fallback={<LoadingSkeletons count={6} />}>
             <ProductsSuspense options={options} />
           </Suspense>
