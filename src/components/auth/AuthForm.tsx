@@ -1,5 +1,6 @@
 "use client";
 import { z } from "zod";
+import { signIn } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
@@ -7,29 +8,53 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
-import { useLogin } from "@/hooks/auth/useLogIn";
 import { authFormSchema } from "@/lib/validations";
 import FillIcon from "../icons/FillIcons";
-import { signIn } from "next-auth/react";
 import { Separator } from "../ui/separator";
 import CustomInput from "../shared/CustomInput";
+import { useAuthForm } from "@/hooks/auth/useAuthForm";
 
-const AuthForm = ({ type }: { type: string }) => {
+const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
   const formSchema = authFormSchema(type);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  const { isLoading, handleLogIn } = useLogin();
+
+  const { isLoading, isFailed, handleLogIn, handleSignUp } = useAuthForm();
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleLogIn)}
+        onSubmit={form.handleSubmit(
+          type === "signup" ? handleSignUp : handleLogIn,
+        )}
         className="auth-containers"
       >
+        {type === "signup" && (
+          <>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex w-full flex-col gap-2">
+                <CustomInput
+                  name="firstName"
+                  placeholder="First Name"
+                  label="First Name"
+                  control={form.control}
+                />
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <CustomInput
+                  name="lastName"
+                  placeholder="Last Name"
+                  label="Last Name"
+                  control={form.control}
+                />
+              </div>
+            </div>
+          </>
+        )}
         <CustomInput
           name="email"
-          placeholder="email"
+          placeholder="Email"
           label="Email"
           control={form.control}
         />
@@ -39,7 +64,11 @@ const AuthForm = ({ type }: { type: string }) => {
           label="Password"
           control={form.control}
         />
-
+        {isFailed && (
+          <p className="text-center text-destructive">
+            oops, something went wrong
+          </p>
+        )}
         <Button
           className="text-md mt-4 p-6 font-bold"
           disabled={isLoading}
