@@ -38,6 +38,7 @@
     "react-hook-form": "^7.52.0",
     "react-paystack": "^5.0.0",
     "resend": "^3.2.0",
+    "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "stripe": "^15.4.0",
     "tailwind-merge": "^2.3.0",
