@@ -1,3 +1,5 @@
+import { MapPinned, ShoppingCart, TimerReset } from "lucide-react";
+
 import {
   facebook,
   instagram,
@@ -173,6 +175,24 @@ export const sortOptions = [
   { value: "new", id: "r1", label: "New Arrivals" },
   { value: "desc", id: "r2", label: "Price high to low" },
   { value: "asc", id: "r3", label: "Price low to high" },
+];
+
+export const accountSignUpBenefits = [
+  {
+    icon: ShoppingCart,
+    title: "Fast Checkout.",
+    description: "Your payment is saved and ready.",
+  },
+  {
+    icon: MapPinned,
+    title: "Easy Tracking.",
+    description: "Track your orders effortlessly.",
+  },
+  {
+    icon: TimerReset,
+    title: "Quick Recap.",
+    description: "Review your order history quickly.",
+  },
 ];
 
 export const orderStatuses = [

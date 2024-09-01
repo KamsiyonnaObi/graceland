@@ -35,7 +35,14 @@ export const LogInFormSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
 });
-
+export const authFormSchema = (type: string) =>
+  z.object({
+    firstName: type === "signin" ? z.string().optional() : nameSchema,
+    lastName: type === "signin" ? z.string().optional() : nameSchema,
+    confirmPassword: type === "signin" ? z.string().optional() : passwordSchema,
+    email: emailSchema,
+    password: passwordSchema,
+  });
 // Checkout details schema
 export const checkoutDetailsSchema = z
   .object({
@@ -85,7 +92,9 @@ export const checkoutDetailsSchema = z
     }
   });
 
-  export const fileSchema = z.instanceof(globalThis.File, { message: "Required" });
+export const fileSchema = z.instanceof(globalThis.File, {
+  message: "Required",
+});
 export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/"),
 );
