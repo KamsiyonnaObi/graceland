@@ -24,14 +24,14 @@ const OrderStatus = ({
       </p>
       {pickUpPersonFirstName && (
         <>
-          <Separator />
-          <div>
-            <p>Pickup Store</p>
-            <p>Idumota, Lagos</p>
+          <Separator className="my-2" />
+          <div className="mb-4">
+            <p className="text-[14px] font-bold">Pickup Store</p>
+            <p className="text-[14px]">Idumota, Lagos</p>
           </div>
           <div>
-            <p>Pickup Person</p>
-            <p>
+            <p className="text-[14px] font-bold">Pickup Person</p>
+            <p className="text-[14px]">
               {pickUpPersonFirstName} {pickUpPersonLastName}
             </p>
           </div>

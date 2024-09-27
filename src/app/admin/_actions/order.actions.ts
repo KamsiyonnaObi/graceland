@@ -35,6 +35,8 @@ export async function createOrder(
     taxRate,
     orderEmail,
     phoneNumber,
+    pickUpPersonFirstName,
+    pickUpPersonLastName,
     billingFirstName,
     billingLastName,
     trxref,
@@ -90,6 +92,12 @@ export async function createOrder(
       data: {
         totalPriceInCents: totalPriceWithFees,
         shippingFeeInCents: shippingFee,
+        pickUpPersonFirstName:
+          pickUpPersonFirstName === ""
+            ? billingFirstName
+            : pickUpPersonFirstName,
+        pickUpPersonLastName:
+          pickUpPersonLastName === "" ? billingLastName : pickUpPersonLastName,
         phoneNumber,
         taxesPaid,
         taxRate,
