@@ -85,8 +85,8 @@ model Order {
   updatedAt          DateTime @updatedAt
   status             String   @default("Pending")
 
-  userId     String
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems OrderItem[]
 
   phoneNumber           String?
