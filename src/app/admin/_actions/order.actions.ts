@@ -33,26 +33,15 @@ export async function createOrder(
     shippingFee,
     taxesPaid,
     taxRate,
-    orderEmail,
     phoneNumber,
+    pickUpPersonFirstName,
+    pickUpPersonLastName,
     billingFirstName,
     billingLastName,
     trxref,
   } = orderDetails;
 
   try {
-    // Upsert the user
-    const upsertedUser = await db.user.upsert({
-      where: { email: orderEmail },
-      update: {},
-      create: {
-        email: orderEmail,
-        firstName: billingFirstName,
-        lastName: billingLastName,
-      },
-    });
-
-    const userId = upsertedUser.id;
     // Create the order items
     const createdOrderItems = await Promise.all(
       cartItems.map(async (item) => {
@@ -90,11 +79,16 @@ export async function createOrder(
       data: {
         totalPriceInCents: totalPriceWithFees,
         shippingFeeInCents: shippingFee,
+        pickUpPersonFirstName:
+          pickUpPersonFirstName === ""
+            ? billingFirstName
+            : pickUpPersonFirstName,
+        pickUpPersonLastName:
+          pickUpPersonLastName === "" ? billingLastName : pickUpPersonLastName,
         phoneNumber,
         taxesPaid,
         taxRate,
         trxref,
-        user: { connect: { id: userId } },
         orderItems: { create: createdOrderItems },
         shippingAddress: createdShippingAddress
           ? { connect: { id: createdShippingAddress.id } }

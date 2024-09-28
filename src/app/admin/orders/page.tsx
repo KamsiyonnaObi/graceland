@@ -23,12 +23,15 @@ function getOrders() {
   return db.order.findMany({
     select: {
       id: true,
+      pickUpPersonFirstName: true,
+      pickUpPersonLastName: true,
       totalPriceInCents: true,
       status: true,
       trxref: true,
-      user: { select: { email: true, firstName: true, lastName: true } },
+      orderEmail: true,
     },
     orderBy: { createdAt: "desc" },
+    take: 10,
   });
 }
 
@@ -64,10 +67,10 @@ async function OrdersTable() {
           <TableRow key={order.id}>
             <TableCell>
               <div className="font-medium">
-                {order.user.firstName} {order.user.lastName}
+                {order.pickUpPersonFirstName} {order.pickUpPersonLastName}
               </div>
               <div className="hidden text-sm text-muted-foreground md:inline">
-                {order.user.email}
+                {order.orderEmail}
               </div>
             </TableCell>
             <TableCell>

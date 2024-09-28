@@ -14,7 +14,8 @@ import { formatCurrency } from "@/lib/formatters";
 type OrderItems = {
   id: string;
   quantity: number;
-  product: { name: string; priceInCents: number };
+  priceInCents: number;
+  product: { name: string };
 };
 
 interface PurchasedOrderSummary {
@@ -44,7 +45,7 @@ const PurchasedOrderSummary = ({
               key={item.id}
               name={item.product.name}
               quantity={item.quantity}
-              price={item.product.priceInCents}
+              price={item.priceInCents}
             />
           ))}
           <Separator className="my-2" />

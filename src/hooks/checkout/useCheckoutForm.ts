@@ -73,6 +73,8 @@ export const useCheckoutForm = () => {
       taxRate: 0.075,
       orderEmail: values.email,
       phoneNumber: values.phone,
+      pickUpPersonFirstName: values.pickUpPersonFirstName,
+      pickUpPersonLastName: values.pickUpPersonLastName,
       billingFirstName: values.billingFirstName,
       billingLastName: values.billingLastName,
       trxref: new Date().getTime().toString(),
@@ -89,7 +91,6 @@ export const useCheckoutForm = () => {
         throw new Error("Failed to create order");
       }
 
-      console.log(`order with trxref ${orderDetails.trxref} created in db`);
       initializeTransaction(values.email, orderDetails.trxref);
     } catch (error) {
       toast.error("Order creation failed");

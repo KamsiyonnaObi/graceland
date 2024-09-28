@@ -21,6 +21,8 @@ export interface OrderDetails {
   taxesPaid: number;
   phoneNumber: string;
   orderEmail: string;
+  pickUpPersonFirstName: string | undefined;
+  pickUpPersonLastName: string | undefined;
   billingFirstName: string;
   billingLastName: string;
   trxref: string;
