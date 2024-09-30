@@ -27,7 +27,7 @@ export default async function ProductsPage({
 }) {
   let _options = getSortOptions({ searchParams });
   const page = parseInt(searchParams.page) || 1;
-  const options = { ..._options, page };
+  const options = { ...searchParams, ..._options, page };
   const { totalPages } = await getAllProducts(options);
 
   return (
@@ -67,15 +67,13 @@ async function ProductsSuspense({
   options,
 }: {
   options: {
-    sortField: string;
-    sortOrder: "asc" | "desc" | "new";
     page: number;
   };
 }) {
   const { products } = await getAllProducts(options);
 
-  if (!products) {
-    return notFound();
+  if (products.length < 1) {
+    return <p>no products found</p>;
   }
   return products.map((product) => (
     <ProductCard key={product.id} {...product} />

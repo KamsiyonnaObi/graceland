@@ -153,7 +153,7 @@ export const socialMedia = [
 // Product filters
 export const filterOptions = [
   {
-    heading: "Categories",
+    heading: "Category",
     options: [
       { id: "stroller", label: "Stroller" },
       { id: "playpen", label: "Playpen" },

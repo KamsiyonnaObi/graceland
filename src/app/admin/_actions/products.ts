@@ -11,8 +11,14 @@ import { addSchema, fileSchema, imageSchema } from "@/lib/validations";
 export async function getAllProducts({
   sortField = "priceInCents",
   sortOrder = "desc",
+  name,
+  category,
+  minPrice,
   page = 1,
 }: {
+  name?: string;
+  category?: string[];
+  minPrice?: string;
   sortField?: string;
   sortOrder?: "asc" | "desc" | "new";
   page: number;
@@ -22,14 +28,33 @@ export async function getAllProducts({
   const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
   const skip = (page - 1) * resultsPerPage;
-  const products = await db.product.findMany({
-    where: { isAvailableForPurchase: true },
-    orderBy: { [sortField]: sortOrder },
-    skip,
-    take: resultsPerPage,
-  });
-  return { products, totalPages };
+  try {
+    const products = await db.product.findMany({
+      where: {
+        isAvailableForPurchase: true,
+        name: { contains: name, mode: "insensitive" },
+        ...(category && {
+          category: {
+            hasSome: Array.isArray(category) ? category : [category],
+          },
+        }),
+        ...(minPrice && { priceInCents: { gte: parseInt(minPrice) } }),
+      },
+      orderBy: { [sortField]: sortOrder },
+      skip,
+      take: resultsPerPage,
+    });
+
+    return { products, totalPages };
+  } catch (error) {
+    console.error(`failed to fetch products - ${error}`);
+    let products: any[] = [];
+    let totalPages = 0;
+
+    return { products, totalPages };
+  }
 }
+
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {
