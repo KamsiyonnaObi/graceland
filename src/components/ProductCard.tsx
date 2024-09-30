@@ -27,7 +27,7 @@ export function ProductCard({
   imagePath,
 }: ProductCardProps) {
   return (
-    <Link href={`/products/${id}`}>
+    <Link href={`/products/${id}`} className="h-fit">
       <Card className="flex cursor-pointer flex-col overflow-hidden rounded-md border-none shadow-none">
         <div className="relative h-[200px]">
           <Image src={imagePath} fill alt={name} className="object-contain" />
