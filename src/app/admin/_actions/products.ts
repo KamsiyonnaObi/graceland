@@ -8,14 +8,27 @@ import { revalidatePath } from "next/cache";
 import { toast } from "sonner";
 import { addSchema, fileSchema, imageSchema } from "@/lib/validations";
 
+export async function getAllProducts({
+  sortField = "priceInCents",
+  sortOrder = "desc",
+  page = 1,
+}: {
+  sortField?: string;
+  sortOrder?: "asc" | "desc" | "new";
+  page: number;
+}) {
+  const resultsPerPage = 25;
+  const totalRecords = await db.product.count();
+  const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
-
-export async function getAllProducts({ sortField = "priceInCents", sortOrder = "desc" }: { sortField?: string, sortOrder?: "asc" | "desc" | "new" }) {
-
-  return db.product.findMany({
+  const skip = (page - 1) * resultsPerPage;
+  const products = await db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { [sortField]: sortOrder },
+    skip,
+    take: resultsPerPage,
   });
+  return { products, totalPages };
 }
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
