@@ -16,7 +16,7 @@ export function RadioGroupFilters() {
 
   return (
     <section>
-      <h6 className="mb-1 font-bold">Sort by</h6>
+      <h6 className="mb-1 text-sm font-bold">Sort by</h6>
       <RadioGroup
         defaultValue="new-arrivals"
         onValueChange={(value) => {
@@ -24,7 +24,6 @@ export function RadioGroupFilters() {
         }}
       >
         {sortOptions.map((option) => (
-        
           <div key={option.id} className="flex items-center space-x-2">
             <RadioGroupItem value={option.value} id={option.id} />
             <Label htmlFor={option.id}>{option.label}</Label>
@@ -41,7 +40,7 @@ export function CheckboxFilters() {
     <>
       {filterOptions.map((filter, index) => (
         <div key={index}>
-          <h6 className="mb-1 font-bold">{filter.heading}</h6>
+          <h6 className="mb-1 text-sm font-bold">{filter.heading}</h6>
           {filter.options.map((option) => (
             <div key={option.id}>
               <Checkbox
