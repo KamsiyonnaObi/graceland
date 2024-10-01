@@ -32,22 +32,22 @@ export default async function ProductsPage({
 
   return (
     <div className="page-container">
-      <section>
-        <h1 className="font-palanquin text-3xl font-bold">All Products</h1>
-      </section>
-      <section className="flex gap-[60px]">
-        <div className="flex w-[300px] p-4 max-lg:hidden">
+      <h1 className="text-center font-palanquin text-3xl font-bold">
+        All Products
+      </h1>
+      <div className="flex">
+        <section className="flex w-1/6 p-4 max-lg:hidden">
           <Filter />
-        </div>
-        <div>
-          <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:border-l">
+        </section>
+        <section className="w-5/6">
+          <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Suspense fallback={<LoadingSkeletons count={6} />}>
               <ProductsSuspense options={options} />
             </Suspense>
           </div>
           <PaginationComponent totalPages={totalPages} />
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
