@@ -1,23 +1,21 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { RadioGroupFilters, CheckboxFilters } from "./components/FilterItems";
-import Link from "next/link";
+import { CheckboxFilters } from "./components/FilterItems";
 
 const Filter = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex w-full flex-col gap-4 border-r">
-      <div className="flex justify-between">
+    <div className="flex w-full flex-col border-r">
+      <div className="mr-2 flex justify-end">
         <Link className="text-destructive" href={pathname}>
           clear
         </Link>
       </div>
-
-      <RadioGroupFilters />
 
       <CheckboxFilters />
     </div>
