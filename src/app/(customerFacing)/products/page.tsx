@@ -32,8 +32,8 @@ export default async function ProductsPage({
         <section className="flex w-1/5 max-lg:hidden">
           <Filter />
         </section>
-        <section className="mx-auto w-full md:w-4/5">
-          <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <section className="mx-auto w-full lg:w-4/5">
+          <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <Suspense fallback={<LoadingSkeletons count={6} />}>
               <ProductsSuspense options={options} />
             </Suspense>
