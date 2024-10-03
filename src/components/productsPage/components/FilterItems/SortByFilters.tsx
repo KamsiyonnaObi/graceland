@@ -20,8 +20,8 @@ export function SortByFilters() {
   const { createQueryString } = useQueryString();
 
   return (
-    <div className="flex items-center gap-2">
-      <p className="text-sm">Sort by:</p>
+    <div className="flex items-center gap-2 max-lg:justify-between">
+      <p className="text-sm max-lg:font-bold">Sort by:</p>
       <Select
         onValueChange={(value) => {
           router.push(pathname + "?" + createQueryString("sort", value));

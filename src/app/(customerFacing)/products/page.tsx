@@ -7,6 +7,7 @@ import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
 import { getSortOptions } from "@/utils/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";
 import { SortByFilters } from "@/components/productsPage/components/FilterItems/SortByFilters";
+import MobileFilters from "@/components/productsPage/MobileFilters";
 
 export default async function ProductsPage({
   searchParams,
@@ -22,13 +23,16 @@ export default async function ProductsPage({
     <div className="page-container">
       <div className="flex justify-between">
         <h1 className="font-palanquin text-3xl font-bold">All Products</h1>
-        <SortByFilters />
+        <div className="max-lg:hidden">
+          <SortByFilters />
+        </div>
+        <MobileFilters />
       </div>
       <div className="flex">
         <section className="flex w-1/5 max-lg:hidden">
           <Filter />
         </section>
-        <section className="w-4/5">
+        <section className="mx-auto w-full md:w-4/5">
           <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Suspense fallback={<LoadingSkeletons count={6} />}>
               <ProductsSuspense options={options} />
