@@ -40,7 +40,7 @@ export async function getAllProducts({
           },
         }),
         ...(minPrice && { priceInCents: { gte: parseInt(minPrice) * 100 } }),
-        ...(maxPrice && { priceInCents: { gte: parseInt(maxPrice) * 100 } }),
+        ...(maxPrice && { priceInCents: { lte: parseInt(maxPrice) * 100 } }),
       },
       orderBy: { [sortField]: sortOrder },
       skip,
