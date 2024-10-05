@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CheckboxFilters } from "./components/FilterItems/CheckboxFilters";
+import PriceFilters from "./components/FilterItems/PriceFilters";
 
 const Filter = () => {
   const pathname = usePathname();
@@ -17,6 +18,7 @@ const Filter = () => {
       </div>
 
       <CheckboxFilters />
+      <PriceFilters />
     </aside>
   );
 };

@@ -14,11 +14,13 @@ export async function getAllProducts({
   name,
   category,
   minPrice,
+  maxPrice,
   page = 1,
 }: {
   name?: string;
   category?: string[];
   minPrice?: string;
+  maxPrice?: string;
   sortField?: string;
   sortOrder?: "asc" | "desc" | "new";
   page: number;
@@ -26,7 +28,6 @@ export async function getAllProducts({
   const resultsPerPage = 25;
   const totalRecords = await db.product.count();
   const totalPages = Math.ceil(totalRecords / resultsPerPage);
-
   const skip = (page - 1) * resultsPerPage;
   try {
     const products = await db.product.findMany({
@@ -38,13 +39,14 @@ export async function getAllProducts({
             hasSome: Array.isArray(category) ? category : [category],
           },
         }),
-        ...(minPrice && { priceInCents: { gte: parseInt(minPrice) } }),
+        ...(minPrice && { priceInCents: { gte: parseInt(minPrice) * 100 } }),
+        ...(maxPrice && { priceInCents: { gte: parseInt(maxPrice) * 100 } }),
       },
       orderBy: { [sortField]: sortOrder },
       skip,
       take: resultsPerPage,
     });
-
+    revalidatePath("/products");
     return { products, totalPages };
   } catch (error) {
     console.error(`failed to fetch products - ${error}`);

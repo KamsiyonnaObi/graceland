@@ -9,17 +9,18 @@ import { SlidersHorizontal } from "lucide-react";
 import { Button } from "../ui/button";
 import { SortByFilters } from "./components/FilterItems/SortByFilters";
 import { CheckboxFilters } from "./components/FilterItems/CheckboxFilters";
+import PriceFilters from "./components/FilterItems/PriceFilters";
 
 const MobileFilters = () => {
   return (
     <div className="lg:hidden">
       <Sheet>
         <SheetTrigger>
-          <Button variant="ghost" className="flex gap-2 text-xs">
+          <div className="flex items-center gap-2 rounded-sm p-2 text-xs hover:bg-slate-50">
             <>
               <SlidersHorizontal className="w-4" /> Sort and Filter
             </>
-          </Button>
+          </div>
         </SheetTrigger>
         <SheetContent className="space-y-8" side={"bottom"}>
           <SheetHeader className="mb-8 flex items-start">
@@ -28,9 +29,10 @@ const MobileFilters = () => {
 
           <SortByFilters />
 
-          <div className="space-y-2">
-            <h3 className="text-base font-bold">Filters</h3>
+          <div className="">
+            <h3 className="mb-3 text-base font-bold">Filters</h3>
             <CheckboxFilters />
+            <PriceFilters />
           </div>
         </SheetContent>
       </Sheet>
