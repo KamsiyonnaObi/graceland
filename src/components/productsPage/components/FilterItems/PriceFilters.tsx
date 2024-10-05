@@ -1,9 +1,4 @@
 "use client";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,32 +16,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 import useQueryString from "@/hooks/products/useQueryString";
 
-const FormSchema = z.object({
-  minPrice: z.string().optional(),
-  maxPrice: z.string().optional(),
-});
 const PriceFilters = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const { createQueryString } = useQueryString();
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      minPrice: searchParams.get("minPrice") || "",
-      maxPrice: searchParams.get("maxPrice") || "",
-    },
-  });
+  const { form, onFilterByPrice } = useQueryString();
 
-  const onFilterByPrice = (data: z.infer<typeof FormSchema>) => {
-    if (!data.minPrice) {
-      console.log("here", data);
-      return;
-    }
-    router.push(pathname + "?" + createQueryString("minPrice", data.minPrice));
-  };
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="price">
