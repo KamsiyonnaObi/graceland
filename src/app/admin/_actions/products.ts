@@ -7,29 +7,80 @@ import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { toast } from "sonner";
 import { addSchema, fileSchema, imageSchema } from "@/lib/validations";
-
-export async function getAllProducts({
-  sortField = "priceInCents",
-  sortOrder = "desc",
-  page = 1,
-}: {
+import { validateSortParams } from "@/utils/productFilterHelpers";
+interface GetAllProductsParams {
+  name?: string;
+  category?: string[];
+  minPrice?: string;
+  maxPrice?: string;
   sortField?: string;
-  sortOrder?: "asc" | "desc" | "new";
-  page: number;
-}) {
-  const resultsPerPage = 25;
-  const totalRecords = await db.product.count();
-  const totalPages = Math.ceil(totalRecords / resultsPerPage);
-
-  const skip = (page - 1) * resultsPerPage;
-  const products = await db.product.findMany({
-    where: { isAvailableForPurchase: true },
-    orderBy: { [sortField]: sortOrder },
-    skip,
-    take: resultsPerPage,
-  });
-  return { products, totalPages };
+  sortOrder?: "asc" | "desc";
+  page?: number;
 }
+
+export async function getAllProducts(params: GetAllProductsParams) {
+  let { sortField, sortOrder, name, category, minPrice, maxPrice, page } =
+    params;
+  sortField = sortField || "priceInCents";
+  sortOrder = sortOrder || "desc";
+  page = Math.max(1, page || 1); // Ensure page is at least 1
+
+  const { sortField: validatedSortField, sortOrder: validatedSortOrder } =
+    validateSortParams(sortField, sortOrder);
+
+  const resultsPerPage = 25;
+
+  // prepare prisma where condition
+  const filterConditions: any = {
+    isAvailableForPurchase: true,
+  };
+
+  if (name) {
+    filterConditions.name = { contains: name, mode: "insensitive" };
+  }
+
+  if (category) {
+    filterConditions.category = {
+      hasSome: Array.isArray(category) ? category : [category],
+    };
+  }
+
+  const parsedMinPrice = parseFloat(minPrice || "0");
+  const parsedMaxPrice = parseFloat(maxPrice || "0");
+
+  if (!isNaN(parsedMinPrice) && parsedMinPrice > 0) {
+    filterConditions.priceInCents = {
+      ...filterConditions.priceInCents,
+      gte: parsedMinPrice * 100,
+    };
+  }
+
+  if (!isNaN(parsedMaxPrice) && parsedMaxPrice > 0) {
+    filterConditions.priceInCents = {
+      ...filterConditions.priceInCents,
+      lte: parsedMaxPrice * 100,
+    };
+  }
+
+  try {
+    const totalRecords = await db.product.count({ where: filterConditions });
+    const totalPages = Math.ceil(totalRecords / resultsPerPage);
+    const skip = (page - 1) * resultsPerPage;
+
+    const products = await db.product.findMany({
+      where: filterConditions,
+      orderBy: { [validatedSortField]: validatedSortOrder },
+      skip,
+      take: resultsPerPage,
+    });
+
+    return { products, totalPages };
+  } catch (error) {
+    console.error(`failed to fetch products - ${error}`);
+    return { error: "Failed to fetch products.", products: [], totalPages: 0 };
+  }
+}
+
 export async function addProduct(prevState: unknown, formData: FormData) {
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {

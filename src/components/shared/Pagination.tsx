@@ -21,7 +21,9 @@ export function PaginationComponent({ totalPages }: { totalPages: number }) {
   };
   const paginationNumbers = generatePagination(page, totalPages);
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div
+      className={`${totalPages === 0 && "hidden"} flex items-center justify-center gap-4`}
+    >
       <Button
         onClick={() => handlePageChange(page - 1)}
         disabled={page === 1}

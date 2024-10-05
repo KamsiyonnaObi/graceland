@@ -1,10 +1,50 @@
 import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const PriceFilterFormSchema = z.object({
+  minPrice: z.string().optional(),
+  maxPrice: z.string().optional(),
+});
 
 const useQueryString = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const form = useForm<z.infer<typeof PriceFilterFormSchema>>({
+    resolver: zodResolver(PriceFilterFormSchema),
+    defaultValues: {
+      minPrice: searchParams.get("minPrice") || "",
+      maxPrice: searchParams.get("maxPrice") || "",
+    },
+  });
+
+  const onFilterByPrice = useCallback(
+    (data: z.infer<typeof PriceFilterFormSchema>) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      const minPriceValue = Number(data.minPrice);
+      const maxPriceValue = Number(data.maxPrice);
+
+      if (!isNaN(minPriceValue) && minPriceValue > 0) {
+        params.set("minPrice", data.minPrice!);
+      } else {
+        params.delete("minPrice");
+      }
+
+      if (!isNaN(maxPriceValue) && maxPriceValue > 0) {
+        params.set("maxPrice", data.maxPrice!);
+      } else {
+        params.delete("maxPrice");
+      }
+
+      router.push("?" + params.toString());
+    },
+    [router, searchParams],
+  );
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -41,6 +81,8 @@ const useQueryString = () => {
     router.push(pathname + "?" + params.toString());
   };
   return {
+    form,
+    onFilterByPrice,
     createQueryString,
     updateQueryString,
     handleCheckboxChange,

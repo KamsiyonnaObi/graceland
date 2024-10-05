@@ -1,27 +1,25 @@
 "use client";
 
 import React from "react";
-import { usePathname } from "next/navigation";
-
-import { RadioGroupFilters, CheckboxFilters } from "./_components/FilterItems";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { CheckboxFilters } from "./components/FilterItems/CheckboxFilters";
+import PriceFilters from "./components/FilterItems/PriceFilters";
 
 const Filter = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex w-full flex-col gap-4">
-      <div className="flex justify-between">
-        <h6 className="mb-1 font-bold">Filter</h6>
-        <Link className="text-destructive" href={pathname}>
+    <aside className="flex w-full flex-col border-r">
+      <div className="mr-2 flex justify-end">
+        {/* <Link className="text-destructive" href={pathname}>
           clear
-        </Link>
+        </Link> */}
       </div>
 
-      <RadioGroupFilters />
-
       <CheckboxFilters />
-    </div>
+      <PriceFilters />
+    </aside>
   );
 };
 
