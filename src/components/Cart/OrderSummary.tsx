@@ -12,23 +12,17 @@ import {
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 
-import { CartItem, useCartStore } from "@/store/useCartStore";
+import { useCartStore } from "@/store/useCartStore";
 
 import { CartSummaryItem, TaxAndShippingSummary } from "./CartDetails";
 import { formatCurrency } from "@/lib/formatters";
 
 type OrderSummaryProps = {
-  totalPrice: number;
-  cartItems: CartItem[];
   isCheckout?: boolean;
 };
 
-const OrderSummary = ({
-  totalPrice,
-  cartItems,
-  isCheckout,
-}: OrderSummaryProps) => {
-  const { shippingFee } = useCartStore();
+const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
+  const { shippingFee, cartItems, totalPrice } = useCartStore();
   return (
     <Card className="w-full shadow-none max-lg:p-4">
       <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">

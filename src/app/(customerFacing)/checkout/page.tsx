@@ -1,9 +1,6 @@
-"use client";
-import { useCartStore } from "@/store/useCartStore";
 import OrderSummary from "@/components/Cart/OrderSummary";
 import DeliveryDetailsForm from "@/components/checkout/DeliveryDetailsForm";
 const CheckoutPage = () => {
-  const { totalPrice, cartItems } = useCartStore();
   return (
     <div className="page-container">
       <section className="flex w-full flex-col gap-5 lg:flex-row">
@@ -11,11 +8,7 @@ const CheckoutPage = () => {
           <DeliveryDetailsForm />
         </div>
         <div className="h-fit w-full self-start max-lg:order-first lg:sticky lg:top-4 lg:mb-[275px] lg:w-2/5">
-          <OrderSummary
-            totalPrice={totalPrice}
-            cartItems={cartItems}
-            isCheckout
-          />
+          <OrderSummary isCheckout />
         </div>
       </section>
     </div>
