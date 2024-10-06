@@ -6,7 +6,7 @@ import CartCard from "@/components/Cart/CartCard";
 import OrderSummary from "@/components/Cart/OrderSummary";
 
 const Cart = () => {
-  const { totalPrice, cartItems } = useCartStore();
+  const { cartItems } = useCartStore();
   return (
     <div className="page-container">
       {cartItems.length > 0 ? (
@@ -30,7 +30,7 @@ const Cart = () => {
               </div>
             </div>
             <div className="max-lg:row-start-1">
-              <OrderSummary totalPrice={totalPrice} cartItems={cartItems} />
+              <OrderSummary />
             </div>
           </section>
         </>
