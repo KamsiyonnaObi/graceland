@@ -13,12 +13,14 @@ export const TextInputField = ({
   label,
   placeholder,
   type = "text",
+  prefix,
 }: {
   formControl: any;
   name: string;
   label: string;
   placeholder?: string;
   type?: string;
+  prefix?: string;
 }) => (
   <FormField
     control={formControl}
@@ -27,7 +29,19 @@ export const TextInputField = ({
       <FormItem>
         <FormLabel>{label}</FormLabel>
         <FormControl>
-          <Input {...field} type={type} placeholder={placeholder} />
+          <div className="relative">
+            {prefix && (
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 transform text-sm">
+                {prefix}
+              </span>
+            )}
+            <Input
+              {...field}
+              type={type}
+              placeholder={placeholder}
+              className={prefix ? "pl-11" : ""}
+            />
+          </div>
         </FormControl>
         <FormMessage />
       </FormItem>

@@ -84,9 +84,11 @@ const DeliveryDetailsForm = () => {
               />
               <TextInputField
                 formControl={form.control}
+                type="tel"
                 name="phone"
                 label="Phone number"
                 placeholder="803 XXX XXXX"
+                prefix="+234"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
