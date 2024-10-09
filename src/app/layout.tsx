@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
 import { Inter, Palanquin, Montserrat } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextAuthProvider from "@/providers/NextAuthProviders";
@@ -42,6 +42,7 @@ export default async function RootLayout({
       >
         <NextAuthProvider session={session}>{children}</NextAuthProvider>
         <Toaster position="top-right" />
+        <Analytics />
       </body>
     </html>
   );
