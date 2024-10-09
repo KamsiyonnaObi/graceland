@@ -7,6 +7,7 @@ import { OrderDetails, Address } from "@/types";
 import { PaymentInfo } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
+import { getCurrentUser } from "./user.actions";
 
 interface Authorization {
   last4: string;
@@ -61,6 +62,7 @@ export async function createOrder(
       }),
     );
 
+    const loggedInUserId = await getCurrentUser();
     // Create the shipping address if provided
     let createdShippingAddress;
     if (shippingAddress) {
@@ -92,6 +94,9 @@ export async function createOrder(
         orderItems: { create: createdOrderItems },
         shippingAddress: createdShippingAddress
           ? { connect: { id: createdShippingAddress.id } }
+          : undefined,
+        user: loggedInUserId
+          ? { connect: { id: loggedInUserId.id } }
           : undefined,
         billingAddress: { connect: { id: createdBillingAddress.id } },
       },
