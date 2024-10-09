@@ -11,15 +11,13 @@ import { TextInputField } from "./form-fields/TextInputField";
 
 const DeliveryDetailsForm = () => {
   const { form, loading, onSubmit } = useCheckoutForm();
-  const submitTest = (data: any) => {
-    console.log(data);
-  };
+
   return (
     <>
       <DeliveryRadioGroup />
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(submitTest)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="checkout-card-containers"
         >
           <h2 className="text-lg font-bold">Pick up details</h2>
