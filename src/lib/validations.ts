@@ -15,7 +15,7 @@ const addressSchema = z
 const phoneSchema = z
   .string()
   .min(10, "Phone number must be at least 10 digits.")
-  .max(15, "Phone number must be less than 15 digits");
+  .max(10, "Phone number must be 10 digits");
 const stateSchema = z
   .string()
   .min(2, "State must be at least 2 characters.")

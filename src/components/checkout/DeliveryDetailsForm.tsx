@@ -1,19 +1,13 @@
 "use client";
 
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Input } from "@/components/ui/input";
 
 import { DeliveryRadioGroup } from "./DeliveryRadioGroup";
 import { useCheckoutForm } from "@/hooks/checkout/useCheckoutForm";
+import SelectInputField from "./form-fields/SelectInputField";
+import { RadioInputField } from "./form-fields/RadioInputField";
+import { TextInputField } from "./form-fields/TextInputField";
 
 const DeliveryDetailsForm = () => {
   const { form, loading, onSubmit } = useCheckoutForm();
@@ -27,39 +21,17 @@ const DeliveryDetailsForm = () => {
           className="checkout-card-containers"
         >
           <h2 className="text-lg font-bold">Pick up details</h2>
-          <FormField
-            control={form.control}
+          <RadioInputField
+            formControl={form.control}
             name="pickUpPerson"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Pick-up options</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex flex-col space-y-1"
-                  >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="customer" />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        I will collect the order myself
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="someoneElse" />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        Someone else will collect the order for me
-                      </FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Pick-up options"
+            options={[
+              { value: "customer", label: "I will collect the order myself" },
+              {
+                value: "someoneElse",
+                label: "Someone else will collect the order for me",
+              },
+            ]}
           />
           {/* Ask for name if someone else will pick up order */}
           {form.watch("pickUpPerson") === "someoneElse" && (
@@ -68,34 +40,15 @@ const DeliveryDetailsForm = () => {
                 Who will pick up this order?
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
+                <TextInputField
+                  formControl={form.control}
                   name="pickUpPersonFirstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="First Name"
                 />
-
-                <FormField
-                  control={form.control}
+                <TextInputField
+                  formControl={form.control}
                   name="pickUpPersonLastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Last Name"
                 />
               </div>
             </section>
@@ -104,112 +57,52 @@ const DeliveryDetailsForm = () => {
           {/* Billing Details */}
           <section className="space-y-4">
             <h3 className="text-base font-bold">Billing Details</h3>
-
             <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
+              <TextInputField
+                formControl={form.control}
                 name="billingFirstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="First Name"
               />
-
-              <FormField
-                control={form.control}
+              <TextInputField
+                formControl={form.control}
                 name="billingLastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Last Name"
               />
             </div>
-            <FormField
-              control={form.control}
+            <TextInputField
+              formControl={form.control}
               name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Address"
             />
             <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
+              <TextInputField
+                formControl={form.control}
                 name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Email"
               />
-
-              <FormField
-                control={form.control}
+              <TextInputField
+                formControl={form.control}
+                type="tel"
                 name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone number</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Phone number"
+                placeholder="803 XXX XXXX"
+                prefix="+234"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <FormField
+              <SelectInputField
                 control={form.control}
                 name="state"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>State</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="State"
+                options={[{ value: "lagos", label: "Lagos" }]}
+                placeholder="Select a state"
               />
-
-              <FormField
+              <SelectInputField
                 control={form.control}
                 name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Country</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Country"
+                options={[{ value: "nigeria", label: "Nigeria" }]}
+                placeholder="Select a country"
               />
             </div>
           </section>
