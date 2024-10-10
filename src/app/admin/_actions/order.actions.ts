@@ -1,12 +1,15 @@
 "use server";
 
-import { orderStatuses } from "@/constants";
 import db from "@/db/db";
-import { CartItem } from "@/store/useCartStore";
-import { OrderDetails, Address } from "@/types";
-import { PaymentInfo } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
+
+import { OrderDetails, Address } from "@/types";
+import { PaymentInfo } from "@prisma/client";
+import { getCurrentUser } from "./user.actions";
+import { orderStatuses } from "@/constants";
+
+import { CartItem } from "@/store/useCartStore";
 
 interface Authorization {
   last4: string;
@@ -42,7 +45,6 @@ export async function createOrder(
   } = orderDetails;
 
   try {
-    // Create the order items
     const createdOrderItems = await Promise.all(
       cartItems.map(async (item) => {
         const product = await db.product.findUnique({
@@ -61,7 +63,7 @@ export async function createOrder(
       }),
     );
 
-    // Create the shipping address if provided
+    const loggedInUserId = await getCurrentUser();
     let createdShippingAddress;
     if (shippingAddress) {
       createdShippingAddress = await db.address.create({
@@ -69,12 +71,10 @@ export async function createOrder(
       });
     }
 
-    // Create the billing address
     const createdBillingAddress = await db.address.create({
       data: billingAddress,
     });
 
-    // Create the order
     const createdOrder = await db.order.create({
       data: {
         totalPriceInCents: totalPriceWithFees,
@@ -92,6 +92,9 @@ export async function createOrder(
         orderItems: { create: createdOrderItems },
         shippingAddress: createdShippingAddress
           ? { connect: { id: createdShippingAddress.id } }
+          : undefined,
+        user: loggedInUserId
+          ? { connect: { id: loggedInUserId.id } }
           : undefined,
         billingAddress: { connect: { id: createdBillingAddress.id } },
       },
