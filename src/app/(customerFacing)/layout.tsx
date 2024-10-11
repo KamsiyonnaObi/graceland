@@ -1,10 +1,12 @@
+import Image from "next/image";
+import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import { Nav, NavLink } from "@/components/Nav";
 import UserNavbar from "@/components/Navbar/UserNavbar";
 import { Footer } from "@/components/sections";
 
 import { ShoppingCart } from "lucide-react";
-
+import { companyLogo } from "../../../public/assets/images";
 export const dynamic = "force-dynamic";
 
 export default function Layout({
@@ -16,9 +18,9 @@ export default function Layout({
     <>
       <Nav>
         <div className="mx-auto flex max-w-[1170px] items-center justify-between px-4 sm:px-12 md:px-6 xl:max-w-[1440px]">
-          <div>
-            <h1 className="text-2xl font-bold">Graceland</h1>
-          </div>
+          <Link href="/">
+            <Image src={companyLogo} alt="logo" width={89} height={29} />
+          </Link>
           <div className="max-lg:hidden">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/#explore">About us</NavLink>

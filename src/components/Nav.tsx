@@ -10,7 +10,7 @@ export function Nav({ children }: { children: ReactNode }) {
   return (
     <nav
       className={cn(
-        "xl:padding-x wide:padding-x z-10 mx-auto w-full bg-secondary-one py-4",
+        "xl:padding-x wide:padding-x z-10 mx-auto w-full bg-secondary-one",
         pathname === "/" && "absolute bg-transparent",
       )}
     >

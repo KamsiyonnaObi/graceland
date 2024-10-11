@@ -11,8 +11,8 @@ import carSeat2 from "./car-seat2.png";
 import customer1 from "./customer1.png";
 import customer2 from "./customer2.jpg";
 
-import footerLogo from "./footer-logo.svg";
-import headerLogo from "./header-logo.svg";
+import companyLogo from "./gracelandLogo.png";
+import footerLogo from "./footer-logo.png";
 
 import offer from "./offer.svg";
 
@@ -37,8 +37,8 @@ export {
   carSeat2,
   customer1,
   customer2,
+  companyLogo,
   footerLogo,
-  headerLogo,
   offer,
   shoe4,
   shoe5,
