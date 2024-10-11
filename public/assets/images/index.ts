@@ -12,7 +12,7 @@ import customer1 from "./customer1.png";
 import customer2 from "./customer2.jpg";
 
 import companyLogo from "./gracelandLogo.png";
-import footerLogo from "./footer-logo.svg";
+import footerLogo from "./footer-logo.png";
 
 import offer from "./offer.svg";
 
