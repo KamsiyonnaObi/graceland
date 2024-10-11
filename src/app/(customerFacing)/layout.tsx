@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import { Nav, NavLink } from "@/components/Nav";
 import UserNavbar from "@/components/Navbar/UserNavbar";
@@ -17,9 +18,9 @@ export default function Layout({
     <>
       <Nav>
         <div className="mx-auto flex max-w-[1170px] items-center justify-between px-4 sm:px-12 md:px-6 xl:max-w-[1440px]">
-          <div>
+          <Link href="/">
             <Image src={companyLogo} alt="logo" width={89} height={29} />
-          </div>
+          </Link>
           <div className="max-lg:hidden">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/#explore">About us</NavLink>
