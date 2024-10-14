@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { getUserOrders } from "@/app/admin/_actions/user.actions";
-import ProfilePageCards from "@/components/account/ProfilePageCards";
 import AccessDenied from "@/components/shared/AccessDenied";
+import { getUserOrders } from "@/app/admin/_actions/user.actions";
 
 import {
   Table,
