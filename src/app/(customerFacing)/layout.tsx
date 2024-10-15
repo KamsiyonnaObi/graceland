@@ -7,6 +7,7 @@ import { Footer } from "@/components/sections";
 
 import { ShoppingCart } from "lucide-react";
 import { companyLogo } from "../../../public/assets/images";
+import CustomerSurvey from "@/components/shared/CustomerSurvey";
 export const dynamic = "force-dynamic";
 
 export default function Layout({
@@ -39,6 +40,7 @@ export default function Layout({
         </div>
       </Nav>
       <div className="">{children}</div>
+      <CustomerSurvey />
       <section className="padding-x padding-t bg-black pb-8">
         <Footer />
       </section>
