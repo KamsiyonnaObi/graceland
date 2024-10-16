@@ -129,30 +129,35 @@ export async function signUserOut() {
   cookies().set("token", "", { expires: Date.now() - oneDay });
 }
 
-export async function getUserOrders() {
+export async function getUserLatestOrders() {
   const currentUserId = await getCurrentUser();
 
   if (!currentUserId?.id) {
     return { status: 401, message: "Unauthorized" };
   }
-  const usersOrders = await db.user.findUnique({
+  const userOrders = await db.user.findUnique({
     where: { id: currentUserId.id },
     select: {
       firstName: true,
-      lastName: true,
       orders: {
+        orderBy: { createdAt: "desc" },
         select: {
-          id: true,
-          trxref: true,
+          createdAt: true,
           updatedAt: true,
-          status: true,
           totalPriceInCents: true,
+          trxref: true,
+          orderItems: {
+            select: {
+              product: { select: { name: true, imagePath: true } },
+              quantity: true,
+            },
+          },
         },
       },
     },
   });
 
-  return { status: 200, message: "success", orderDetails: usersOrders };
+  return { status: 200, message: "success", userOrders };
 }
 
 export async function deleteUser(id: string) {

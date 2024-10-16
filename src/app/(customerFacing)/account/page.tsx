@@ -16,6 +16,7 @@ import StatusPill from "@/components/shared/components/StatusPill";
 
 import { formatCurrency } from "@/lib/formatters";
 import { PaginationComponent } from "@/components/shared/Pagination";
+import ProfileWelcomeSection from "@/components/account/ProfileWelcomeSection";
 
 const AccountPage = async ({
   searchParams,
@@ -29,14 +30,10 @@ const AccountPage = async ({
   if (status !== 200) return <AccessDenied />;
   return (
     <section className="page-container space-y-12">
-      <div className="mx-auto w-fit">
-        <h1 className="py-3 text-center font-montserrat text-3xl font-bold">
-          Welcome,
-        </h1>
-        <p>View and manage your orders and account details.</p>
-      </div>
+      <ProfileWelcomeSection />
 
       <div>
+        <h4 className="mb-2 font-bold">Your recent orders: </h4>
         <Table className="justify-between rounded-xl border">
           <TableHeader>
             <TableRow>
