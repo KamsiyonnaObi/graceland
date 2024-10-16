@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import AccessDenied from "@/components/shared/AccessDenied";
-import { getUserOrders } from "@/app/admin/_actions/user.actions";
+import { getUserOrders } from "@/app/admin/_actions/order.actions";
 
 import {
   Table,
@@ -15,16 +15,23 @@ import {
 import StatusPill from "@/components/shared/components/StatusPill";
 
 import { formatCurrency } from "@/lib/formatters";
+import { PaginationComponent } from "@/components/shared/Pagination";
 
-const AccountPage = async () => {
-  const { status, orderDetails } = await getUserOrders();
+const AccountPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
+}) => {
+  const { status, orderDetails, totalPages } = await getUserOrders({
+    page: parseInt(searchParams.page),
+  });
 
   if (status !== 200) return <AccessDenied />;
   return (
     <section className="page-container space-y-12">
       <div className="mx-auto w-fit">
         <h1 className="py-3 text-center font-montserrat text-3xl font-bold">
-          Welcome, {orderDetails?.firstName}!
+          Welcome,
         </h1>
         <p>View and manage your orders and account details.</p>
       </div>
@@ -40,7 +47,7 @@ const AccountPage = async () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orderDetails?.orders.map((order) => (
+            {orderDetails?.map((order) => (
               <TableRow key={order.id}>
                 <TableCell>
                   <Link
@@ -68,6 +75,7 @@ const AccountPage = async () => {
             ))}
           </TableBody>
         </Table>
+        {totalPages && <PaginationComponent totalPages={totalPages} />}
       </div>
     </section>
   );
