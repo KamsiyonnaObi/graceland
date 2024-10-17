@@ -187,6 +187,39 @@ export async function updateOrderStatus(orderId: string, newStatus: string) {
   return { message: "success" };
 }
 
+export async function getUserOrders({ page }: { page?: number }) {
+  const currentUserId = await getCurrentUser();
+
+  if (!currentUserId?.id) {
+    return { status: 401, message: "Unauthorized" };
+  }
+  const resultsPerPage = 5;
+
+  page = Math.max(1, page || 1); // Ensure page is at least 1
+  try {
+    const skip = (page - 1) * resultsPerPage;
+    const totalRecords = await db.order.count({
+      where: { userId: currentUserId.id },
+    });
+    const totalPages = Math.ceil(totalRecords / resultsPerPage);
+
+    const usersOrders = await db.order.findMany({
+      where: { userId: currentUserId.id },
+      orderBy: { createdAt: "desc" },
+      take: resultsPerPage,
+      skip,
+    });
+    return {
+      status: 200,
+      message: "success",
+      orderDetails: usersOrders,
+      totalPages,
+    };
+  } catch (error) {
+    console.error(`failed to fetch user orders - ${error}`);
+    return { status: 401, message: "Unauthorized" };
+  }
+}
 // Function to update order with transaction reference
 export const updateOrderTransactionReference = async (
   orderId: string,

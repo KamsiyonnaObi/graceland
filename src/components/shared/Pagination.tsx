@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 
 import { generatePagination, modifySearchParams } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -10,6 +10,8 @@ export function PaginationComponent({ totalPages }: { totalPages: number }) {
   const searchParams = Object.fromEntries(useSearchParams()) as any;
 
   const router = useRouter();
+  const pathname = usePathname();
+
   const page = parseInt(searchParams.page) || 1;
 
   const handlePageChange = (newPage: number) => {
@@ -17,19 +19,19 @@ export function PaginationComponent({ totalPages }: { totalPages: number }) {
       ...searchParams,
       page: newPage,
     });
-    router.push(`/products?${query}`);
+    router.push(`${pathname}?${query}`);
   };
   const paginationNumbers = generatePagination(page, totalPages);
   return (
     <div
-      className={`${totalPages === 0 && "hidden"} flex items-center justify-center gap-4`}
+      className={`${totalPages === 0 && "hidden"} mt-4 flex items-center justify-center gap-4`}
     >
       <Button
         onClick={() => handlePageChange(page - 1)}
         disabled={page === 1}
-        className="text-white"
+        variant="ghost"
       >
-        <ChevronLeft />
+        <ChevronLeft className="h-5 text-black" />
       </Button>
       {paginationNumbers.map((item) => (
         <p key={item} className={`${item === page ? "text-lg font-bold" : ""}`}>
@@ -39,9 +41,9 @@ export function PaginationComponent({ totalPages }: { totalPages: number }) {
       <Button
         onClick={() => handlePageChange(page + 1)}
         disabled={page === totalPages}
-        className="text-white"
+        variant="ghost"
       >
-        <ChevronRight />
+        <ChevronRight className="h-5 text-black" />
       </Button>
     </div>
   );
