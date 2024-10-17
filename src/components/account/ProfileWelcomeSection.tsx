@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ProfileOrderCard from "./ProfileOrderCard";
-import { getUserLatestOrders } from "@/app/admin/_actions/user.actions";
+import { getUserLatestOrders } from "@/utils/actions/user.actions";
 
 const ProfileWelcomeSection = async () => {
   const { userOrders } = await getUserLatestOrders();

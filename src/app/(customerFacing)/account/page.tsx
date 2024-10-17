@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import AccessDenied from "@/components/shared/AccessDenied";
-import { getUserOrders } from "@/app/admin/_actions/order.actions";
+import { getUserOrders } from "@/utils/actions/order.actions";
 
 import {
   Table,

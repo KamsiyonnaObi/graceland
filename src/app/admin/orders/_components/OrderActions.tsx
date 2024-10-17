@@ -2,7 +2,7 @@
 
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useTransition } from "react";
-import { deleteOrder } from "../../_actions/order.actions";
+import { deleteOrder } from "../../../../utils/actions/order.actions";
 import { useRouter } from "next/navigation";
 
 export function DeleteDropDownItem({ id }: { id: string }) {

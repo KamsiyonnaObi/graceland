@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { authFormSchema } from "@/lib/validations";
-import { newUser } from "@/app/admin/_actions/user.actions";
+import { newUser } from "@/utils/actions/user.actions";
 
 export const useAuthForm = () => {
   const formSchema = authFormSchema("signup");

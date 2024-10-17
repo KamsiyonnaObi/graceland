@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextResponse, NextRequest } from "next/server";
 
-import { updateOrderStatusAndSavePaymentInfo } from "@/app/admin/_actions/order.actions";
+import { updateOrderStatusAndSavePaymentInfo } from "@/utils/actions/order.actions";
 
 export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
