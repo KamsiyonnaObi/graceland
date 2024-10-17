@@ -64,6 +64,15 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
           label="Password"
           control={form.control}
         />
+        {type === "signup" && (
+          <CustomInput
+            name="confirmPassword"
+            placeholder="Re-enter your password"
+            label="Confirm Password"
+            control={form.control}
+          />
+        )}
+
         {isFailed && (
           <p className="text-center text-destructive">
             oops, something went wrong
