@@ -62,8 +62,19 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
           name="password"
           placeholder="Enter your password"
           label="Password"
+          type={"password"}
           control={form.control}
         />
+        {type === "signup" && (
+          <CustomInput
+            name="confirmPassword"
+            placeholder="Re-enter your password"
+            label="Confirm Password"
+            type={"password"}
+            control={form.control}
+          />
+        )}
+
         {isFailed && (
           <p className="text-center text-destructive">
             oops, something went wrong
@@ -71,7 +82,10 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         )}
         <Button
           className="text-md mt-4 p-6 font-bold"
-          disabled={isLoading}
+          disabled={
+            isLoading ||
+            form.watch("confirmPassword") !== form.watch("password")
+          }
           type="submit"
         >
           {isLoading ? (
