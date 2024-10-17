@@ -18,6 +18,7 @@ interface CustomInputProps {
   name: FieldPath<z.infer<typeof formSchema>>;
   control: Control<z.infer<typeof formSchema>>;
   label: string;
+  type?: string;
   placeholder: string;
 }
 
@@ -26,6 +27,7 @@ const CustomInput = ({
   control,
   label,
   placeholder,
+  type = "text",
 }: CustomInputProps) => {
   return (
     <FormField
@@ -36,7 +38,7 @@ const CustomInput = ({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              type={name === "password" ? "password" : "text"}
+              type={type}
               className="p-6"
               placeholder={placeholder}
               {...field}
