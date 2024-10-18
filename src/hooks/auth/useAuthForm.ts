@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { authFormSchema } from "@/lib/validations";
+import { authFormSchema } from "@/lib/validations/index";
 import { newUser } from "@/utils/actions/user.actions";
 
 export const useAuthForm = () => {

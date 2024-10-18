@@ -1,17 +1,10 @@
 import { z } from "zod";
-
-const nameSchema = z
-  .string()
-  .min(2, "name must be at least 2 characters.")
-  .max(25, "name must be max 25 characters.");
-const emailSchema = z.string().email("Invalid email address.");
-const passwordSchema = z
-  .string()
-  .min(8, "Password must be at least 8 characters.");
+import { emailSchema } from "./authSchema";
 const addressSchema = z
   .string()
   .min(5, "Address must be at least 5 characters.")
   .max(50, "Address must be less than 50 characters");
+
 const phoneSchema = z
   .string()
   .min(10, "Phone number must be at least 10 digits.")
@@ -25,18 +18,6 @@ const countrySchema = z
   .min(2, "Country must be at least 2 characters.")
   .max(20, "Country must be less than 20 characters");
 
-export const signUpFormSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
-  firstName: nameSchema,
-  lastName: nameSchema,
-});
-export const LogInFormSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
-});
-
-// Checkout details schema
 export const checkoutDetailsSchema = z
   .object({
     pickUpPerson: z.enum(["customer", "someoneElse"], {
@@ -49,7 +30,9 @@ export const checkoutDetailsSchema = z
       .min(2, {
         message: "First name must be at least 2 characters.",
       })
-      .max(20, { message: "First name must be less than 20 characters" }),
+      .max(20, {
+        message: "First name must be less than 20 characters",
+      }),
     billingLastName: z
       .string()
       .min(2, {
@@ -84,18 +67,3 @@ export const checkoutDetailsSchema = z
       });
     }
   });
-
-export const fileSchema = z.instanceof(globalThis.File, {
-  message: "Required",
-});
-export const imageSchema = fileSchema.refine(
-  (file) => file.size === 0 || file.type.startsWith("image/"),
-);
-
-export const addSchema = z.object({
-  name: z.string().min(1),
-  description: z.string().min(1),
-  priceInCents: z.coerce.number().int().min(1),
-
-  image: imageSchema.refine((file) => file.size > 0, "Required"),
-});

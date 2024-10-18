@@ -10,7 +10,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-import { authFormSchema } from "@/lib/validations";
+import { authFormSchema } from "@/lib/validations/index";
 
 const formSchema = authFormSchema("sign-up");
 
