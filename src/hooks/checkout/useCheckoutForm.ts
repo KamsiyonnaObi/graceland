@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { useCartStore } from "@/store/useCartStore";
-import { checkoutDetailsSchema } from "@/lib/validations";
+import { checkoutDetailsSchema } from "@/lib/validations/index";
 import { createOrder } from "@/utils/actions/order.actions";
 import { calculateTotals, clearCart } from "@/utils/checkoutHelpers";
 
