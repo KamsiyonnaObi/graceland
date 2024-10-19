@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { checkoutDetailsSchema } from "@/lib/validations";
+import { checkoutDetailsSchema } from "@/lib/validations/index";
 
 interface CustomSelectProps {
   name: FieldPath<z.infer<typeof checkoutDetailsSchema>>;

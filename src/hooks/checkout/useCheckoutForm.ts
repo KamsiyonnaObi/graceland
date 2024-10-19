@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { useCartStore } from "@/store/useCartStore";
-import { checkoutDetailsSchema } from "@/lib/validations";
-import { createOrder } from "@/app/admin/_actions/order.actions";
+import { checkoutDetailsSchema } from "@/lib/validations/index";
+import { createOrder } from "@/utils/actions/order.actions";
 import { calculateTotals, clearCart } from "@/utils/checkoutHelpers";
 
 export const useCheckoutForm = () => {

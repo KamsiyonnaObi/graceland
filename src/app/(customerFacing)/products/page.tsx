@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import Filter from "@/components/productsPage/Filter";
-import { getAllProducts } from "@/app/admin/_actions/products";
+import { getAllProducts } from "@/utils/actions/products";
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
 
 import { getSortOptions } from "@/utils/productFilterHelpers";
