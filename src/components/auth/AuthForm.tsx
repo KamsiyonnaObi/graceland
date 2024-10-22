@@ -82,10 +82,7 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         )}
         <Button
           className="text-md mt-4 p-6 font-bold"
-          disabled={
-            isLoading ||
-            form.watch("confirmPassword") !== form.watch("password")
-          }
+          disabled={isLoading || !form.watch("password")}
           type="submit"
         >
           {isLoading ? (
