@@ -32,3 +32,16 @@ export const createToken = async () => {
     };
   }
 };
+
+export const isTokenValid = async (tokenId: string) => {
+  try {
+    const token = await db.token.findUnique({ where: { id: tokenId } });
+
+    if (!token) return false;
+
+    return token.expiresAt >= new Date();
+  } catch (error) {
+    console.error("Error checking token validity:", error);
+    return false;
+  }
+};
