@@ -1,6 +1,7 @@
 "use server";
 import db from "@/db/db";
 import { getCurrentUser } from "./user.actions";
+import crypto from "crypto";
 
 export const createToken = async () => {
   const oneDay = 24 * 60 * 60 * 1000;
@@ -11,8 +12,10 @@ export const createToken = async () => {
     if (!userId?.id) {
       return { success: false, message: "User not found for token generation" };
     }
+    const userToken = crypto.randomBytes(32).toString("base64url");
     const newToken = await db.token.create({
       data: {
+        id: userToken,
         expiresAt,
         user: { connect: { id: userId.id } },
       },
