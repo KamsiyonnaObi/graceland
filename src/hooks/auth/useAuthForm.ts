@@ -6,6 +6,8 @@ import { toast } from "sonner";
 
 import { authFormSchema } from "@/lib/validations/index";
 import { newUser } from "@/utils/actions/user.actions";
+import { createToken } from "@/utils/actions/token.actions";
+import { sendEmailVerification } from "@/utils/actions/notifications.actions";
 
 export const useAuthForm = () => {
   const formSchema = authFormSchema("signup");
@@ -23,9 +25,25 @@ export const useAuthForm = () => {
       if (response?.status !== 200) {
         return setIsFailed(true);
       }
-      toast("SignUp successful.", {
-        duration: 2000,
+      const signInResponse = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
       });
+
+      if (signInResponse?.status === 200) {
+        const emailVerificationToken = await createToken();
+        if (emailVerificationToken.success) {
+          await sendEmailVerification({
+            email: data.email,
+            token: emailVerificationToken.message,
+          });
+        }
+        toast("Sign up successful.", {
+          description: "Verification email sent. Please check your inbox.",
+          duration: 2000,
+        });
+      }
       router.push(`/`);
     } catch (error) {
       console.log(`This is your error: ${error}`);

@@ -25,18 +25,20 @@ model Product {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  role      Role      @default(BASIC)
-  email     String    @unique
-  firstName String    @default("")
-  lastName  String?
-  password  String?
-  accounts  Account[]
-  sessions  Session[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  orders    Order[]
-  addresses Address[]
+  id            String    @id @default(cuid())
+  role          Role      @default(BASIC)
+  email         String    @unique
+  verifiedEmail Boolean   @default(false)
+  firstName     String    @default("")
+  lastName      String?
+  password      String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orders        Order[]
+  addresses     Address[]
+  Token         Token[]
 }
 
 enum Role {
@@ -140,4 +142,13 @@ model PaymentInfo {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Order     Order[]
+}
+
+model Token {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }

@@ -9,6 +9,7 @@ import { hashPassword, isValidPassword } from "@/lib/isValidPassword";
 
 import { SignUp } from "@/app/(auth)/signup/page";
 import { LogIn } from "@/app/(auth)/login/page";
+import { isTokenValid } from "./token.actions";
 
 export async function getCurrentUser() {
   const currentUser: any = await getServerSession();
@@ -127,6 +128,29 @@ export async function signUserIn(signInData: LogIn) {
 export async function signUserOut() {
   const oneDay = 24 * 60 * 60 * 1000;
   cookies().set("token", "", { expires: Date.now() - oneDay });
+}
+
+export async function verifyUserEmail(token: string) {
+  try {
+    const { userId } = await isTokenValid(token);
+
+    if (!userId) {
+      return { success: false, message: "user token invalid or expired" };
+    }
+
+    await db.user.update({
+      where: { id: userId },
+      data: { verifiedEmail: true },
+    });
+
+    return { success: true, message: "user email has been verified" };
+  } catch (error) {
+    console.error(`failed to verify email - ${error}`);
+    return {
+      success: false,
+      message: "something went wrong, please try again later",
+    };
+  }
 }
 
 export async function getUserLatestOrders() {
