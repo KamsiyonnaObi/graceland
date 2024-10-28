@@ -13,6 +13,7 @@ import FillIcon from "../icons/FillIcons";
 import { Separator } from "../ui/separator";
 import { useAuthForm } from "@/hooks/auth/useAuthForm";
 import { authFormSchema } from "@/lib/validations/index";
+import Link from "next/link";
 
 const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
   const formSchema = authFormSchema(type);
@@ -28,7 +29,7 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         onSubmit={form.handleSubmit(
           type === "signup" ? handleSignUp : handleLogIn,
         )}
-        className="auth-containers"
+        className="auth-container"
       >
         {type === "signup" && (
           <>
@@ -62,9 +63,11 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
           name="password"
           placeholder="Enter your password"
           label="Password"
+          page={type}
           type={"password"}
           control={form.control}
         />
+
         {type === "signup" && (
           <CustomInput
             name="confirmPassword"

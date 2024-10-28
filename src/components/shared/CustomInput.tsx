@@ -11,6 +11,7 @@ import {
 import { Input } from "../ui/input";
 
 import { authFormSchema } from "@/lib/validations/index";
+import Link from "next/link";
 
 const formSchema = authFormSchema("sign-up");
 
@@ -18,6 +19,7 @@ interface CustomInputProps {
   name: FieldPath<z.infer<typeof formSchema>>;
   control: Control<z.infer<typeof formSchema>>;
   label: string;
+  page?: "signin" | "signup";
   type?: string;
   placeholder: string;
 }
@@ -27,6 +29,7 @@ const CustomInput = ({
   control,
   label,
   placeholder,
+  page,
   type = "text",
 }: CustomInputProps) => {
   return (
@@ -35,7 +38,14 @@ const CustomInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <div className="flex justify-between">
+            <FormLabel>{label}</FormLabel>
+            {type === "password" && page === "signin" && (
+              <Link href={"/recover-password"} className="text-xs underline">
+                forgot password?
+              </Link>
+            )}
+          </div>
           <FormControl>
             <Input
               type={type}
