@@ -19,16 +19,27 @@ export async function getCurrentUser() {
 
   const { email } = currentUser.user;
 
-  const loggedInUserId = await db.user.findUnique({
-    where: { email: email },
-    select: { id: true },
-  });
-
-  if (!loggedInUserId) {
-    return null;
-  }
+  const loggedInUserId = await getUserByEmail(email);
 
   return loggedInUserId;
+}
+
+export async function getUserByEmail(email: string) {
+  try {
+    const loggedInUserId = await db.user.findUnique({
+      where: { email: email },
+      select: { id: true },
+    });
+
+    if (!loggedInUserId) {
+      return null;
+    }
+
+    return loggedInUserId;
+  } catch (error) {
+    console.error(`error finding user - ${email} -> ${error}`);
+    return null;
+  }
 }
 
 export async function getAllUsers() {
