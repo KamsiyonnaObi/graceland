@@ -47,3 +47,18 @@ export const authFormSchema = (type: string) =>
         });
       }
     });
+
+export const ChangePasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .superRefine((data, ctx) => {
+    if (data.confirmPassword !== data.password) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords must match.",
+        path: ["confirmPassword"],
+      });
+    }
+  });

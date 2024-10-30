@@ -141,6 +141,19 @@ export async function signUserOut() {
   cookies().set("token", "", { expires: Date.now() - oneDay });
 }
 
+export async function updateUserPassword(email: string, password: string) {
+  try {
+    const hashedPassword = await hashPassword(password);
+    await db.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function verifyUserEmail(token: string) {
   try {
     const { userId } = await isTokenValid(token);

@@ -2,22 +2,8 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { passwordSchema } from "@/lib/validations";
 
-const ChangePasswordFormSchema = z
-  .object({
-    password: passwordSchema,
-    confirmPassword: passwordSchema,
-  })
-  .superRefine((data, ctx) => {
-    if (data.confirmPassword !== data.password) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Passwords must match.",
-        path: ["confirmPassword"],
-      });
-    }
-  });
+import { ChangePasswordFormSchema } from "@/lib/validations";
 
 export const useForgotPasswordForm = () => {
   const [isSuccess, setIsSuccess] = useState(false);
