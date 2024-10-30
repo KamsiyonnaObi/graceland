@@ -19,7 +19,9 @@ export async function POST(request: Request) {
 
   try {
     const token = await createToken({ email, expiryTime: ONE_HOUR_IN_MS });
-
+    if (!token.success) {
+      return new Response(null, { status: 204 });
+    }
     await sendEmailToUser({
       email,
       subject: "Please reset your password",
