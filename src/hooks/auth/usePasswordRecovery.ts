@@ -9,6 +9,7 @@ const FormSchema = z.object({
 
 export const usePasswordRecovery = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -18,6 +19,7 @@ export const usePasswordRecovery = () => {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
+      setIsLoading(true);
       await fetch("/api/auth/recover-password", {
         method: "POST",
         body: JSON.stringify({ email: data.email }),
@@ -26,6 +28,8 @@ export const usePasswordRecovery = () => {
       setIsSubmitted(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -33,5 +37,5 @@ export const usePasswordRecovery = () => {
     setIsSubmitted((prev) => !prev);
   }
 
-  return { form, isSubmitted, onSubmit, toggleIsSubmitted };
+  return { form, isSubmitted, isLoading, onSubmit, toggleIsSubmitted };
 };

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { usePasswordRecovery } from "@/hooks/auth/usePasswordRecovery";
 
 export function RecoverPasswordForm() {
-  const { isSubmitted, toggleIsSubmitted, form, onSubmit } =
+  const { isSubmitted, toggleIsSubmitted, form, onSubmit, isLoading } =
     usePasswordRecovery();
 
   return (
@@ -58,7 +58,11 @@ export function RecoverPasswordForm() {
                 </FormItem>
               )}
             />
-            <Button className="w-full font-bold" type="submit">
+            <Button
+              className="w-full font-bold"
+              type="submit"
+              disabled={isLoading}
+            >
               Submit
             </Button>
           </form>
