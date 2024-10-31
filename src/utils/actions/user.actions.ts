@@ -141,11 +141,11 @@ export async function signUserOut() {
   cookies().set("token", "", { expires: Date.now() - oneDay });
 }
 
-export async function updateUserPassword(email: string, password: string) {
+export async function updateUserPassword(userId: string, password: string) {
   try {
     const hashedPassword = await hashPassword(password);
     await db.user.update({
-      where: { email },
+      where: { id: userId },
       data: { password: hashedPassword },
     });
     return true;

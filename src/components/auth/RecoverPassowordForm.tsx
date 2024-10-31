@@ -7,20 +7,32 @@ import {
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePasswordRecovery } from "@/hooks/auth/usePasswordRecovery";
 
-export function RecoverPasswordForm() {
+export function RecoverPasswordForm({
+  tokenExpired,
+}: {
+  tokenExpired?: boolean;
+}) {
   const { isSubmitted, toggleIsSubmitted, form, onSubmit, isLoading } =
     usePasswordRecovery();
 
   return (
     <>
-      <h2 className="text-2xl font-bold">
-        {isSubmitted ? "Please check your email." : "Recover Password"}
-      </h2>
+      {tokenExpired && (
+        <h2 className="text-2xl font-bold">
+          {isSubmitted ? "Please check your email." : "Your Token has expired"}
+        </h2>
+      )}
+      {!tokenExpired && (
+        <h2 className="text-2xl font-bold">
+          {isSubmitted ? "Please check your email." : "Recover Password"}
+        </h2>
+      )}
 
       {isSubmitted ? (
         <>
@@ -48,11 +60,14 @@ export function RecoverPasswordForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="someone@email.com" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormDescription>
-                    A secure reset password link will be sent to your email.
+                    {tokenExpired
+                      ? "Please enter your email address below and we will send you a new link."
+                      : "A secure reset password link will be sent to your email."}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

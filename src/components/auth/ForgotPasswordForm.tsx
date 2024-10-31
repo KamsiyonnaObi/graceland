@@ -12,23 +12,34 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForgotPasswordForm } from "@/hooks/auth/useForgotPasswordForm";
 import { CircleCheck } from "lucide-react";
+import Link from "next/link";
 
 export function ForgotPasswordForm() {
-  const { isSuccess, form, onSubmit } = useForgotPasswordForm();
+  const { isLoading, isSuccess, form, onSubmit } = useForgotPasswordForm();
 
   return (
     <>
       <h2 className="text-2xl font-bold">Change Password</h2>
 
       {isSuccess ? (
-        <>
-          <CircleCheck />
-
-          <p>Your Password has been successfully reset</p>
-        </>
+        <div>
+          <div className="mb-6 flex items-center">
+            <CircleCheck className="mr-1" />
+            <p>Your password has been successfully reset</p>
+          </div>
+          <Link
+            className="block w-fit rounded-sm bg-secondary-two px-5 py-2 font-bold hover:bg-secondary-one"
+            href={"/login"}
+          >
+            Return to sign in
+          </Link>
+        </div>
       ) : (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-3"
+          >
             <FormField
               control={form.control}
               name="password"
@@ -56,14 +67,15 @@ export function ForgotPasswordForm() {
               )}
             />
             <Button
-              className="w-full font-bold"
+              className="mt-6 w-full font-bold"
               type="submit"
               disabled={
+                isLoading ||
                 !form.watch("password") ||
                 form.watch("confirmPassword") !== form.watch("password")
               }
             >
-              Submit
+              {isLoading ? "Please wait..." : "Submit"}
             </Button>
           </form>
         </Form>

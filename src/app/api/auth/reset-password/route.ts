@@ -1,16 +1,9 @@
 import { updateUserPassword } from "@/utils/actions/user.actions";
-import { emailSchema, ChangePasswordFormSchema } from "@/lib/validations";
+import { ChangePasswordFormSchema } from "@/lib/validations";
+import { isTokenValid } from "@/utils/actions/token.actions";
 export async function POST(request: Request) {
-  const { email, password, confirmPassword } = await request.json();
+  const { token, password, confirmPassword } = await request.json();
 
-  const isValidEmail = emailSchema.safeParse(email);
-
-  if (!isValidEmail.success) {
-    return new Response(
-      JSON.stringify({ message: isValidEmail.error.issues[0].message }),
-      { status: 401 },
-    );
-  }
   const validatedFields = ChangePasswordFormSchema.safeParse({
     password,
     confirmPassword,
@@ -24,8 +17,16 @@ export async function POST(request: Request) {
       },
     );
   }
+
+  const { userId } = await isTokenValid(token);
+
+  if (!userId) {
+    return new Response(null, {
+      status: 401,
+    });
+  }
   try {
-    const success = await updateUserPassword(email, password);
+    const success = await updateUserPassword(userId, password);
     if (!success) {
       return new Response(
         JSON.stringify({ message: "error updating password" }),
