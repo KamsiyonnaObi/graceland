@@ -1,14 +1,19 @@
 "use server";
 import db from "@/db/db";
-import { getCurrentUser } from "./user.actions";
+import { getUserByEmail } from "./user.actions";
 import crypto from "crypto";
 
-export const createToken = async () => {
-  const oneDay = 24 * 60 * 60 * 1000;
-  const expiresAt = new Date(Date.now() + oneDay);
+export const createToken = async ({
+  email,
+  expiryTime = 24 * 60 * 60 * 1000,
+}: {
+  email: string;
+  expiryTime?: number;
+}) => {
+  const expiresAt = new Date(Date.now() + expiryTime);
 
   try {
-    const userId = await getCurrentUser();
+    const userId = await getUserByEmail(email);
     if (!userId?.id) {
       return { success: false, message: "User not found for token generation" };
     }

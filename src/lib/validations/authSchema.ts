@@ -9,7 +9,7 @@ const errorMessages = {
 };
 
 export const emailSchema = z.string().email(errorMessages.email);
-const passwordSchema = z.string().min(8, errorMessages.passwordMin);
+export const passwordSchema = z.string().min(8, errorMessages.passwordMin);
 
 const nameSchema = z
   .string()
@@ -47,3 +47,18 @@ export const authFormSchema = (type: string) =>
         });
       }
     });
+
+export const ChangePasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .superRefine((data, ctx) => {
+    if (data.confirmPassword !== data.password) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords must match.",
+        path: ["confirmPassword"],
+      });
+    }
+  });

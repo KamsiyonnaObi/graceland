@@ -28,7 +28,7 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         onSubmit={form.handleSubmit(
           type === "signup" ? handleSignUp : handleLogIn,
         )}
-        className="auth-containers"
+        className="auth-container"
       >
         {type === "signup" && (
           <>
@@ -54,17 +54,19 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         )}
         <CustomInput
           name="email"
-          placeholder="Email"
+          placeholder="chiamaka@example.com"
           label="Email"
           control={form.control}
         />
         <CustomInput
           name="password"
-          placeholder="Enter your password"
+          placeholder=""
           label="Password"
+          page={type}
           type={"password"}
           control={form.control}
         />
+
         {type === "signup" && (
           <CustomInput
             name="confirmPassword"

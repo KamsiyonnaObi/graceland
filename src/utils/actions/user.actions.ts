@@ -19,16 +19,27 @@ export async function getCurrentUser() {
 
   const { email } = currentUser.user;
 
-  const loggedInUserId = await db.user.findUnique({
-    where: { email: email },
-    select: { id: true },
-  });
-
-  if (!loggedInUserId) {
-    return null;
-  }
+  const loggedInUserId = await getUserByEmail(email);
 
   return loggedInUserId;
+}
+
+export async function getUserByEmail(email: string) {
+  try {
+    const loggedInUserId = await db.user.findUnique({
+      where: { email: email },
+      select: { id: true },
+    });
+
+    if (!loggedInUserId) {
+      return null;
+    }
+
+    return loggedInUserId;
+  } catch (error) {
+    console.error(`error finding user - ${email} -> ${error}`);
+    return null;
+  }
 }
 
 export async function getAllUsers() {
@@ -128,6 +139,19 @@ export async function signUserIn(signInData: LogIn) {
 export async function signUserOut() {
   const oneDay = 24 * 60 * 60 * 1000;
   cookies().set("token", "", { expires: Date.now() - oneDay });
+}
+
+export async function updateUserPassword(userId: string, password: string) {
+  try {
+    const hashedPassword = await hashPassword(password);
+    await db.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function verifyUserEmail(token: string) {

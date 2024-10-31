@@ -78,7 +78,7 @@
   .page-container {
     @apply mx-auto min-h-screen max-w-[1170px] px-4 py-[48px] sm:px-12 md:px-6;
   }
-  .auth-containers {
+  .auth-container {
     @apply flex w-full flex-col gap-4 rounded-md lg:max-w-[392px];
   }
 

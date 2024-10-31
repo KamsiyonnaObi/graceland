@@ -32,7 +32,7 @@ export const useAuthForm = () => {
       });
 
       if (signInResponse?.status === 200) {
-        const emailVerificationToken = await createToken();
+        const emailVerificationToken = await createToken({ email: data.email });
         if (emailVerificationToken.success) {
           await sendEmailVerification({
             email: data.email,
