@@ -13,7 +13,6 @@ import FillIcon from "../icons/FillIcons";
 import { Separator } from "../ui/separator";
 import { useAuthForm } from "@/hooks/auth/useAuthForm";
 import { authFormSchema } from "@/lib/validations/index";
-import Link from "next/link";
 
 const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
   const formSchema = authFormSchema(type);
@@ -55,13 +54,13 @@ const AuthForm = ({ type }: { type: "signup" | "signin" }) => {
         )}
         <CustomInput
           name="email"
-          placeholder="Email"
+          placeholder="chiamaka@example.com"
           label="Email"
           control={form.control}
         />
         <CustomInput
           name="password"
-          placeholder="Enter your password"
+          placeholder=""
           label="Password"
           page={type}
           type={"password"}
