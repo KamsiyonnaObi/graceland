@@ -15,7 +15,8 @@ import { CircleCheck } from "lucide-react";
 import Link from "next/link";
 
 export function ForgotPasswordForm() {
-  const { isLoading, isSuccess, form, onSubmit } = useForgotPasswordForm();
+  const { errorMessage, isLoading, isSuccess, form, onSubmit } =
+    useForgotPasswordForm();
 
   return (
     <>
@@ -66,6 +67,11 @@ export function ForgotPasswordForm() {
                 </FormItem>
               )}
             />
+            {errorMessage && (
+              <p className="text-center text-sm font-medium text-destructive">
+                {errorMessage}
+              </p>
+            )}
             <Button
               className="mt-6 w-full font-bold"
               type="submit"

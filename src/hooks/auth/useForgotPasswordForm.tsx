@@ -9,6 +9,8 @@ import { ChangePasswordFormSchema } from "@/lib/validations";
 export const useForgotPasswordForm = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const searchParams = useSearchParams();
   const form = useForm<z.infer<typeof ChangePasswordFormSchema>>({
     resolver: zodResolver(ChangePasswordFormSchema),
@@ -21,6 +23,8 @@ export const useForgotPasswordForm = () => {
   const onSubmit = async (data: z.infer<typeof ChangePasswordFormSchema>) => {
     const token = searchParams.get("token");
     setIsLoading(true);
+    setErrorMessage("");
+
     try {
       const res = await fetch("/api/auth/reset-password", {
         method: "POST",
@@ -30,8 +34,12 @@ export const useForgotPasswordForm = () => {
           confirmPassword: data.confirmPassword,
         }),
       });
-      console.log(res);
+
       if (!res.ok) {
+        const { message } = await res.json();
+        setErrorMessage(
+          message || "oops, something went wrong. Please try again later",
+        );
         setIsSuccess(false);
         return;
       }
@@ -44,5 +52,5 @@ export const useForgotPasswordForm = () => {
     }
   };
 
-  return { form, isLoading, isSuccess, onSubmit };
+  return { form, isLoading, isSuccess, errorMessage, onSubmit };
 };

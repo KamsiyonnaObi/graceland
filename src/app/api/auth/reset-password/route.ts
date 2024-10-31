@@ -29,15 +29,21 @@ export async function POST(request: Request) {
     const success = await updateUserPassword(userId, password);
     if (!success) {
       return new Response(
-        JSON.stringify({ message: "error updating password" }),
+        JSON.stringify({
+          message: "oops, something went wrong. Please try again later",
+        }),
         { status: 400 },
       );
     }
-    return new Response(null, { status: 204 });
+    return new Response(null, {
+      status: 204,
+    });
   } catch (error) {
     console.error(error);
     return new Response(
-      JSON.stringify({ message: "error updating password" }),
+      JSON.stringify({
+        message: "oops, something went wrong. Please try again later",
+      }),
       {
         status: 400,
       },
