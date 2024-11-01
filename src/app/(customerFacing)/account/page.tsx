@@ -39,7 +39,7 @@ const AccountPage = async ({
             <TableHeader>
               <TableRow>
                 <TableHead>Reference</TableHead>
-                <TableHead>Date</TableHead>
+                <TableHead className="max-sm:hidden">Date</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Price Paid</TableHead>
               </TableRow>
@@ -58,7 +58,7 @@ const AccountPage = async ({
                       </div>
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="max-sm:hidden">
                     {order.updatedAt.toLocaleString("en-US", {
                       dateStyle: "medium",
                     })}

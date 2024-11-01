@@ -26,7 +26,7 @@ const Hero = () => {
         <p className="font-montserrat text-xl font-bold text-secondary-dark">
           Welcome to Graceland
         </p>
-        <h1 className="mt-10 font-palanquin text-6xl font-bold max-sm:text-[72px] max-sm:leading-[82px]">
+        <h1 className="mt-10 font-palanquin text-6xl font-bold max-sm:text-5xl max-sm:leading-[60px]">
           <span className="relative z-10 pr-10 xl:whitespace-nowrap xl:bg-white">
             All Round
           </span>

@@ -7,7 +7,7 @@ const ProfileWelcomeSection = async () => {
   return (
     <section className="mx-auto space-y-8">
       <div>
-        <h1 className="mb-0 py-3 font-montserrat text-4xl font-bold">
+        <h1 className="mb-0 py-3 font-montserrat text-4xl font-bold max-sm:text-2xl">
           Hi {userOrders?.firstName}!
         </h1>
         <p className="text-xl">Manage your order and account details.</p>
