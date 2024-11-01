@@ -14,7 +14,7 @@ const CustomerSurvey = () => {
         <PopoverTrigger>
           <Info className="h-8 w-8" />
         </PopoverTrigger>
-        <PopoverContent className="mb-2 mr-6 min-w-[425px]">
+        <PopoverContent className="mb-2 mr-6">
           <a
             className="flex justify-between"
             href="https://forms.office.com/r/HXZJy4Uu2k"

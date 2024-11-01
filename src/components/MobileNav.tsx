@@ -18,7 +18,7 @@ const MobileNav = () => {
       <SheetTrigger>
         <Menu />
       </SheetTrigger>
-      <SheetContent side="left" className="w-[400px] sm:w-[540px]">
+      <SheetContent side="left" className="w-4/5 sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>
             <h1 className="text-2xl font-bold">Graceland</h1>
