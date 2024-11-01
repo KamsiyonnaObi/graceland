@@ -3,7 +3,7 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
+  SheetClose,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -28,7 +28,7 @@ const MobileNav = () => {
           {navLinks.map((nav) => {
             return (
               <NavLink key={nav.label} href={nav.href}>
-                {nav.label}
+                <SheetClose>{nav.label}</SheetClose>
               </NavLink>
             );
           })}
