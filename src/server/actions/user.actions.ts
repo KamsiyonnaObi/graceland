@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { hashPassword, isValidPassword } from "@/lib/isValidPassword";
 
 import { SignUp } from "@/app/(auth)/signup/page";
@@ -27,7 +27,7 @@ export async function getCurrentUser() {
 export async function getUserByEmail(email: string) {
   try {
     const loggedInUserId = await db.user.findUnique({
-      where: { email: email },
+      where: { email },
       select: { id: true },
     });
 
@@ -38,6 +38,35 @@ export async function getUserByEmail(email: string) {
     return loggedInUserId;
   } catch (error) {
     console.error(`error finding user - ${email} -> ${error}`);
+    return null;
+  }
+}
+export async function getCurrentUserPersonalDetails() {
+  try {
+    const currentUser: any = await getServerSession();
+    if (!currentUser) {
+      return null;
+    }
+
+    const { email } = currentUser.user;
+
+    const loggedInUserId = await db.user.findUnique({
+      where: { email },
+      select: {
+        firstName: true,
+        lastName: true,
+        email: true,
+        phoneNumber: true,
+      },
+    });
+
+    if (!loggedInUserId) {
+      return null;
+    }
+
+    return loggedInUserId;
+  } catch (error) {
+    console.error(`error finding user -> ${error}`);
     return null;
   }
 }

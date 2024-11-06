@@ -15,6 +15,10 @@ const sidebarNavItems = [
     title: "Order History",
     href: "/account/order-history",
   },
+  {
+    title: "Personal Details",
+    href: "/account/personal-details",
+  },
 ];
 
 export default function ProfileLayout({ children }: ProfileLayoutProps) {

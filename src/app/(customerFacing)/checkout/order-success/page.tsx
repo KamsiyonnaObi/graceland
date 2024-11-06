@@ -4,7 +4,7 @@ import { CircleCheck } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 
-import { getOrderByTrxref } from "@/utils/actions/order.actions";
+import { getOrderByTrxref } from "@/server/actions/order.actions";
 
 import OrderStatus from "@/components/checkout/order-success/OrderStatus";
 import PurchasedProductsCard from "@/components/checkout/order-success/PurchasedProductsCard";

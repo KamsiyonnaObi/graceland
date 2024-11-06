@@ -1,6 +1,6 @@
-import { updateUserPassword } from "@/utils/actions/user.actions";
+import { updateUserPassword } from "@/server/actions/user.actions";
 import { ChangePasswordFormSchema } from "@/lib/validations";
-import { isTokenValid } from "@/utils/actions/token.actions";
+import { isTokenValid } from "@/server/actions/token.actions";
 export async function POST(request: Request) {
   const { token, password, confirmPassword } = await request.json();
 

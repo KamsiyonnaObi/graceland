@@ -12,7 +12,7 @@ import AccessDenied from "@/components/shared/AccessDenied";
 import NoOrdersFoundCard from "@/components/account/NoOrdersFoundCard";
 import RecentOrderTableRow from "@/components/account/RecentOrderTableRow";
 
-import { getUserOrders } from "@/utils/actions/order.actions";
+import { getUserOrders } from "@/server/actions/order.actions";
 
 const AccountPage = async ({
   searchParams,
