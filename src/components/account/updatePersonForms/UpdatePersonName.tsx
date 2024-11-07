@@ -1,13 +1,14 @@
 "use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-type UpdatePersonFormProps = {
+type UpdatePersonNameProps = {
   firstName?: string;
   lastName: string | null;
 };
 
-const UpdatePersonForm = ({ firstName, lastName }: UpdatePersonFormProps) => {
+const UpdatePersonName = ({ firstName, lastName }: UpdatePersonNameProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -18,13 +19,23 @@ const UpdatePersonForm = ({ firstName, lastName }: UpdatePersonFormProps) => {
             <p>Name</p>
             <p>Lhien Rheddit</p>
           </div>
-          <Button
-            className="font-medium"
-            variant="link"
-            onClick={() => setIsEditing(false)}
-          >
-            Edit
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              className="rounded-none"
+              size="sm"
+              variant="outline"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              className="rounded-none px-4 font-bold"
+              onClick={() => setIsEditing(false)}
+            >
+              Save
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="flex justify-between lg:w-3/5">
@@ -47,4 +58,4 @@ const UpdatePersonForm = ({ firstName, lastName }: UpdatePersonFormProps) => {
   );
 };
 
-export default UpdatePersonForm;
+export default UpdatePersonName;
