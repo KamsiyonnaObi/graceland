@@ -18,14 +18,14 @@ export async function POST(request: Request) {
     );
   }
 
-  const { userId } = await isTokenValid(token);
-
-  if (!userId) {
-    return new Response(null, {
-      status: 401,
-    });
-  }
   try {
+    const { userId } = await isTokenValid(token);
+
+    if (!userId) {
+      return new Response(null, {
+        status: 401,
+      });
+    }
     const success = await updateUserPassword(userId, password);
     if (!success) {
       return new Response(
