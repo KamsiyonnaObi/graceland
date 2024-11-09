@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         status: 401,
       });
     }
-    const success = await updateUserPassword(userId, password);
+    const { success } = await updateUserPassword(userId, password);
     if (!success) {
       return new Response(
         JSON.stringify({

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { updateUserPersonalDetails } from "@/server/actions/user.actions";
 
 type UpdatePersonNameProps = {
   firstName?: string;
@@ -10,7 +11,10 @@ type UpdatePersonNameProps = {
 
 const UpdatePersonName = ({ firstName, lastName }: UpdatePersonNameProps) => {
   const [isEditing, setIsEditing] = useState(false);
-
+  const onSubmit = async () => {
+    console.log("submitted");
+    setIsEditing(false);
+  };
   return (
     <>
       {isEditing ? (
@@ -31,7 +35,7 @@ const UpdatePersonName = ({ firstName, lastName }: UpdatePersonNameProps) => {
             <Button
               size="sm"
               className="rounded-none px-4 font-bold"
-              onClick={() => setIsEditing(false)}
+              onClick={onSubmit}
             >
               Save
             </Button>

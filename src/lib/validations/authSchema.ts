@@ -9,23 +9,20 @@ const errorMessages = {
 };
 
 export const emailSchema = z.string().email(errorMessages.email);
-export const passwordSchema = z.string().min(8, errorMessages.passwordMin);
+const passwordSchema = z.string().min(8, errorMessages.passwordMin);
 
-const nameSchema = z
+export const nameSchema = z
   .string()
   .min(2, errorMessages.nameMin)
   .max(25, errorMessages.nameMax);
 
-export const signUpFormSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
+export const editNameSchema = z.object({
   firstName: nameSchema,
   lastName: nameSchema,
 });
 
-export const logInFormSchema = z.object({
+export const editEmailSchema = z.object({
   email: emailSchema,
-  password: passwordSchema,
 });
 
 export const authFormSchema = (type: string) =>
@@ -50,14 +47,14 @@ export const authFormSchema = (type: string) =>
 
 export const ChangePasswordFormSchema = z
   .object({
-    password: passwordSchema,
-    confirmPassword: passwordSchema,
+    newPassword: passwordSchema,
+    confirmNewPassword: passwordSchema,
   })
   .superRefine((data, ctx) => {
-    if (data.confirmPassword !== data.password) {
+    if (data.confirmNewPassword !== data.newPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Passwords must match.",
+        message: errorMessages.passwordMismatch,
         path: ["confirmPassword"],
       });
     }

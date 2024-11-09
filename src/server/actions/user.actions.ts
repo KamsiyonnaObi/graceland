@@ -1,4 +1,5 @@
 "use server";
+import { z } from "zod";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
@@ -8,8 +9,14 @@ import db from "@/server/db/db";
 import { hashPassword, isValidPassword } from "@/lib/isValidPassword";
 
 import { SignUp } from "@/app/(auth)/signup/page";
-import { LogIn } from "@/app/(auth)/login/page";
 import { isTokenValid } from "./token.actions";
+import { UserParams } from "@/types";
+import {
+  ChangePasswordFormSchema,
+  editEmailSchema,
+  editNameSchema,
+  editPhoneSchema,
+} from "@/lib/validations";
 
 export async function getCurrentUser() {
   const currentUser: any = await getServerSession();
@@ -28,7 +35,7 @@ export async function getUserByEmail(email: string) {
   try {
     const loggedInUserId = await db.user.findUnique({
       where: { email },
-      select: { id: true },
+      select: { id: true, email: true },
     });
 
     if (!loggedInUserId) {
@@ -41,6 +48,7 @@ export async function getUserByEmail(email: string) {
     return null;
   }
 }
+
 export async function getCurrentUserPersonalDetails() {
   try {
     const currentUser: any = await getServerSession();
@@ -129,45 +137,22 @@ export async function newUser(signUpInfo: SignUp) {
   }
 }
 
-export async function signUserIn(signInData: LogIn) {
-  // check if user exists
-  const existingUser: any = await db.user.findUnique({
-    where: { email: signInData.email },
-  });
-
-  // compare passwords
-  const validPassword = await isValidPassword(
-    signInData.password,
-    existingUser.password,
-  );
-
-  if (!validPassword || !existingUser) {
-    return { status: 500, message: "unable to log in" };
-  }
-
-  // sign user id with jwt
-  jwt.sign(
-    { userId: existingUser.id },
-    process.env.JWT_SECRET || "",
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN || "1d",
-    },
-    (err, token) => {
-      if (err) {
-        return { status: 500, message: "unable to log in" };
-      }
-      if (token) {
-        // store token in cookies
-        cookies().set("token", token);
-      }
-    },
-  );
-  return { status: 200 };
-}
-
 export async function signUserOut() {
   const oneDay = 24 * 60 * 60 * 1000;
   cookies().set("token", "", { expires: Date.now() - oneDay });
+}
+
+export async function updateUser(userId: string, params: Partial<UserParams>) {
+  try {
+    await db.user.update({
+      where: { id: userId },
+      data: params,
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("User update failed:", error);
+    return { success: false, error: "Update failed" };
+  }
 }
 
 export async function updateUserPassword(userId: string, password: string) {
@@ -177,9 +162,43 @@ export async function updateUserPassword(userId: string, password: string) {
       where: { id: userId },
       data: { password: hashedPassword },
     });
-    return true;
+    return { success: true };
   } catch (error) {
-    return false;
+    console.error("Password update failed:", error);
+    return { success: false, error: "Password update failed" };
+  }
+}
+
+export async function updateUserPersonalDetails(
+  params: Partial<UserParams>,
+  type: string,
+) {
+  try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return { success: false, error: "User not found" };
+    }
+
+    const { id, email } = currentUser;
+    switch (type) {
+      case "editName":
+        return await validateAndUpdateUser(id, params, editNameSchema);
+
+      case "editPhone":
+        return await validateAndUpdateUser(id, params, editPhoneSchema);
+
+      case "editEmail":
+        return await handleEditEmail(id, email, params);
+
+      case "editPassword":
+        return await handleEditPassword(id, email, params);
+
+      default:
+        return { success: false, error: "Invalid form type" };
+    }
+  } catch (error) {
+    console.error("Error updating user details:", error);
+    return { success: false, error: "An error occurred during update" };
   }
 }
 
@@ -202,6 +221,35 @@ export async function verifyUserEmail(token: string) {
     return {
       success: false,
       message: "something went wrong, please try again later",
+    };
+  }
+}
+
+export async function compareUserPassword(email: string, password: string) {
+  try {
+    const user = await db.user.findUnique({
+      where: { email },
+      select: { password: true },
+    });
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+    const validPassword = await isValidPassword(password, user.password || "");
+    if (!validPassword) {
+      return {
+        success: false,
+        status: 401,
+        error:
+          "This password doesn't match your account password. Please try again.",
+      };
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error comparing user password", error);
+    return {
+      success: false,
+      status: 500,
+      error: "error comparing user password",
     };
   }
 }
@@ -245,4 +293,41 @@ export async function deleteUser(id: string) {
   if (user == null) return notFound();
 
   return user;
+}
+
+// helper functions
+async function validateAndUpdateUser(
+  userId: string,
+  params: Partial<UserParams>,
+  schema: z.AnyZodObject,
+) {
+  const isValid = schema.safeParse(params);
+  if (!isValid.success) return { success: false, error: "Validation failed" };
+
+  return await updateUser(userId, params);
+}
+
+async function handleEditPassword(
+  userId: string,
+  email: string,
+  params: Partial<UserParams>,
+) {
+  const isPasswordValid = await compareUserPassword(email, params.password!);
+  if (!isPasswordValid.success) return isPasswordValid;
+
+  const passwordValidation = ChangePasswordFormSchema.safeParse(params);
+  if (!passwordValidation.success)
+    return { success: false, error: "Password validation failed" };
+
+  return await updateUserPassword(userId, params.newPassword!);
+}
+
+async function handleEditEmail(
+  userId: string,
+  email: string,
+  params: Partial<UserParams>,
+) {
+  const isPasswordValid = await compareUserPassword(email, params.password!);
+  if (!isPasswordValid.success) return isPasswordValid;
+  return await validateAndUpdateUser(userId, params, editEmailSchema);
 }
