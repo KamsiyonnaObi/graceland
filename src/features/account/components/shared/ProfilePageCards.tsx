@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../../../components/ui/button";
 
 type ProfilePageCardProps = {
   title: string;

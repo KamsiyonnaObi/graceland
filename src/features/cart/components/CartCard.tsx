@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 
 import { formatCurrency } from "@/lib/formatters";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
 
 const CartCard = ({

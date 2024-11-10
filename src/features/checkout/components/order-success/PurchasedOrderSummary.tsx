@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 
 import { Separator } from "@/components/ui/separator";
-import { CartSummaryItem } from "@/components/cart/CartDetails";
+import { CartSummaryItem } from "@/features/cart/components/CartDetails";
 
 import { formatCurrency } from "@/lib/formatters";
 

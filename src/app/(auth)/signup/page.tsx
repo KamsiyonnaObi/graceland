@@ -1,5 +1,5 @@
-import AuthForm from "@/components/auth/AuthForm";
-import AuthPageInfoSection from "@/components/auth/AuthPageInfoSection";
+import AuthForm from "@/features/auth/containers/AuthForm";
+import AuthPageInfoSection from "@/features/auth/components/AuthPageInfoSection";
 import { Separator } from "@/components/ui/separator";
 
 import Link from "next/link";

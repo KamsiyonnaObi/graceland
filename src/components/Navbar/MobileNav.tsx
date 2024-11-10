@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { navLinks } from "@/constants";
 import { Menu } from "lucide-react";
-import { NavLink } from "./Nav";
+import { NavLink } from "./navbar/Nav";
 
 const MobileNav = () => {
   return (

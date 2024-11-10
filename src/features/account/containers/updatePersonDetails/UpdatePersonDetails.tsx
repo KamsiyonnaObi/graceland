@@ -1,9 +1,9 @@
 import AccessDenied from "@/components/shared/AccessDenied";
 
-import UpdatePersonName from "../updatePersonForms/UpdatePersonName";
-import UpdatePersonEmail from "../updatePersonForms/UpdatePersonEmail";
-import UpdatePersonPhoneNumber from "../updatePersonForms/UpdatePersonPhoneNumber";
-import UpdateAccountPassword from "../updatePersonForms/UpdateAccountPassword";
+import UpdatePersonName from "../../components/updatePersonForms/UpdatePersonName";
+import UpdatePersonEmail from "../../components/updatePersonForms/UpdatePersonEmail";
+import UpdatePersonPhoneNumber from "../../components/updatePersonForms/UpdatePersonPhoneNumber";
+import UpdateAccountPassword from "../../components/updatePersonForms/UpdateAccountPassword";
 import { getCurrentUserPersonalDetails } from "@/server/actions/user.actions";
 
 const UpdatePersonDetails = async () => {
