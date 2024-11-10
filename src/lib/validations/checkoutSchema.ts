@@ -20,7 +20,7 @@ export const phoneSchema = z
   .max(10, errorMessages.phone);
 
 export const editPhoneSchema = z.object({
-  phone: phoneSchema,
+  phoneNumber: phoneSchema,
 });
 
 export const checkoutDetailsSchema = z
