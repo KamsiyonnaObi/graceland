@@ -37,7 +37,7 @@ const UserNavbar = () => {
           {session?.user ? (
             <>
               <DropdownMenuItem asChild>
-                <Link href="/account">Dashboard</Link>
+                <Link href="/account">Account</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/account/order-history">Orders</Link>
