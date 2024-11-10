@@ -30,8 +30,8 @@ export const useForgotPasswordForm = () => {
         method: "POST",
         body: JSON.stringify({
           token,
-          password: data.newPassword,
-          confirmPassword: data.confirmNewPassword,
+          newPassword: data.newPassword,
+          confirmNewPassword: data.confirmNewPassword,
         }),
       });
 
