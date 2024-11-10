@@ -2,11 +2,11 @@ import { updateUserPassword } from "@/server/actions/user.actions";
 import { ChangePasswordFormSchema } from "@/lib/validations";
 import { isTokenValid } from "@/server/actions/token.actions";
 export async function POST(request: Request) {
-  const { token, password, confirmPassword } = await request.json();
+  const { token, newPassword, confirmNewPassword } = await request.json();
 
   const validatedFields = ChangePasswordFormSchema.safeParse({
-    password,
-    confirmPassword,
+    newPassword,
+    confirmNewPassword,
   });
 
   if (!validatedFields.success) {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         status: 401,
       });
     }
-    const { success } = await updateUserPassword(userId, password);
+    const { success } = await updateUserPassword(userId, newPassword);
     if (!success) {
       return new Response(
         JSON.stringify({
