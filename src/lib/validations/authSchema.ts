@@ -50,9 +50,9 @@ export const authFormSchema = (type: string) =>
         });
       }
     });
-
 export const ChangePasswordFormSchema = z
   .object({
+    password: passwordSchema.optional(),
     newPassword: passwordSchema,
     confirmNewPassword: passwordSchema,
   })
