@@ -59,7 +59,7 @@ const UpdatePersonName = ({ firstName, lastName }: UpdatePersonNameProps) => {
                 )}
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex justify-end gap-2">
               <Button
                 className="rounded-none"
                 type="button"

@@ -8,16 +8,12 @@ interface ProfileLayoutProps {
 }
 const sidebarNavItems = [
   {
-    title: "Dashboard",
-    href: "/account",
+    title: "Personal Details",
+    href: "/account/personal-details",
   },
   {
     title: "Order History",
     href: "/account/order-history",
-  },
-  {
-    title: "Personal Details",
-    href: "/account/personal-details",
   },
 ];
 

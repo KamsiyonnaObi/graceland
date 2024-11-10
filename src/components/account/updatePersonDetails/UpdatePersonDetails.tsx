@@ -8,6 +8,7 @@ import { getCurrentUserPersonalDetails } from "@/server/actions/user.actions";
 
 const UpdatePersonDetails = async () => {
   const userProfile = await getCurrentUserPersonalDetails();
+
   if (!userProfile) return <AccessDenied />;
   return (
     <section className="flex flex-col gap-8">

@@ -2,12 +2,7 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import UpdatePersonDetails from "@/components/account/updatePersonDetails/UpdatePersonDetails";
 
-const PersonalDetailsPage = async ({
-  searchParams,
-}: {
-  searchParams: { type: string };
-}) => {
-  console.log(searchParams.type);
+const PersonalDetailsPage = async () => {
   return (
     <section className="flex flex-col gap-4">
       <div className="header">

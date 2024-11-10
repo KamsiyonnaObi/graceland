@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const errorMessages = {
   email: "Invalid email address.",
+  emailMismatch: "emails must match",
   nameMin: "Name must be at least 2 characters.",
   nameMax: "Name must be at most 25 characters.",
   passwordMin: "Password must be at least 8 characters.",
@@ -22,6 +23,11 @@ export const editNameSchema = z.object({
 });
 
 export const editEmailSchema = z.object({
+  email: emailSchema,
+  confirmEmail: emailSchema,
+  password: passwordSchema,
+});
+export const updateEmailSchema = z.object({
   email: emailSchema,
 });
 

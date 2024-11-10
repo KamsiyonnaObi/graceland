@@ -13,9 +13,9 @@ import { isTokenValid } from "./token.actions";
 import { UserParams } from "@/types";
 import {
   ChangePasswordFormSchema,
-  editEmailSchema,
   editNameSchema,
   editPhoneSchema,
+  updateEmailSchema,
 } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 
@@ -149,11 +149,11 @@ export async function updateUser(userId: string, params: Partial<UserParams>) {
       where: { id: userId },
       data: params,
     });
-    revalidatePath("/account/personal-details");
+    revalidatePath("/account");
     return { success: true };
   } catch (error) {
     console.error("User update failed:", error);
-    return { success: false, error: "Update failed" };
+    return { success: false, error: "oops, Something went wrong" };
   }
 }
 
@@ -174,7 +174,7 @@ export async function updateUserPassword(userId: string, password: string) {
 export async function updateUserPersonalDetails(
   params: Partial<UserParams>,
   type: string,
-) {
+): Promise<{ success: boolean; error?: string; status?: number }> {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -301,10 +301,11 @@ export async function deleteUser(id: string) {
 async function validateAndUpdateUser(
   userId: string,
   params: Partial<UserParams>,
-  schema: z.AnyZodObject,
+  schema: z.AnyZodObject | z.ZodSchema,
 ) {
   const isValid = schema.safeParse(params);
-  if (!isValid.success) return { success: false, error: "Validation failed" };
+  if (!isValid.success)
+    return { success: false, error: isValid.error.issues[0].message };
 
   return await updateUser(userId, params);
 }
@@ -330,6 +331,11 @@ async function handleEditEmail(
   params: Partial<UserParams>,
 ) {
   const isPasswordValid = await compareUserPassword(email, params.password!);
+
   if (!isPasswordValid.success) return isPasswordValid;
-  return await validateAndUpdateUser(userId, params, editEmailSchema);
+  return await validateAndUpdateUser(
+    userId,
+    { email: params.email },
+    updateEmailSchema,
+  );
 }

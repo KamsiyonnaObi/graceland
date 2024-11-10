@@ -36,6 +36,7 @@ export interface Address {
 
 export interface UserParams {
   email: string;
+  confirmEmail: string;
   firstName: string;
   lastName: string;
   password: string;
