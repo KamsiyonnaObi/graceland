@@ -17,6 +17,7 @@ import {
   editNameSchema,
   editPhoneSchema,
 } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
 
 export async function getCurrentUser() {
   const currentUser: any = await getServerSession();
@@ -148,6 +149,7 @@ export async function updateUser(userId: string, params: Partial<UserParams>) {
       where: { id: userId },
       data: params,
     });
+    revalidatePath("/account/personal-details");
     return { success: true };
   } catch (error) {
     console.error("User update failed:", error);
