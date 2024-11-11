@@ -1,16 +1,13 @@
 import { Suspense } from "react";
 
-import Filter from "@/features/products/components/Filter";
+import Filter from "@/components/productsPage/Filter";
 import { getAllProducts } from "@/server/actions/products";
-import {
-  ProductCard,
-  ProductCardSkeleton,
-} from "@/features/products/components/ProductCard";
+import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
 
 import { getSortOptions } from "@/utils/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";
-import { SortByFilters } from "@/features/products/components/FilterItems/SortByFilters";
-import MobileFilters from "@/features/products/components/MobileFilters";
+import { SortByFilters } from "@/components/productsPage/components/FilterItems/SortByFilters";
+import MobileFilters from "@/components/productsPage/MobileFilters";
 
 export default async function ProductsPage({
   searchParams,

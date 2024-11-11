@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { heroProduct } from "../../../types";
+import { heroProduct } from "../types";
 
 interface HeroProductCardProps {
   imgURL: heroProduct;

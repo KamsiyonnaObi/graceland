@@ -9,8 +9,8 @@ import {
 import { PaginationComponent } from "@/components/shared/Pagination";
 
 import AccessDenied from "@/components/shared/AccessDenied";
-import NoOrdersFoundCard from "@/features/account/components/shared/NoOrdersFoundCard";
-import RecentOrderTableRow from "@/features/account/components/shared/RecentOrderTableRow";
+import NoOrdersFoundCard from "@/components/account/NoOrdersFoundCard";
+import RecentOrderTableRow from "@/components/account/RecentOrderTableRow";
 
 import { getUserOrders } from "@/server/actions/order.actions";
 

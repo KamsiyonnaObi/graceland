@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
-import { ProfileSidebarNav } from "@/features/account/components/shared/ProfileSidebarNav";
+import { ProfileSidebarNav } from "@/components/account/ProfileSidebarNav";
 
-import ProfileWelcomeSection from "@/features/account/components/shared/ProfileWelcomeSection";
+import ProfileWelcomeSection from "@/components/account/ProfileWelcomeSection";
 
 interface ProfileLayoutProps {
   children: React.ReactNode;

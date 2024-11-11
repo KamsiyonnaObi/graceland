@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
-import { Nav, NavLink } from "@/components/navbar/Nav";
+import { Nav, NavLink } from "@/components/Nav";
 import UserNavbar from "@/components/navbar/UserNavbar";
 import { Footer } from "@/components/sections";
 

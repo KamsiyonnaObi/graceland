@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import UpdatePersonDetails from "@/features/account/containers/updatePersonDetails/UpdatePersonDetails";
+import UpdatePersonDetails from "@/components/account/updatePersonDetails/UpdatePersonDetails";
 
 const PersonalDetailsPage = async () => {
   return (

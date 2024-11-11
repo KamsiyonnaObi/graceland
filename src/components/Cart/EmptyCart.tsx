@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useSession } from "next-auth/react";
-import { cart } from "../../../../public/assets/icons";
+import { cart } from "../../../public/assets/icons";
 
 const EmptyCart = () => {
   const { data: session, status } = useSession();
