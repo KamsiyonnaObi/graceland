@@ -32,6 +32,7 @@ model User {
   firstName     String    @default("")
   lastName      String?
   password      String?
+  phoneNumber   String?
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime  @default(now())

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ForgotPasswordForm } from "@/components/auth/ForgotPasswordForm";
-import { isTokenValid } from "@/utils/actions/token.actions";
+import { isTokenValid } from "@/server/actions/token.actions";
 import { RecoverPasswordForm } from "@/components/auth/RecoverPassowordForm";
 
 const ForgotPasswordPage = async ({

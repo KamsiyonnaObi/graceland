@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { formatCurrency } from "@/lib/formatters";
 
 import BackButton from "@/components/BackButton";

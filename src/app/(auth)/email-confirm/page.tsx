@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import { verifyUserEmail } from "@/utils/actions/user.actions";
+import { verifyUserEmail } from "@/server/actions/user.actions";
 
 const VerifyEmailPage = async ({
   searchParams,

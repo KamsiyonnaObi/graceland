@@ -1,6 +1,6 @@
-import { sendEmailToUser } from "@/utils/actions/notifications.actions";
+import { sendEmailToUser } from "@/server/actions/notifications.actions";
 import { RecoverPassword } from "@/components/emails/auth/recover-password";
-import { createToken } from "@/utils/actions/token.actions";
+import { createToken } from "@/server/actions/token.actions";
 import { emailSchema } from "@/lib/validations";
 
 const ONE_HOUR_IN_MS = 60 * 60 * 1000;

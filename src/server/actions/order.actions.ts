@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 

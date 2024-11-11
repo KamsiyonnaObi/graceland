@@ -1,5 +1,5 @@
 "use server";
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { validateSortParams } from "@/utils/productFilterHelpers";
 
 interface GetAllProductsParams {

@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { isValidPassword } from "@/lib/isValidPassword";
 
 interface User {
