@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
@@ -16,7 +15,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <>
       <Nav>
@@ -33,9 +31,7 @@ export default function Layout({
           <div className="flex items-center">
             <UserNavbar />
             <NavLink href="/cart">
-              
-          <CartIcon />
-           
+              <CartIcon />
             </NavLink>
             <div className="flex h-10 w-10 items-center justify-center lg:hidden">
               <MobileNav />
