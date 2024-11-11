@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import db from "@/server/db/db";
 import { formatCurrency } from "@/lib/formatters";
 
-import BackButton from "@/components/BackButton";
+import BackButton from "@/components/shared/BackButton";
 import AddToCart from "@/features/products/components/AddToCartButton";
 
 const ProductDetailPage = async ({

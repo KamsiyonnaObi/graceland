@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import { Nav, NavLink } from "@/components/Nav";
 import UserNavbar from "@/components/navbar/UserNavbar";
-import { Footer } from "@/components/sections";
-
-import { ShoppingCart } from "lucide-react";
-import { companyLogo } from "../../../public/assets/images";
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
+import { Footer } from "@/features/marketing/containers/sections";
+
+import { companyLogo } from "public/assets/images";
+
 export const dynamic = "force-dynamic";
 
 export default function Layout({

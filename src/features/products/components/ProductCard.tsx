@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import { formatCurrency } from "@/lib/formatters";
 import {
   Card,
@@ -6,10 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import Image from "next/image";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type ProductCardProps = {
   id: string;

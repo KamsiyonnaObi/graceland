@@ -1,5 +1,5 @@
-import { popularProducts } from "../../constants";
-import PopularProductCard from "../PopularProductCard";
+import { popularProducts } from "@/constants";
+import PopularProductCard from "../../components/popular-products/PopularProductCard";
 
 const PopularProducts = () => {
   return (

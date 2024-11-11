@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 interface ButtonProps {
   label: string;

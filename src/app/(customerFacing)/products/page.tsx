@@ -2,7 +2,10 @@ import { Suspense } from "react";
 
 import Filter from "@/features/products/components/Filter";
 import { getAllProducts } from "@/server/actions/products";
-import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
+import {
+  ProductCard,
+  ProductCardSkeleton,
+} from "@/features/products/components/ProductCard";
 
 import { getSortOptions } from "@/utils/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";

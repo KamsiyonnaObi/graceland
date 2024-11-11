@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, socialMedia } from "@/constants";
-import { footerLogo } from "../../../public/assets/images";
-import { copyrightSign } from "../../../public/assets/icons";
+import { footerLogo } from "public/assets/images";
+import { copyrightSign } from "public/assets/icons";
 
 const Footer = () => {
   return (

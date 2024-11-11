@@ -1,8 +1,9 @@
 import Image from "next/image";
-
-import MainButton from "../Button";
-import { family1 } from "../../../public/assets/images";
 import Link from "next/link";
+
+import MainButton from "../../components/MainButton";
+
+import { family1 } from "public/assets/images";
 
 const SuperQuality = () => {
   return (

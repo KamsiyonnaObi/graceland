@@ -1,15 +1,17 @@
 "use client";
-
 import { useState } from "react";
+
 import Image from "next/image";
-
-import { arrowRight } from "../../../public/assets/icons";
-import { bigStroller1 } from "../../../public/assets/images";
-import MainButton from "../Button";
-import HeroProductCard from "../HeroProductCard";
-
-import { statistics, strollers } from "../../constants";
 import Link from "next/link";
+
+import { arrowRight } from "public/assets/icons";
+import { bigStroller1 } from "public/assets/images";
+
+import HeroProductCard from "../../components/hero/HeroProductCard";
+import MainButton from "../../components/MainButton";
+
+import { statistics, strollers } from "@/constants";
+
 const Hero = () => {
   const [bigShoeImage, setBigShoeImage] = useState<string | StaticImageData>(
     bigStroller1,
