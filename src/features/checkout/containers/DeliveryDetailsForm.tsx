@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 import { DeliveryRadioGroup } from "./DeliveryRadioGroup";
 import { useCheckoutForm } from "@/hooks/checkout/useCheckoutForm";
-import SelectInputField from "./form-fields/SelectInputField";
-import { RadioInputField } from "./form-fields/RadioInputField";
-import { TextInputField } from "./form-fields/TextInputField";
+import SelectInputField from "../components/form-fields/SelectInputField";
+import { RadioInputField } from "../components/form-fields/RadioInputField";
+import { TextInputField } from "../components/form-fields/TextInputField";
 
 const DeliveryDetailsForm = () => {
   const { form, loading, onSubmit } = useCheckoutForm();

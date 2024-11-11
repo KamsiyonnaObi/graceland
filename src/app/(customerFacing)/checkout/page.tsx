@@ -1,5 +1,5 @@
 import OrderSummary from "@/features/cart/components/OrderSummary";
-import DeliveryDetailsForm from "@/components/checkout/DeliveryDetailsForm";
+import DeliveryDetailsForm from "@/features/checkout/containers/DeliveryDetailsForm";
 const CheckoutPage = () => {
   return (
     <div className="page-container">

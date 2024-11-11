@@ -17,7 +17,6 @@ const BillingInfo = ({
 }: BillingInfoProps) => {
   return (
     <>
-      {" "}
       {shippingAddressId && (
         <div className="grid gap-3">
           <div className="font-semibold">Shipping Information</div>

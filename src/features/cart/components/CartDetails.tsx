@@ -98,20 +98,3 @@ export const CustomerInfo = ({
     <dd>{value}</dd>
   </div>
 );
-
-// Payment Information Component
-export const PaymentInfo = ({
-  type,
-  details,
-}: {
-  type: string;
-  details: string;
-}) => (
-  <div className="flex items-center justify-between">
-    <dt className="flex items-center gap-1 text-muted-foreground">
-      <CreditCard className="h-4 w-4" />
-      {type}
-    </dt>
-    <dd>{details}</dd>
-  </div>
-);
