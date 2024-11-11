@@ -3,8 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CheckboxFilters } from "./components/FilterItems/CheckboxFilters";
-import PriceFilters from "./components/FilterItems/PriceFilters";
+
+import { CheckboxFilters } from "./filters/checkbox/CheckboxFilters";
+import PriceFilters from "./filters/price/PriceFilters";
 
 const Filter = () => {
   const pathname = usePathname();

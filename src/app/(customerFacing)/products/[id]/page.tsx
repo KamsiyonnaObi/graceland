@@ -5,7 +5,7 @@ import db from "@/server/db/db";
 import { formatCurrency } from "@/lib/formatters";
 
 import BackButton from "@/components/BackButton";
-import AddToCart from "@/components/productsPage/components/AddToCartButton";
+import AddToCart from "@/features/products/components/AddToCartButton";
 
 const ProductDetailPage = async ({
   params: { id },

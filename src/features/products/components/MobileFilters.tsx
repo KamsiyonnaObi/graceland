@@ -6,10 +6,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SlidersHorizontal } from "lucide-react";
-import { Button } from "../ui/button";
-import { SortByFilters } from "./components/FilterItems/SortByFilters";
-import { CheckboxFilters } from "./components/FilterItems/CheckboxFilters";
-import PriceFilters from "./components/FilterItems/PriceFilters";
+
+import { SortByFilters } from "./filters/sort/SortByFilters";
+import { CheckboxFilters } from "./filters/checkbox/CheckboxFilters";
+import PriceFilters from "./filters/price/PriceFilters";
 
 const MobileFilters = () => {
   return (
