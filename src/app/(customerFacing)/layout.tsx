@@ -1,5 +1,3 @@
-"use client";
-
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +6,9 @@ import { Nav, NavLink } from "@/components/Nav";
 import UserNavbar from "@/components/Navbar/UserNavbar";
 import { Footer } from "@/components/sections";
 
-import { ShoppingCart } from "lucide-react";
 import { companyLogo } from "../../../public/assets/images";
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
-import { useCartStore } from "@/store/useCartStore";
+import CartIcon from "@/components/Cart/CartIcon";
 export const dynamic = "force-dynamic";
 
 export default function Layout({
@@ -19,7 +16,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {cartItems}  = useCartStore();
 
   return (
     <>
@@ -38,10 +34,7 @@ export default function Layout({
             <UserNavbar />
             <NavLink href="/cart">
               
-            <div className="flex relative">    
-            <ShoppingCart />
-            <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2  text-black text-xs rounded-full px-1"> {cartItems?.length}</div>
-            </div>
+          <CartIcon />
            
             </NavLink>
             <div className="flex h-10 w-10 items-center justify-center lg:hidden">
