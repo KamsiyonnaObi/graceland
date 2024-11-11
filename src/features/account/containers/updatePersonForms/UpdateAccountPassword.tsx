@@ -14,9 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useUpdatePassword } from "@/hooks/profile/updateUserDetails/useUpdatePassword";
 import { Separator } from "@/components/ui/separator";
 
-type UpdateAccountPasswordProps = {};
-
-const UpdateAccountPassword = ({}: UpdateAccountPasswordProps) => {
+const UpdateAccountPassword = () => {
   const { form, isEditing, setIsEditing, onSubmit, errors } =
     useUpdatePassword();
 

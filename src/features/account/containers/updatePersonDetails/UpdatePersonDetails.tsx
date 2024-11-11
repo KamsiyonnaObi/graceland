@@ -4,6 +4,7 @@ import UpdatePersonName from "../updatePersonForms/UpdatePersonName";
 import UpdatePersonEmail from "../updatePersonForms/UpdatePersonEmail";
 import UpdatePersonPhoneNumber from "../updatePersonForms/UpdatePersonPhoneNumber";
 import UpdateAccountPassword from "../updatePersonForms/UpdateAccountPassword";
+
 import { getCurrentUserPersonalDetails } from "@/server/actions/user.actions";
 
 const UpdatePersonDetails = async () => {
