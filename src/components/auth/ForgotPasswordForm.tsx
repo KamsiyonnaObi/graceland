@@ -43,7 +43,7 @@ export function ForgotPasswordForm() {
           >
             <FormField
               control={form.control}
-              name="password"
+              name="newPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
@@ -56,7 +56,7 @@ export function ForgotPasswordForm() {
             />
             <FormField
               control={form.control}
-              name="confirmPassword"
+              name="confirmNewPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
@@ -77,8 +77,8 @@ export function ForgotPasswordForm() {
               type="submit"
               disabled={
                 isLoading ||
-                !form.watch("password") ||
-                form.watch("confirmPassword") !== form.watch("password")
+                !form.watch("newPassword") ||
+                form.watch("confirmNewPassword") !== form.watch("newPassword")
               }
             >
               {isLoading ? "Please wait..." : "Submit"}

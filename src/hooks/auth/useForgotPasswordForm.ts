@@ -15,8 +15,8 @@ export const useForgotPasswordForm = () => {
   const form = useForm<z.infer<typeof ChangePasswordFormSchema>>({
     resolver: zodResolver(ChangePasswordFormSchema),
     defaultValues: {
-      password: "",
-      confirmPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
     },
   });
 
@@ -30,8 +30,8 @@ export const useForgotPasswordForm = () => {
         method: "POST",
         body: JSON.stringify({
           token,
-          password: data.password,
-          confirmPassword: data.confirmPassword,
+          password: data.newPassword,
+          confirmPassword: data.confirmNewPassword,
         }),
       });
 

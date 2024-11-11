@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 import { useCartStore } from "@/store/useCartStore";
 import { checkoutDetailsSchema } from "@/lib/validations/index";
-import { createOrder } from "@/utils/actions/order.actions";
+import { createOrder } from "@/server/actions/order.actions";
 import { calculateTotals, clearCart } from "@/utils/checkoutHelpers";
 
 export const useCheckoutForm = () => {

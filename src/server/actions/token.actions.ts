@@ -1,5 +1,5 @@
 "use server";
-import db from "@/db/db";
+import db from "@/server/db/db";
 import { getUserByEmail } from "./user.actions";
 import crypto from "crypto";
 
