@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
@@ -8,7 +7,8 @@ import { Footer } from "@/components/sections";
 
 import { companyLogo } from "../../../public/assets/images";
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
-import CartIcon from "@/components/Cart/CartIcon";
+import { ShoppingCart } from "lucide-react";
+
 export const dynamic = "force-dynamic";
 
 export default function Layout({
@@ -16,7 +16,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <>
       <Nav>
@@ -33,9 +32,7 @@ export default function Layout({
           <div className="flex items-center">
             <UserNavbar />
             <NavLink href="/cart">
-              
-          <CartIcon />
-           
+              <ShoppingCart />
             </NavLink>
             <div className="flex h-10 w-10 items-center justify-center lg:hidden">
               <MobileNav />
