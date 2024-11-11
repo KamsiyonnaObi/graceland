@@ -1,3 +1,6 @@
+"use client";
+
+
 import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
@@ -16,8 +19,8 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cartItems  = useCartStore
-console.log(cartItems?.length, "hello")
+  const {cartItems}  = useCartStore();
+
   return (
     <>
       <Nav>
@@ -35,8 +38,11 @@ console.log(cartItems?.length, "hello")
             <UserNavbar />
             <NavLink href="/cart">
               
-            
-              <ShoppingCart />
+            <div className="flex relative">    
+            <ShoppingCart />
+            <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2  text-black text-xs rounded-full px-1"> {cartItems?.length}</div>
+            </div>
+           
             </NavLink>
             <div className="flex h-10 w-10 items-center justify-center lg:hidden">
               <MobileNav />
