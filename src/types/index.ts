@@ -43,4 +43,5 @@ export interface UserParams {
   newPassword: string;
   confirmNewPassword: string;
   phoneNumber: string;
+  verifiedEmail: boolean;
 }

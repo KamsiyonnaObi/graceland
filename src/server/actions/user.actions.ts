@@ -335,7 +335,7 @@ async function handleEditEmail(
   if (!isPasswordValid.success) return isPasswordValid;
   return await validateAndUpdateUser(
     userId,
-    { email: params.email },
+    { email: params.email, verifiedEmail: false },
     updateEmailSchema,
   );
 }
