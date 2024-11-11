@@ -7,7 +7,8 @@ import { Footer } from "@/components/sections";
 
 import { companyLogo } from "../../../public/assets/images";
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
-import CartIcon from "@/components/Cart/CartIcon";
+import CartIcon from "@/components/cart/CartIcon";
+
 export const dynamic = "force-dynamic";
 
 export default function Layout({
