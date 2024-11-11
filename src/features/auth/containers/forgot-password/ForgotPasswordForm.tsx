@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { CircleCheck } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,8 +14,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForgotPasswordForm } from "@/hooks/auth/useForgotPasswordForm";
-import { CircleCheck } from "lucide-react";
-import Link from "next/link";
 
 export function ForgotPasswordForm() {
   const { errorMessage, isLoading, isSuccess, form, onSubmit } =

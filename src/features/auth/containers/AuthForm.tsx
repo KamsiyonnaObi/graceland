@@ -7,10 +7,11 @@ import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomInput from "../shared/CustomInput";
-import FillIcon from "../icons/FillIcons";
 
-import { Separator } from "../ui/separator";
+import FillIcon from "../../../components/icons/FillIcons";
+import CustomInput from "../components/form-fields/CustomInput";
+
+import { Separator } from "../../../components/ui/separator";
 import { useAuthForm } from "@/hooks/auth/useAuthForm";
 import { authFormSchema } from "@/lib/validations/index";
 
