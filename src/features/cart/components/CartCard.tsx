@@ -3,16 +3,10 @@ import Image from "next/image";
 
 import { Minus, Plus, Trash2 } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 import { formatCurrency } from "@/lib/formatters";
-import { Button } from "../ui/button";
 import { useCartStore } from "@/store/useCartStore";
 
 const CartCard = ({

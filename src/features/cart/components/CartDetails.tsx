@@ -1,11 +1,11 @@
 "use client";
 
+import { CreditCard } from "lucide-react";
+import { useEffect, useMemo } from "react";
+
 import { formatCurrency } from "@/lib/formatters";
 import { useCartStore } from "@/store/useCartStore";
 import { calculateTotals } from "@/utils/checkoutHelpers";
-
-import { CreditCard } from "lucide-react";
-import { useEffect, useMemo } from "react";
 
 // For Each Item In Cart
 export const CartSummaryItem = ({

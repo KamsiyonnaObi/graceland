@@ -1,4 +1,4 @@
-import OrderSummary from "@/components/cart/OrderSummary";
+import OrderSummary from "@/features/cart/components/OrderSummary";
 import DeliveryDetailsForm from "@/components/checkout/DeliveryDetailsForm";
 const CheckoutPage = () => {
   return (
