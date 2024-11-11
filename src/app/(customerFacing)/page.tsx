@@ -4,7 +4,7 @@ import {
   SuperQuality,
   Services,
   CustomerReviews,
-} from "@/components/sections";
+} from "@/features/marketing/containers/sections";
 
 export default function HomePage() {
   return (

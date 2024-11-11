@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import MobileNav from "@/components/MobileNav";
-import { Nav, NavLink } from "@/components/Nav";
-import UserNavbar from "@/components/navbar/UserNavbar";
-import { Footer } from "@/components/sections";
 
-import { companyLogo } from "../../../public/assets/images";
+import { companyLogo } from "public/assets/images";
+
+import MobileNav from "@/components/navbar/MobileNav";
+import { Nav, NavLink } from "@/components/navbar/Nav";
+import CartIcon from "@/components/navbar/CartIcon";
+import UserNavbar from "@/components/navbar/dropdown-menu/UserNavbar";
+
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
-import CartIcon from "@/components/cart/CartIcon";
+import { Footer } from "@/features/marketing/containers/sections";
 
 export const dynamic = "force-dynamic";
 

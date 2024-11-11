@@ -1,9 +1,9 @@
 "use client";
 
 import { useCartStore } from "@/store/useCartStore";
-import EmptyCart from "@/components/cart/EmptyCart";
-import CartCard from "@/components/cart/CartCard";
-import OrderSummary from "@/components/cart/OrderSummary";
+import EmptyCart from "@/features/cart/components/EmptyCart";
+import CartCard from "@/features/cart/components/CartCard";
+import OrderSummary from "@/features/cart/components/OrderSummary";
 
 const Cart = () => {
   const { cartItems } = useCartStore();

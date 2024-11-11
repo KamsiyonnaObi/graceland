@@ -1,5 +1,5 @@
 import React from "react";
-import { RecoverPasswordForm } from "@/components/auth/RecoverPassowordForm";
+import { RecoverPasswordForm } from "@/features/auth/containers/recover-password/RecoverPassowordForm";
 
 const RecoverPasswordPage = () => {
   return (

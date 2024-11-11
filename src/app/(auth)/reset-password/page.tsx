@@ -1,8 +1,8 @@
 import React from "react";
 
-import { ForgotPasswordForm } from "@/components/auth/ForgotPasswordForm";
+import { ForgotPasswordForm } from "@/features/auth/containers/forgot-password/ForgotPasswordForm";
 import { isTokenValid } from "@/server/actions/token.actions";
-import { RecoverPasswordForm } from "@/components/auth/RecoverPassowordForm";
+import { RecoverPasswordForm } from "@/features/auth/containers/recover-password/RecoverPassowordForm";
 
 const ForgotPasswordPage = async ({
   searchParams,

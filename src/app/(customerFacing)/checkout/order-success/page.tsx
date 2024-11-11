@@ -6,11 +6,11 @@ import { Separator } from "@/components/ui/separator";
 
 import { getOrderByTrxref } from "@/server/actions/order.actions";
 
-import OrderStatus from "@/components/checkout/order-success/OrderStatus";
-import PurchasedProductsCard from "@/components/checkout/order-success/PurchasedProductsCard";
-import PaymentInfo from "@/components/checkout/order-success/PaymentInfo";
-import BillingInfo from "@/components/checkout/order-success/BillingInfo";
-import PurchasedOrderSummary from "@/components/checkout/order-success/PurchasedOrderSummary";
+import OrderStatus from "@/features/checkout/components/order-success/OrderStatus";
+import PurchasedProductsCard from "@/features/checkout/components/order-success/PurchasedProductsCard";
+import PaymentInfo from "@/features/checkout/components/order-success/PaymentInfo";
+import BillingInfo from "@/features/checkout/components/order-success/BillingInfo";
+import PurchasedOrderSummary from "@/features/checkout/components/order-success/PurchasedOrderSummary";
 
 const OrderSuccessPage = async ({
   searchParams,
