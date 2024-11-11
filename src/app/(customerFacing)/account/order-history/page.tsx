@@ -10,7 +10,7 @@ import { PaginationComponent } from "@/components/shared/Pagination";
 
 import AccessDenied from "@/components/shared/AccessDenied";
 import NoOrdersFoundCard from "@/features/account/components/not-found/NoOrdersFoundCard";
-import RecentOrderTableRow from "@/components/account/RecentOrderTableRow";
+import RecentOrderTableRow from "@/features/account/components/recent-orders/RecentOrderTableRow";
 
 import { getUserOrders } from "@/server/actions/order.actions";
 
