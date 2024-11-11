@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Nav } from "@/components/Nav";
+import { Nav } from "@/components/navbar/Nav";
 import { companyLogo } from "../../../public/assets/images";
 
 export default function Layout({

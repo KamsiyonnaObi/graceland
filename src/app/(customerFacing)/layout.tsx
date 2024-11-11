@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
-import MobileNav from "@/components/MobileNav";
-import { Nav, NavLink } from "@/components/Nav";
-import UserNavbar from "@/components/navbar/UserNavbar";
+import MobileNav from "@/components/navbar/MobileNav";
+import { Nav, NavLink } from "@/components/navbar/Nav";
+import UserNavbar from "@/components/navbar/dropdown-menu/UserNavbar";
 import CustomerSurvey from "@/components/shared/CustomerSurvey";
 import { Footer } from "@/features/marketing/containers/sections";
 
