@@ -52,13 +52,13 @@ const ProfileOrderCard = ({
       <div className="flex justify-between border-t p-3">
         <p className="text-sm">
           <span className="font-bold">Order number</span> {trxref}
-        </p>{" "}
+        </p>
         <Link
           className="text-sm text-blue-700 underline"
-          href={`checkout/order-success?reference=${trxref}`}
+          href={`/checkout/order-success?reference=${trxref}`}
         >
           See Details
-        </Link>{" "}
+        </Link>
       </div>
     </div>
   );
