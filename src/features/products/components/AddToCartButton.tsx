@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import AddToCartToast  from "@/components/toasts/AddToCartToast"
 
 
 type AddToCartProps = {
@@ -58,15 +58,12 @@ const AddToCart = ({
               },
               qty,
             ); 
-            toast.success(<div> <Image src={imagePath}  width={80}   
-              alt="rating star"
-              height={80}/></div>, {
+            toast.success(<AddToCartToast   
+              productName={productName}
+              price={price}
+              imagePath={imagePath} />, {
               position: 'bottom-right',
               closeButton : true,
-              action: {
-                label: 'Go to Cart',
-                onClick: () =>  router.push("/cart"),
-              },
             });
           } catch (error){
             toast.error("Failed to add item to cart");
