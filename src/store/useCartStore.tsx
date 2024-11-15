@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { toast } from "sonner";
 
 export interface CartItem {
   id: string;
@@ -28,11 +27,6 @@ interface CartState {
   onAddCartItem: (product: CartItem, quantity: number) => void;
   onRemoveCartItem: (productId: string) => void;
   toggleCartItemQuantity: (id: string, value: "inc" | "dec") => void;
-}
-function addToCartToast() {
-  toast.success("Added to Cart", {
-    duration: 2000,
-  });
 }
 export const useCartStore = create<CartState>()(
   persist(
@@ -81,7 +75,6 @@ export const useCartStore = create<CartState>()(
             totalPrice: totalPrice + product.price * quantity,
             totalQuantities: totalQuantities + quantity,
           });
-          addToCartToast();
         } else {
           product.quantity = quantity;
           set({
@@ -89,7 +82,6 @@ export const useCartStore = create<CartState>()(
             totalPrice: totalPrice + product.price * quantity,
             totalQuantities: totalQuantities + quantity,
           });
-          addToCartToast();
         }
       },
 

@@ -3,6 +3,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 
 type AddToCartProps = {
   productId: string;
@@ -18,7 +22,7 @@ const AddToCart = ({
   imagePath,
 }: AddToCartProps) => {
   const { qty, onAddCartItem, incQty, decQty } = useCartStore();
-
+  const router = useRouter();
   return (
     <div className="flex w-full flex-col items-start gap-4">
       <div className="flex items-center rounded border px-2">
@@ -42,7 +46,8 @@ const AddToCart = ({
       </div>
       <div className="flex w-full gap-3">
         <Button
-          onClick={() =>
+          onClick={() => {
+          try {
             onAddCartItem(
               {
                 id: productId,
@@ -52,7 +57,21 @@ const AddToCart = ({
                 imagePath,
               },
               qty,
-            )
+            ); 
+            toast.success(<div> <Image src={imagePath}  width={80}   
+              alt="rating star"
+              height={80}/></div>, {
+              position: 'bottom-right',
+              closeButton : true,
+              action: {
+                label: 'Go to Cart',
+                onClick: () =>  router.push("/cart"),
+              },
+            });
+          } catch (error){
+            toast.error("Failed to add item to cart");
+          }
+        }
           }
         >
           Add To Cart{" "}
