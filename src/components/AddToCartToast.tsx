@@ -34,7 +34,7 @@ const AddToCartToast = ({
 
       <div className="flex flex-col space-y-1">
         <div className="font-semibold">Added to cart</div>
-        <div className="text-gray-700">{productName}</div>
+        <div className="text-gray-700 line-clamp-4">{productName}</div>
         <div className="font-bold text-green-600">
           {formatCurrency(price / 100)}
         </div>
