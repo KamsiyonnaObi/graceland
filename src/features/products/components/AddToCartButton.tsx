@@ -3,6 +3,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
+import { toast } from "sonner";
+import AddToCartToast from "@/components/AddToCartToast";
 
 type AddToCartProps = {
   productId: string;
@@ -19,8 +21,50 @@ const AddToCart = ({
 }: AddToCartProps) => {
   const { qty, onAddCartItem, incQty, decQty } = useCartStore();
 
+  // Cart item preparation
+  const prepareCartItem = () => ({
+    id: productId,
+    name: productName,
+    quantity: qty,
+    price,
+    imagePath,
+  });
+
+  // Handle Add to Cart
+  const handleAddToCart = () => {
+    try {
+      const cartItem = prepareCartItem();
+      onAddCartItem(cartItem, qty);
+      showSuccessToast(productName, price, imagePath);
+    } catch (error) {
+      showErrorToast();
+    }
+  };
+
+  // Toast notifications
+  const showSuccessToast = (
+    name: string,
+    price: number,
+    image: string
+  ) => {
+    toast.success(
+      <AddToCartToast productName={name} price={price} imagePath={image} />,
+      {
+        position: "bottom-right",
+        closeButton: true,
+      }
+    );
+  };
+
+  const showErrorToast = () => {
+    toast.error("Failed to add item to cart", {
+      position: "bottom-right",
+    });
+  };
+
   return (
     <div className="flex w-full flex-col items-start gap-4">
+      {/* Quantity controls */}
       <div className="flex items-center rounded border px-2">
         <Button
           variant="ghost"
@@ -40,22 +84,11 @@ const AddToCart = ({
           +
         </Button>
       </div>
+
+      {/* Add to Cart button */}
       <div className="flex w-full gap-3">
-        <Button
-          onClick={() =>
-            onAddCartItem(
-              {
-                id: productId,
-                name: productName,
-                quantity: 1,
-                price,
-                imagePath,
-              },
-              qty,
-            )
-          }
-        >
-          Add To Cart{" "}
+        <Button onClick={handleAddToCart} disabled={qty < 1}>
+          Add To Cart
         </Button>
       </div>
     </div>
