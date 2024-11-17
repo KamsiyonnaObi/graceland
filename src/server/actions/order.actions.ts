@@ -131,7 +131,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
       // Update the order status to confirmed
       await db.order.update({
         where: { id: order.id },
-        data: { status: "confirmed" },
+        data: { status: "CONFIRMED", payment_status: "SUCCESS" },
       });
 
       if (!authorization || !authorization.last4 || !authorization.card_type) {
@@ -161,7 +161,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
       if (!order) {
         throw new Error(`Order with transaction reference ${trxref} not found`);
       }
-      await updateOrderStatus(order.id, "Verify with Paystack");
+      // await updateOrderStatus(order.id, "Verify with Paystack");
       throw new Error("Invalid webhook data");
     }
   } catch (error) {
@@ -173,19 +173,18 @@ export async function updateOrderStatusAndSavePaymentInfo(
   }
 }
 
-export async function updateOrderStatus(orderId: string, newStatus: string) {
-  if (!orderStatuses.includes(newStatus)) {
-    return { message: "Invalid Status" };
-  }
+// export async function updateOrderStatus(orderId: string, newStatus: string) {
+//   if (!orderStatuses.includes(newStatus)) {
+//     return { message: "Invalid Status" };
+//   }
 
-  // Update the order status in the database
-  await db.order.update({
-    where: { id: orderId },
-    data: { status: newStatus },
-  });
+//   await db.order.update({
+//     where: { id: orderId },
+//     data: { status: newStatus },
+//   });
 
-  return { message: "success" };
-}
+//   return { message: "success" };
+// }
 
 export async function getUserOrders({ page }: { page?: number }) {
   const currentUserId = await getCurrentUser();
