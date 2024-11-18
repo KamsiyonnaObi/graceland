@@ -28,7 +28,7 @@ const RecentOrderTableRow = ({
         <TableCell>
           <Link
             className="underline"
-            href={`checkout/order-success?reference=${trxref}`}
+            href={`/checkout/order-success?reference=${trxref}`}
           >
             <div className="flex items-center gap-1">
               {trxref}

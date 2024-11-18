@@ -55,7 +55,7 @@ const ProfileOrderCard = ({
         </p>{" "}
         <Link
           className="text-sm text-blue-700 underline"
-          href={`checkout/order-success?reference=${trxref}`}
+          href={`/checkout/order-success?reference=${trxref}`}
         >
           See Details
         </Link>{" "}
