@@ -81,17 +81,18 @@ model Session {
 }
 
 model Order {
-  id                 String      @id @default(uuid())
+  id                 String         @id @default(uuid())
   totalPriceInCents  Int
   shippingFeeInCents Int
   taxRate            Float?
   taxesPaid          Float?
-  createdAt          DateTime    @default(now())
-  updatedAt          DateTime    @updatedAt
-  status             String      @default("Pending")
-  orderEmail         String      @default("Guest Order")
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  status             Order_Status   @default(CREATED)
+  payment_status     Payment_Status @default(PENDING)
+  orderEmail         String         @default("Guest Order")
   userId             String?
-  user               User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems         OrderItem[]
 
   phoneNumber           String?
@@ -108,6 +109,20 @@ model Order {
   paymentInfo   PaymentInfo? @relation(fields: [paymentInfoId], references: [id])
 
   addressType String @default("PICKUP")
+}
+
+enum Order_Status {
+  CREATED
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+}
+
+enum Payment_Status {
+  PENDING
+  SUCCESS
+  FAILED
 }
 
 model OrderItem {

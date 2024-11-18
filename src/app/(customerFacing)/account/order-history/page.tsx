@@ -23,7 +23,7 @@ const AccountPage = async ({
     page: parseInt(searchParams.page),
   });
 
-  if (status !== 200) return <AccessDenied />;
+  if (status !== 200) return <NoOrdersFoundCard />;
   return (
     <section>
       {orderDetails && orderDetails.length > 0 ? (
