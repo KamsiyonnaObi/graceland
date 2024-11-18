@@ -28,8 +28,8 @@ export const checkoutDetailsSchema = z
     pickUpPerson: z.enum(["customer", "someoneElse"], {
       required_error: "You need to select a pickup person.",
     }),
-    pickUpPersonLastName: nameSchema.optional(),
-    pickUpPersonFirstName: nameSchema.optional(),
+    pickUpPersonLastName: z.string().optional(),
+    pickUpPersonFirstName: z.string().optional(),
     billingFirstName: nameSchema,
     billingLastName: nameSchema,
     address: addressSchema,
