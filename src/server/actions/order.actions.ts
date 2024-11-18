@@ -109,61 +109,61 @@ export async function createOrder(
 export async function updateOrderStatusAndSavePaymentInfo(
   webhookData: WebhookData,
 ) {
+  const {
+    status,
+    reference: trxref,
+    amount,
+    requested_amount,
+    authorization,
+  } = webhookData;
+
   try {
-    const {
-      status,
-      reference: trxref,
-      amount,
-      requested_amount,
-      authorization,
-    } = webhookData;
+    const order = await db.order.findUnique({
+      where: { trxref },
+    });
 
-    // Verify customer was charged correct amount
-    if (status === "success" && requested_amount === amount) {
-      const order = await db.order.findUnique({
-        where: { trxref },
-      });
+    if (!order) {
+      return {
+        ok: false,
+        message: `Order with transaction reference ${trxref} not found`,
+      };
+    }
 
-      if (!order) {
-        throw new Error(`Order with transaction reference ${trxref} not found`);
-      }
-
-      // Update the order status to confirmed
+    if (status !== "success" || requested_amount !== amount) {
       await db.order.update({
         where: { id: order.id },
-        data: { status: "CONFIRMED", payment_status: "SUCCESS" },
+        data: { status: "PENDING" },
       });
+      return { ok: false, message: "payment amounts do not match" };
+    }
 
-      if (!authorization || !authorization.last4 || !authorization.card_type) {
-        throw new Error("Incomplete authorization data");
-      }
-      // Save the payment info
-      await db.paymentInfo.create({
-        data: {
-          cardNumberLast4: authorization.last4,
-          cardType: authorization.card_type,
-          Order: {
-            connect: {
-              id: order.id,
-            },
+    await db.order.update({
+      where: { id: order.id },
+      data: { status: "CONFIRMED", payment_status: "SUCCESS" },
+    });
+
+    if (!authorization || !authorization.last4 || !authorization.card_type) {
+      return {
+        ok: true,
+        message: "Order confirmed but Incomplete payment info",
+      };
+    }
+
+    await db.paymentInfo.create({
+      data: {
+        cardNumberLast4: authorization.last4,
+        cardType: authorization.card_type,
+        Order: {
+          connect: {
+            id: order.id,
           },
         },
-      });
+      },
+    });
 
-      revalidatePath("/admin/orders");
-      console.log("Order confirmed and payment info saved");
-      return { ok: true, message: "Order confirmed and payment info saved" };
-    } else {
-      const order = await db.order.findUnique({
-        where: { trxref },
-      });
-
-      if (!order) {
-        throw new Error(`Order with transaction reference ${trxref} not found`);
-      }
-      // await updateOrderStatus(order.id, "Verify with Paystack");
-      throw new Error("Invalid webhook data");
-    }
+    revalidatePath("/admin/orders");
+    console.log("Order confirmed and payment info saved");
+    return { ok: true, message: "Order confirmed and payment info saved" };
   } catch (error) {
     console.error("Failed to update order and save payment info:", error);
     return {
