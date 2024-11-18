@@ -8,7 +8,7 @@ import { OrderDetails, Address } from "@/types";
 import { PaymentInfo } from "@prisma/client";
 import { getCurrentUser } from "./user.actions";
 import { orderStatuses } from "@/constants";
-
+import { Order_Status } from "@prisma/client";
 import { CartItem } from "@/store/useCartStore";
 
 interface Authorization {
@@ -173,18 +173,21 @@ export async function updateOrderStatusAndSavePaymentInfo(
   }
 }
 
-// export async function updateOrderStatus(orderId: string, newStatus: string) {
-//   if (!orderStatuses.includes(newStatus)) {
-//     return { message: "Invalid Status" };
-//   }
+export async function updateOrderStatus(
+  orderId: string,
+  newStatus: Order_Status,
+) {
+  if (!orderStatuses.includes(newStatus)) {
+    return { success: false, message: "Invalid Status" };
+  }
 
-//   await db.order.update({
-//     where: { id: orderId },
-//     data: { status: newStatus },
-//   });
+  await db.order.update({
+    where: { id: orderId },
+    data: { status: newStatus },
+  });
 
-//   return { message: "success" };
-// }
+  return { success: true, message: `order status changed to ${newStatus}` };
+}
 
 export async function getUserOrders({ page }: { page?: number }) {
   const currentUserId = await getCurrentUser();

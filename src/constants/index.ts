@@ -196,15 +196,12 @@ export const accountSignUpBenefits = [
 ];
 
 export const orderStatuses = [
-  "Pending",
-  "Confirmed",
-  "Processing",
-  "Verify with Paystack",
-  "Shipped",
-  "Out for Delivery",
-  "Delivered",
-  "Completed",
-  "Cancelled",
-  "Returned",
-  "Refunded",
+  "CREATED",
+  "PENDING",
+  "CONFIRMED",
+  "SHIPPED",
+  "DELIVERED",
+  "CANCELLED",
+  "RETURNED",
+  "REFUNDED",
 ];
