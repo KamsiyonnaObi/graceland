@@ -1,19 +1,16 @@
-import Link from "next/link";
+import ProfileOrderCard from "../../components/welcome-section/ProfileOrderCard";
+import NoOrderCard from "../../components/welcome-section/NoOrderCard";
+import Header from "../../components/welcome-section/Header";
 
 import { getUserLatestOrders } from "@/server/actions/user.actions";
-import ProfileOrderCard from "../../components/welcome-section/ProfileOrderCard";
+import { getUserOrders } from "@/server/actions/order.actions";
 
 const ProfileWelcomeSection = async () => {
   const { userOrders } = await getUserLatestOrders();
+  const latestOrder = await getUserOrders({});
   return (
     <section className="mx-auto space-y-8">
-      <div>
-        <h1 className="mb-0 py-3 font-montserrat text-4xl font-bold max-sm:text-2xl">
-          Hi {userOrders?.firstName}!
-        </h1>
-        <p className="text-xl">Manage your order and account details.</p>
-      </div>
-
+      <Header firstName={userOrders?.firstName!} />
       {userOrders?.orders && userOrders.orders.length > 0 ? (
         <div className="space-y-2">
           <h4 className="font-bold">Your latest order: </h4>
@@ -30,18 +27,7 @@ const ProfileWelcomeSection = async () => {
           />
         </div>
       ) : (
-        <>
-          <div className="pb-4">
-            Thank you for signing up! Take a look at our latest products and
-            make your first order!
-          </div>
-          <Link
-            className="w-full rounded-md bg-secondary-one p-3 text-center font-bold hover:bg-opacity-75 active:bg-secondary-dark active:text-white"
-            href={"/products"}
-          >
-            Explore our products
-          </Link>
-        </>
+        <NoOrderCard />
       )}
     </section>
   );

@@ -32,7 +32,9 @@ const OrderSuccessPage = async ({
             <CircleCheck className="h-12 w-12 stroke-secondary-two" />
             <div>
               <h1 className="text-2xl font-bold">Order Confirmed #{trxref}</h1>
-              <p>Thank you for your purchase! Your order has been confirmed.</p>
+              <p>
+                Thank you for your purchase! Your payment has been confirmed.
+              </p>
             </div>
           </div>
           <div className="rounded-xl border p-6">

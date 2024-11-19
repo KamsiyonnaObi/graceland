@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useCartStore } from "@/store/useCartStore";
 import { checkoutDetailsSchema } from "@/lib/validations/index";
 import { createOrder } from "@/server/actions/order.actions";
-import { calculateTotals, clearCart } from "@/utils/checkoutHelpers";
+import { calculateTotals } from "@/utils/checkoutHelpers";
 
 export const useCheckoutForm = () => {
   const [loading, setLoading] = useState<boolean | undefined>(false);
@@ -50,7 +50,6 @@ export const useCheckoutForm = () => {
 
       // Redirect to Paystack payment page in the same tab
       window.location.href = checkoutURL;
-      clearCart();
     } catch (error) {
       console.error("Error initializing payment:", error);
     } finally {

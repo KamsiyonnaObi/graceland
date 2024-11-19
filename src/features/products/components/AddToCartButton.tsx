@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
-import AddToCartToast from "@/components/AddToCartToast";
+import AddToCartToast from "@/components/toasts/AddToCartToast";
 
 type AddToCartProps = {
   productId: string;
@@ -42,17 +42,13 @@ const AddToCart = ({
   };
 
   // Toast notifications
-  const showSuccessToast = (
-    name: string,
-    price: number,
-    image: string
-  ) => {
+  const showSuccessToast = (name: string, price: number, image: string) => {
     toast.success(
       <AddToCartToast productName={name} price={price} imagePath={image} />,
       {
         position: "bottom-right",
         closeButton: true,
-      }
+      },
     );
   };
 
