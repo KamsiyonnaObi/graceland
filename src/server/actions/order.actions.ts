@@ -42,6 +42,7 @@ export async function createOrder(
     billingFirstName,
     billingLastName,
     trxref,
+    orderEmail,
   } = orderDetails;
 
   try {
@@ -89,6 +90,7 @@ export async function createOrder(
         taxesPaid,
         taxRate,
         trxref,
+        orderEmail,
         orderItems: { create: createdOrderItems },
         shippingAddress: createdShippingAddress
           ? { connect: { id: createdShippingAddress.id } }
@@ -201,12 +203,12 @@ export async function getUserOrders({ page }: { page?: number }) {
   try {
     const skip = (page - 1) * resultsPerPage;
     const totalRecords = await db.order.count({
-      where: { userId: currentUserId.id },
+      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
     });
     const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
     const usersOrders = await db.order.findMany({
-      where: { userId: currentUserId.id },
+      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
       orderBy: { createdAt: "desc" },
       take: resultsPerPage,
       skip,
