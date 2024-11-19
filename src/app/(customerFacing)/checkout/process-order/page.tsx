@@ -7,6 +7,11 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { clearCart } from "@/utils/checkoutHelpers";
 
+/**
+ *  This page handles all client side processing
+ *  after payment has been made.
+ */
+
 const ProcessOrderLoader = () => {
   const queryParams = useSearchParams();
   const router = useRouter();
