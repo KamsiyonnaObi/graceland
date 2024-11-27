@@ -13,15 +13,25 @@ datasource db {
 model Product {
   id                     String      @id @default(uuid())
   name                   String
-  priceInCents           Int
+  slug                   String      @unique @default(uuid())
   imagePath              String
-  category               String[]    @default(["all"])
+  priceInCents           Int
   color                  String?
   description            String
+  category               String[]    @default(["all"])
   isAvailableForPurchase Boolean     @default(false)
+  paystack_product_code  String?
   createdAt              DateTime    @default(now())
   updatedAt              DateTime    @updatedAt
   orderItems             OrderItem[]
+  Image                  Image[]
+}
+
+model Image {
+  id        Int     @id @default(autoincrement())
+  url       String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
 }
 
 model User {
