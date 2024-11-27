@@ -34,7 +34,7 @@ const AddToCart = ({
   const handleAddToCart = () => {
     try {
       const cartItem = prepareCartItem();
-      onAddCartItem(cartItem, qty);
+      onAddCartItem(cartItem, 1);
       showSuccessToast(productName, price, imagePath);
     } catch (error) {
       showErrorToast();
@@ -47,7 +47,6 @@ const AddToCart = ({
       <AddToCartToast productName={name} price={price} imagePath={image} />,
       {
         position: "bottom-right",
-        closeButton: true,
       },
     );
   };
@@ -55,35 +54,19 @@ const AddToCart = ({
   const showErrorToast = () => {
     toast.error("Failed to add item to cart", {
       position: "bottom-right",
+      closeButton: true,
     });
   };
 
   return (
-    <div className="flex w-full flex-col items-start gap-4">
-      {/* Quantity controls */}
-      <div className="flex items-center rounded border px-2">
+    <div className="">
+      <div className="w-full">
         <Button
-          variant="ghost"
-          className="px-2 py-1"
-          onClick={decQty}
-          disabled={qty <= 1}
+          className="w-full rounded font-bold"
+          size="lg"
+          onClick={handleAddToCart}
+          disabled={qty < 1}
         >
-          -
-        </Button>
-        <span className="w-auto px-4">{qty}</span>
-        <Button
-          variant="ghost"
-          className="px-2 py-1"
-          onClick={incQty}
-          disabled={qty >= 10}
-        >
-          +
-        </Button>
-      </div>
-
-      {/* Add to Cart button */}
-      <div className="flex w-full gap-3">
-        <Button onClick={handleAddToCart} disabled={qty < 1}>
           Add To Cart
         </Button>
       </div>

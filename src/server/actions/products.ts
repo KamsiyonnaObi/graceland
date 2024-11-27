@@ -74,3 +74,23 @@ export async function getAllProducts(params: GetAllProductsParams) {
     return { error: "Failed to fetch products.", products: [], totalPages: 0 };
   }
 }
+
+export async function getProduct(id: string) {
+  try {
+    const product = await db.product.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        imagePath: true,
+        description: true,
+        name: true,
+        priceInCents: true,
+        images: { select: { id: true, url: true } },
+      },
+    });
+    return { error: null, product };
+  } catch (error) {
+    console.error(`failed to fetch product id ${id} - ${error}`);
+    return { error: "Failed to fetch product.", product: null };
+  }
+}
