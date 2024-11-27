@@ -85,7 +85,7 @@ export async function getProduct(id: string) {
         description: true,
         name: true,
         priceInCents: true,
-        Image: { select: { id: true, url: true } },
+        images: { select: { id: true, url: true } },
       },
     });
     return { error: null, product };

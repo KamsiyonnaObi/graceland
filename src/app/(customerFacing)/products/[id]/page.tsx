@@ -30,7 +30,7 @@ const ProductDetailPage = async ({
 
         {/* Image Carousel */}
         <section className="flex-center">
-          <ImageCarousel productName={product.name} images={product.Image} />
+          <ImageCarousel productName={product.name} images={product.images} />
         </section>
 
         {/* Add To Cart Section */}
