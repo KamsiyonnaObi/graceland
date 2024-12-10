@@ -22,7 +22,7 @@ const Hero = () => {
           </span>
           <br />
           <span className="mt-3 inline-block text-secondary-dark">
-            Baby{" "}
+            Baby
           </span>{" "}
           Products
         </h1>

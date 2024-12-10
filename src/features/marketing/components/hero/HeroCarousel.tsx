@@ -2,14 +2,14 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { twinstroller } from "public/assets/images";
+import { walker1 } from "public/assets/images";
 
 import HeroProductCard from "./HeroProductCard";
 import { heroProducts } from "@/constants";
 
 const HeroCarousel = () => {
   const [bigShoeImage, setBigShoeImage] = useState<string | StaticImageData>(
-    twinstroller,
+    walker1,
   );
   const handleClick = (img: string | StaticImageData) => {
     setBigShoeImage(img);
@@ -17,11 +17,11 @@ const HeroCarousel = () => {
 
   return (
     <div className="relative flex w-full flex-1 items-center justify-center bg-secondary-one bg-hero bg-cover bg-center max-xl:py-40 xl:min-h-screen">
-      <div className="relative h-[500px] w-[610px]">
+      <div className="relative h-[485px] w-[610px] md:h-[600px]">
         <Image
           src={bigShoeImage}
           alt="featured product"
-          className="object-contain"
+          className="object-cover"
           fill
         />
       </div>
