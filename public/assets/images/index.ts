@@ -1,12 +1,4 @@
-import bigStroller1 from "./big-stroller1.png";
-import bigStroller2 from "./big-stroller2.png";
-
-import babyCarrier1 from "./baby-carrier1.png";
 import family1 from "./family1.png";
-import cot1 from "./cot1.png";
-
-import carSeat1 from "./car-seat1.png";
-import carSeat2 from "./car-seat2.png";
 
 import customer1 from "./customer1.png";
 import customer2 from "./customer2.jpg";
@@ -28,14 +20,8 @@ import thumbnailShoe2 from "./thumbnail-shoe2.svg";
 import thumbnailShoe3 from "./thumbnail-shoe3.svg";
 
 export {
-  cot1,
   family1,
   babyCrib,
-  babyCarrier1,
-  bigStroller1,
-  bigStroller2,
-  carSeat1,
-  carSeat2,
   customer1,
   customer2,
   companyLogo,

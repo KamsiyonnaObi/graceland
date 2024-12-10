@@ -9,13 +9,7 @@ import {
   twitter,
 } from "../../public/assets/icons";
 import {
-  cot1,
-  babyCarrier1,
-  bigStroller1,
-  bigStroller2,
-  carSeat1,
   babyCrib,
-  carSeat2,
   customer1,
   customer2,
   twinstroller,
