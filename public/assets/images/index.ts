@@ -15,7 +15,7 @@ import companyLogo from "./gracelandLogo.png";
 import footerLogo from "./footer-logo.png";
 
 import offer from "./offer.svg";
-
+import babyCrib from "./baby-crib.png";
 import twinstroller from "./twin-stroller.png";
 import twoInOneStroller from "./two-in-one-stroller.png";
 
@@ -30,6 +30,7 @@ import thumbnailShoe3 from "./thumbnail-shoe3.svg";
 export {
   cot1,
   family1,
+  babyCrib,
   babyCarrier1,
   bigStroller1,
   bigStroller2,

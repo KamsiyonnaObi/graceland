@@ -14,6 +14,7 @@ import {
   bigStroller1,
   bigStroller2,
   carSeat1,
+  babyCrib,
   carSeat2,
   customer1,
   customer2,
@@ -36,8 +37,8 @@ export const heroProducts = [
     large: twinstroller,
   },
   {
-    thumbnail: walker2,
-    large: walker2,
+    thumbnail: walker1,
+    large: walker1,
   },
   {
     thumbnail: twoInOneStroller,
@@ -53,27 +54,27 @@ export const statistics = [
 
 export const popularProducts = [
   {
-    imgURL: carSeat2,
-    name: "All-In-One Car Seat",
-    price: "$200.20",
-    rating: 4.5,
+    imgURL: babyCrib,
+    name: "Baby Crib",
+    price: "₦80,000",
+    rating: 4.9,
   },
   {
-    imgURL: bigStroller1,
-    name: "Baby Stroller",
-    price: "$210.20",
+    imgURL: twoInOneStroller,
+    name: "2-in-1 Stroller",
+    price: "₦170,000",
     rating: 4.8,
   },
   {
-    imgURL: babyCarrier1,
-    name: "Premium Baby Carrier",
-    price: "$220.20",
+    imgURL: twinstroller,
+    name: "Twins Stroller",
+    price: "₦220,200",
     rating: 4.5,
   },
   {
-    imgURL: cot1,
-    name: "Baby cot",
-    price: "$230.20",
+    imgURL: walker1,
+    name: "Baby Walkers",
+    price: "₦40,000",
     rating: 4.9,
   },
 ];
@@ -81,7 +82,7 @@ export const popularProducts = [
 export const services = [
   {
     imgURL: truckFast,
-    label: "Free shipping",
+    label: "Fast shipping",
     subtext: "Enjoy seamless shopping with our complimentary shipping service.",
   },
   {
