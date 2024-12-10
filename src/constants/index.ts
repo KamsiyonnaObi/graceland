@@ -17,6 +17,10 @@ import {
   carSeat2,
   customer1,
   customer2,
+  twinstroller,
+  twoInOneStroller,
+  walker1,
+  walker2,
 } from "../../public/assets/images";
 
 export const navLinks = [
@@ -26,18 +30,18 @@ export const navLinks = [
   { href: "/products", label: "Shop" },
 ];
 
-export const strollers = [
+export const heroProducts = [
   {
-    thumbnail: bigStroller1,
-    large: bigStroller1,
+    thumbnail: twinstroller,
+    large: twinstroller,
   },
   {
-    thumbnail: bigStroller2,
-    large: bigStroller2,
+    thumbnail: walker2,
+    large: walker2,
   },
   {
-    thumbnail: carSeat1,
-    large: carSeat1,
+    thumbnail: twoInOneStroller,
+    large: twoInOneStroller,
   },
 ];
 
