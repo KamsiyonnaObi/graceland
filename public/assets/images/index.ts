@@ -12,7 +12,6 @@ import twinstroller from "./twin-stroller.png";
 import twoInOneStroller from "./two-in-one-stroller.png";
 
 import walker1 from "./walker1.png";
-import walker2 from "./walker2.png";
 
 import thumbnailBackground from "./thumbnail-background.svg";
 import thumbnailShoe1 from "./thumbnail-shoe1.svg";
@@ -30,7 +29,6 @@ export {
   twinstroller,
   twoInOneStroller,
   walker1,
-  walker2,
   thumbnailBackground,
   thumbnailShoe1,
   thumbnailShoe2,

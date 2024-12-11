@@ -16,7 +16,6 @@ import {
   twinstroller,
   twoInOneStroller,
   walker1,
-  walker2,
 } from "../../public/assets/images";
 
 export const navLinks = [
