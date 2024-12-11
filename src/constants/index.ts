@@ -99,7 +99,7 @@ export const reviews = [
     customerName: "Chisom Okoye",
     rating: 4.9,
     feedback:
-      "It is an amazing mart with the best products for kids and teens and they have amazing customer service, all at affordable prices",
+      "An amazing mart with the best products for kids and teens and they have amazing customer service, all at affordable prices",
   },
   {
     imgURL: customer2,
