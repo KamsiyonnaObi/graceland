@@ -7,6 +7,7 @@ import {
   support,
   truckFast,
   twitter,
+  whatsapp,
 } from "../../public/assets/icons";
 import {
   babyCrib,
@@ -95,17 +96,17 @@ export const services = [
 export const reviews = [
   {
     imgURL: customer1,
-    customerName: "Adeola Olumide",
+    customerName: "Chisom Okoye",
     rating: 4.9,
     feedback:
-      "The quality of the baby products exceeded my expectations. Highly recommended!",
+      "It is an amazing mart with the best products for kids and teens and they have amazing customer service, all at affordable prices",
   },
   {
     imgURL: customer2,
-    customerName: "Lerato Mabaso",
+    customerName: "Gail Ogonna",
     rating: 5.0,
     feedback:
-      "Amazing products. Amazing service. I'll definitely be coming back for more!",
+      "A place for those who like quality. Nice place to shop for babies and toddlers.",
   },
 ];
 
@@ -135,18 +136,26 @@ export const footerLinks = [
     title: "Get in touch",
     links: [
       {
-        name: "customer@gracelandng.com",
-        link: "mailto:customer@gracelandng.com",
+        name: "info@gracelandng.com",
+        link: "mailto:info@gracelandng.com",
       },
-      { name: "+92554862354", link: "tel:+92554862354" },
+      { name: "+2348034461024", link: "tel:+2348034461024" },
     ],
   },
 ];
 
 export const socialMedia = [
-  { src: facebook, alt: "facebook logo" },
-  { src: twitter, alt: "twitter logo" },
-  { src: instagram, alt: "instagram logo" },
+  {
+    src: instagram,
+    link: "https://www.instagram.com/gracelandkiddies/",
+    alt: "instagram logo",
+  },
+  {
+    src: facebook,
+    link: "https://www.facebook.com/KidsKingdomMart",
+    alt: "facebook logo",
+  },
+  { src: whatsapp, link: "https://wa.me/2348034461024", alt: "whatsapp logo" },
 ];
 
 // Product filters

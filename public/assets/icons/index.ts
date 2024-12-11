@@ -11,6 +11,7 @@ import star from "./star.svg";
 import cart from "./cart.svg";
 import truckFast from "./truck-fast.svg";
 import twitter from "./twitter.svg";
+import whatsapp from "./whatsapp.svg";
 
 export {
   arrowRight,
@@ -26,4 +27,5 @@ export {
   star,
   truckFast,
   twitter,
+  whatsapp,
 };
