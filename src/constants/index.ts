@@ -7,16 +7,15 @@ import {
   support,
   truckFast,
   twitter,
+  whatsapp,
 } from "../../public/assets/icons";
 import {
-  cot1,
-  babyCarrier1,
-  bigStroller1,
-  bigStroller2,
-  carSeat1,
-  carSeat2,
+  babyCrib,
   customer1,
   customer2,
+  twinstroller,
+  twoInOneStroller,
+  walker1,
 } from "../../public/assets/images";
 
 export const navLinks = [
@@ -26,18 +25,18 @@ export const navLinks = [
   { href: "/products", label: "Shop" },
 ];
 
-export const strollers = [
+export const heroProducts = [
   {
-    thumbnail: bigStroller1,
-    large: bigStroller1,
+    thumbnail: twinstroller,
+    large: twinstroller,
   },
   {
-    thumbnail: bigStroller2,
-    large: bigStroller2,
+    thumbnail: walker1,
+    large: walker1,
   },
   {
-    thumbnail: carSeat1,
-    large: carSeat1,
+    thumbnail: twoInOneStroller,
+    large: twoInOneStroller,
   },
 ];
 
@@ -49,27 +48,27 @@ export const statistics = [
 
 export const popularProducts = [
   {
-    imgURL: carSeat2,
-    name: "All-In-One Car Seat",
-    price: "$200.20",
-    rating: 4.5,
+    imgURL: babyCrib,
+    name: "Baby Crib",
+    price: "₦80,000",
+    rating: 4.9,
   },
   {
-    imgURL: bigStroller1,
-    name: "Baby Stroller",
-    price: "$210.20",
+    imgURL: twoInOneStroller,
+    name: "2-in-1 Stroller",
+    price: "₦170,000",
     rating: 4.8,
   },
   {
-    imgURL: babyCarrier1,
-    name: "Premium Baby Carrier",
-    price: "$220.20",
+    imgURL: twinstroller,
+    name: "Twins Stroller",
+    price: "₦220,200",
     rating: 4.5,
   },
   {
-    imgURL: cot1,
-    name: "Baby cot",
-    price: "$230.20",
+    imgURL: walker1,
+    name: "Baby Walkers",
+    price: "₦40,000",
     rating: 4.9,
   },
 ];
@@ -77,7 +76,7 @@ export const popularProducts = [
 export const services = [
   {
     imgURL: truckFast,
-    label: "Free shipping",
+    label: "Fast shipping",
     subtext: "Enjoy seamless shopping with our complimentary shipping service.",
   },
   {
@@ -96,17 +95,17 @@ export const services = [
 export const reviews = [
   {
     imgURL: customer1,
-    customerName: "Adeola Olumide",
+    customerName: "Chisom Okoye",
     rating: 4.9,
     feedback:
-      "The quality of the baby products exceeded my expectations. Highly recommended!",
+      "An amazing mart with the best products for kids and teens and they have amazing customer service, all at affordable prices",
   },
   {
     imgURL: customer2,
-    customerName: "Lerato Mabaso",
+    customerName: "Gail Ogonna",
     rating: 5.0,
     feedback:
-      "Amazing products. Amazing service. I'll definitely be coming back for more!",
+      "A place for those who like quality. Nice place to shop for babies and toddlers.",
   },
 ];
 
@@ -136,18 +135,26 @@ export const footerLinks = [
     title: "Get in touch",
     links: [
       {
-        name: "customer@gracelandng.com",
-        link: "mailto:customer@gracelandng.com",
+        name: "info@gracelandng.com",
+        link: "mailto:info@gracelandng.com",
       },
-      { name: "+92554862354", link: "tel:+92554862354" },
+      { name: "+2348034461024", link: "tel:+2348034461024" },
     ],
   },
 ];
 
 export const socialMedia = [
-  { src: facebook, alt: "facebook logo" },
-  { src: twitter, alt: "twitter logo" },
-  { src: instagram, alt: "instagram logo" },
+  {
+    src: instagram,
+    link: "https://www.instagram.com/gracelandkiddies/",
+    alt: "instagram logo",
+  },
+  {
+    src: facebook,
+    link: "https://www.facebook.com/KidsKingdomMart",
+    alt: "facebook logo",
+  },
+  { src: whatsapp, link: "https://wa.me/2348034461024", alt: "whatsapp logo" },
 ];
 
 // Product filters

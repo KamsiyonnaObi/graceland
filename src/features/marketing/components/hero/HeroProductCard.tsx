@@ -27,13 +27,12 @@ const HeroProductCard = ({
       } cursor-pointer max-sm:flex-1`}
       onClick={handleClick}
     >
-      <div className="flex items-center justify-center rounded-2xl bg-card bg-secondary-dark bg-cover bg-center max-sm:p-4 sm:h-40 sm:w-40">
+      <div className="relative flex h-[103px] w-[127px] items-center justify-center rounded-2xl bg-card bg-secondary-dark bg-cover bg-center max-sm:p-4 sm:h-40 sm:w-40">
         <Image
           src={imgURL.thumbnail}
           alt="product collection"
-          width={127}
-          height={103}
           className="object-contain"
+          fill
         />
       </div>
     </div>

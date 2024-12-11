@@ -25,12 +25,14 @@ const Footer = () => {
           </p>
           <div className="mt-8 flex items-center gap-5">
             {socialMedia.map((icon) => (
-              <div
+              <a
                 className="flex h-12 w-12 items-center justify-center rounded-full bg-white"
+                target="_blank"
+                href={icon.link}
                 key={icon.alt}
               >
                 <Image src={icon.src} alt={icon.alt} width={24} height={24} />
-              </div>
+              </a>
             ))}
           </div>
         </div>

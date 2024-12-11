@@ -1,24 +1,12 @@
-"use client";
-import { useState } from "react";
-
-import Image from "next/image";
 import Link from "next/link";
 
-import { arrowRight } from "public/assets/icons";
-import { bigStroller1 } from "public/assets/images";
-
-import HeroProductCard from "../../components/hero/HeroProductCard";
 import MainButton from "../../components/MainButton";
 
-import { statistics, strollers } from "@/constants";
+import { statistics } from "@/constants";
+import { arrowRight } from "public/assets/icons";
+import HeroCarousel from "../../components/hero/HeroCarousel";
 
 const Hero = () => {
-  const [bigShoeImage, setBigShoeImage] = useState<string | StaticImageData>(
-    bigStroller1,
-  );
-  const handleClick = (img: string | StaticImageData) => {
-    setBigShoeImage(img);
-  };
   return (
     <section
       id="home"
@@ -34,7 +22,7 @@ const Hero = () => {
           </span>
           <br />
           <span className="mt-3 inline-block text-secondary-dark">
-            Baby{" "}
+            Baby
           </span>{" "}
           Products
         </h1>
@@ -45,7 +33,7 @@ const Hero = () => {
         <Link href={"/products"}>
           <MainButton label="Shop Now" iconURL={arrowRight} />
         </Link>
-        <div className="justify-starts mt-20 flex w-full flex-wrap items-start gap-16">
+        {/* <div className="justify-starts mt-20 flex w-full flex-wrap items-start gap-16">
           {statistics.map((stat) => (
             <div key={stat.label}>
               <p className="font-palanquin text-4xl font-bold">{stat.value}</p>
@@ -54,28 +42,9 @@ const Hero = () => {
               </p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
-      <div className="relative flex w-full flex-1 items-center justify-center bg-secondary-one bg-hero bg-cover bg-center max-xl:py-40 xl:min-h-screen">
-        <Image
-          src={bigShoeImage}
-          alt="shoe collection"
-          width={610}
-          height={500}
-          className="relative z-10 object-contain"
-        />
-        <div className="absolute -bottom-[5%] flex gap-4 max-sm:px-6 sm:left-[10%] sm:gap-6">
-          {strollers.map((stroller) => (
-            <div key={`${stroller.thumbnail}`}>
-              <HeroProductCard
-                imgURL={stroller}
-                changeBigProductImage={handleClick}
-                BigProductImage={bigShoeImage}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <HeroCarousel />
     </section>
   );
 };
