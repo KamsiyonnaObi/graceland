@@ -18,9 +18,43 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+const BASE_URL = process.env.BASE_URL || "https://www.gracelandng.com";
+
 export const metadata: Metadata = {
-  title: "Graceland",
-  description: "All round baby products",
+  title: "Graceland Nigeria - Top Baby Products Online",
+  description:
+    "Discover premium baby products at Graceland. Shop eco-friendly, safe, and affordable essentials for your little one. Trusted by parents worldwide.",
+  keywords: [
+    "baby products",
+    "newborn essentials",
+    "organic baby gear",
+    "baby shower gifts",
+    "safe baby items",
+    "affordable baby supplies",
+    "Graceland baby store",
+    "top-rated baby products",
+  ],
+  openGraph: {
+    title: "Graceland - Premium Baby Products",
+    description:
+      "Shop premium baby products at Graceland. Safe, eco-friendly, and perfect for your little one. Trusted by parents everywhere!",
+    url: BASE_URL,
+    type: "website",
+    images: [
+      {
+        url: `${BASE_URL}/assets/images/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Graceland Baby Products",
+      },
+    ],
+  },
+  robots: "index, follow",
+  alternates: {
+    languages: {
+      en: BASE_URL,
+    },
+  },
 };
 
 export default async function RootLayout({
