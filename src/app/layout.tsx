@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${BASE_URL}/assets/images/og-image.jpg`,
-        width: 1200,
-        height: 630,
+        url: `${BASE_URL}/assets/images/og-image.png`,
+        width: 1440,
+        height: 750,
         alt: "Graceland Baby Products",
       },
     ],
