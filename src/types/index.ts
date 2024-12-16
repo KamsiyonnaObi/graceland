@@ -25,6 +25,7 @@ export interface OrderDetails {
   pickUpPersonLastName: string | undefined;
   billingFirstName: string;
   billingLastName: string;
+  deliveryNote: string;
   trxref: string;
 }
 

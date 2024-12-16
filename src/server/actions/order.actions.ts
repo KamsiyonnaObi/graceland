@@ -43,6 +43,7 @@ export async function createOrder(
     billingLastName,
     trxref,
     orderEmail,
+    deliveryNote,
   } = orderDetails;
 
   try {
@@ -91,6 +92,7 @@ export async function createOrder(
         taxRate,
         trxref,
         orderEmail,
+        deliveryNote,
         orderItems: { create: createdOrderItems },
         shippingAddress: createdShippingAddress
           ? { connect: { id: createdShippingAddress.id } }

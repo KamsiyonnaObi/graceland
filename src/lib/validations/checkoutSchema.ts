@@ -5,6 +5,7 @@ const errorMessages = {
   addressMin: "Address must be at least 5 characters.",
   addressMax: "Address must be at most 50 characters.",
   phone: "phone number must be exactly 10 digits",
+  deliveryNoteMax: "Note must be less than 300 words",
 };
 
 const stateSchema = z.string();
@@ -37,6 +38,7 @@ export const checkoutDetailsSchema = z
     phone: phoneSchema,
     state: stateSchema,
     country: countrySchema,
+    deliveryNote: z.string().max(50, errorMessages.deliveryNoteMax).optional(),
   })
   .superRefine((data, refinementContext) => {
     if (

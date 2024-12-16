@@ -24,6 +24,7 @@ const OrderSuccessPage = async ({
   if (!orderData) {
     return notFound();
   }
+
   return (
     <div className="page-container">
       <section className="flex w-full flex-col gap-5 lg:flex-row">
@@ -44,6 +45,14 @@ const OrderSuccessPage = async ({
               pickUpPersonFirstName={orderData.pickUpPersonFirstName}
               pickUpPersonLastName={orderData.pickUpPersonLastName}
             />
+            {orderData.deliveryNote && (
+              <div className="mt-2">
+                <i className="text-[14px]">
+                  <strong>Note: </strong>
+                  {orderData.deliveryNote}
+                </i>
+              </div>
+            )}
           </div>
           <div className="space-y-2 rounded-xl border p-4">
             {orderData.orderItems.map((item) => (
