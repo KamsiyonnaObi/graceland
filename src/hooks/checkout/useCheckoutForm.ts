@@ -26,6 +26,7 @@ export const useCheckoutForm = () => {
       phone: "",
       state: "",
       country: "",
+      deliveryNote: "",
     },
   });
 
@@ -76,6 +77,7 @@ export const useCheckoutForm = () => {
       pickUpPersonLastName: values.pickUpPersonLastName,
       billingFirstName: values.billingFirstName,
       billingLastName: values.billingLastName,
+      deliveryNote: values.deliveryNote || "",
       trxref: new Date().getTime().toString(),
     };
 

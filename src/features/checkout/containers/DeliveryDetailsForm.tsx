@@ -8,6 +8,7 @@ import { useCheckoutForm } from "@/hooks/checkout/useCheckoutForm";
 import SelectInputField from "../components/form-fields/SelectInputField";
 import { RadioInputField } from "../components/form-fields/RadioInputField";
 import { TextInputField } from "../components/form-fields/TextInputField";
+import { TextAreaField } from "../components/form-fields/TextAreaField";
 
 const DeliveryDetailsForm = () => {
   const { form, loading, onSubmit } = useCheckoutForm();
@@ -105,6 +106,13 @@ const DeliveryDetailsForm = () => {
                 placeholder="Select a country"
               />
             </div>
+            <TextAreaField
+              formControl={form.control}
+              name={"deliveryNote"}
+              label="Delivery Instructions"
+              placeholder="Include delivery instructions. If you have any"
+              description="Your instructions help us deliver your packages to your expectations"
+            />
           </section>
           <Button disabled={loading} type="submit" className="w-full font-bold">
             {loading ? "Please wait..." : "Confirm and Pay"}
