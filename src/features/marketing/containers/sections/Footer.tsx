@@ -20,8 +20,9 @@ const Footer = () => {
             </div>
           </Link>
           <p className="mt-6 font-montserrat text-base leading-7 text-white-400 sm:max-w-sm">
-            We are dedicated to providing quality baby products and more,
-            designed to keep your little ones safe and happy.
+            Based in Lagos, Nigeria, we are dedicated to providing premium baby
+            products designed to ensure your little ones stay safe, comfortable,
+            and happy. Experience the best in quality and care for your family.
           </p>
           <div className="mt-8 flex items-center gap-5">
             {socialMedia.map((icon) => (
