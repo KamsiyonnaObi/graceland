@@ -27,8 +27,8 @@ const Hero = () => {
           Products
         </h1>
         <p className="mb-14 mt-6 font-montserrat text-lg leading-8 text-slate-gray sm:max-w-sm">
-          Discover stylish and innovative baby products for your little
-          one&apos;s comfort and safety.
+          Discover eco-friendly, safe, and affordable baby essentials designed
+          for comfort, style, and innovation. Trusted by parents nationwide.
         </p>
         <Link href={"/products"}>
           <MainButton label="Shop Now" iconURL={arrowRight} />
