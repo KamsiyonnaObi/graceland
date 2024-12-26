@@ -17,13 +17,14 @@ const SuperQuality = () => {
           <span className="text-secondary-dark"> Baby Products</span>
         </h2>
         <p className="info-text mt-4 lg:max-w-lg">
-          Ensuring safety, comfort, and style for your little ones, our curated
-          collection of baby essentials is designed to provide unmatched quality
-          and innovation.
+          Prioritize safety, comfort, and style with our thoughtfully curated
+          baby essentials. Designed with innovation and unmatched quality in
+          mind.
         </p>
         <p className="info-text mt-6 lg:max-w-lg">
           From cozy baby beds to interactive walkers and premium car seats,
-          explore our range that guarantees satisfaction.
+          explore a wide range of essentials that deliver exceptional value and
+          satisfaction.
         </p>
         <Link href={"/products"} className="mt-11">
           <MainButton label="Explore Products" />

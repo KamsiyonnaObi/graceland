@@ -94,14 +94,14 @@ export const services = [
 
 export const reviews = [
   {
-    imgURL: customer1,
+    imgURL: instagram,
     customerName: "Chisom Okoye",
     rating: 4.9,
     feedback:
       "An amazing mart with the best products for kids and teens and they have amazing customer service, all at affordable prices",
   },
   {
-    imgURL: customer2,
+    imgURL: instagram,
     customerName: "Gail Ogonna",
     rating: 5.0,
     feedback:
@@ -124,19 +124,17 @@ export const footerLinks = [
   {
     title: "Help",
     links: [
-      { name: "About us", link: "/" },
-      { name: "FAQs", link: "/" },
-      { name: "How it works", link: "/" },
-      { name: "Privacy policy", link: "/" },
-      { name: "Payment policy", link: "/" },
+      { name: "How it works", link: "/help-center" },
+      { name: "Privacy policy", link: "/help-center/privacy-policy" },
+      { name: "Return policy", link: "/help-center/return-policy" },
     ],
   },
   {
     title: "Get in touch",
     links: [
       {
-        name: "info@gracelandng.com",
-        link: "mailto:info@gracelandng.com",
+        name: "info.gracelandng@gmail.com",
+        link: "mailto:info.gracelandng@gmail.com",
       },
       { name: "+2348034461024", link: "tel:+2348034461024" },
     ],
