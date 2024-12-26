@@ -124,11 +124,9 @@ export const footerLinks = [
   {
     title: "Help",
     links: [
-      { name: "About us", link: "/" },
-      { name: "FAQs", link: "/" },
-      { name: "How it works", link: "/" },
-      { name: "Privacy policy", link: "/" },
-      { name: "Payment policy", link: "/" },
+      { name: "How it works", link: "/help-center" },
+      { name: "Privacy policy", link: "/help-center/privacy-policy" },
+      { name: "Return policy", link: "/help-center/return-policy" },
     ],
   },
   {

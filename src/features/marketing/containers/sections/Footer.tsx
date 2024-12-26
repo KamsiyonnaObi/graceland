@@ -70,7 +70,12 @@ const Footer = () => {
           />
           <p>Copyright. Graceland. All rights reserved.</p>
         </div>
-        <p className="cursor-pointer font-montserrat">Terms & Conditions</p>
+        <Link
+          href={"/help-center/terms-and-conditions"}
+          className="font-montserrat"
+        >
+          Terms & Conditions
+        </Link>
       </div>
     </footer>
   );

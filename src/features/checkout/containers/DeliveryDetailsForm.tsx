@@ -119,7 +119,8 @@ const DeliveryDetailsForm = () => {
           </Button>
           <div className="mx-auto w-full">
             <p className="m-0 w-full text-center text-xs">
-              You will be redirected to a secure checkout page. powered by{" "}
+              By clicking Confirm and Pay, you agree to our terms and
+              conditions. You will be redirected to{" "}
               <span className="font-bold text-tertiary-one">
                 <a href="https://paystack.com/" target="blank">
                   Paystack
