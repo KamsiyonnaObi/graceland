@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.PAYSTACK_TEST_SECRET_KEY;
+  const secret = process.env.PAYSTACK_SECRET_KEY;
 
   try {
     const { email, amount, products, reference } = await req.json();
@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
         amount,
         reference,
         currency: "NGN",
+        callback_url: `${process.env.BASE_URL}/checkout/process-order`,
+        subaccount: "ACCT_0tw0ts52tn08utw",
         metadata: {
           products: formattedProducts,
         },
