@@ -60,7 +60,7 @@ const OrderSuccessPage = async ({
                 key={item.productId}
                 productId={item.productId}
                 imagePath={item.product.imagePath}
-                priceInCents={item.product.priceInCents}
+                priceInCents={item.priceInCents}
                 productName={item.product.name}
                 quantity={item.quantity}
               />
