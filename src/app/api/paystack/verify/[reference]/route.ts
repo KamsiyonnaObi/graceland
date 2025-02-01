@@ -11,7 +11,7 @@ export async function GET(
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
       },
     });
     return NextResponse.json(response.data);
