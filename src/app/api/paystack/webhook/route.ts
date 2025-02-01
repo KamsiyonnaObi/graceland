@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const secret = process.env.PAYSTACK_TEST_SECRET_KEY as string;
+    const secret = process.env.PAYSTACK_SECRET_KEY as string;
     const body = await req.json();
     const { event, data } = body;
 
