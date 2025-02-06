@@ -1,6 +1,5 @@
 "use client";
 
-import { CreditCard } from "lucide-react";
 import { useEffect, useMemo } from "react";
 
 import { formatCurrency } from "@/lib/formatters";
@@ -29,9 +28,11 @@ export const CartSummaryItem = ({
 export const TaxAndShippingSummary = ({
   subtotal,
   shipping = 0,
+  isPickUp = false,
 }: {
   subtotal: number;
   shipping?: number;
+  isPickUp: boolean;
 }) => {
   const { setTotalPriceWithFees } = useCartStore();
   // Use useMemo to memoize the computed values
@@ -49,12 +50,10 @@ export const TaxAndShippingSummary = ({
       <>
         <li className="flex items-center justify-between">
           <span className="text-muted-foreground">Shipping</span>
-          <span>
-            {shipping === 0 ? "FREE" : formatCurrency(shipping / 100)}
-          </span>
+          <span>{isPickUp ? "FREE" : "TBD"}</span>
         </li>
         <li className="flex items-center justify-between">
-          <span className="text-muted-foreground">VAT (7.5%)</span>
+          <span className="text-muted-foreground">Taxes & Fees</span>
           <span>{formatCurrency(tax / 100)}</span>
         </li>
       </>
