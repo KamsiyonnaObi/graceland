@@ -57,25 +57,26 @@ enum Role {
 }
 
 model Order {
-  id                 String        @id @default(uuid())
-  fullName           String? // only if user is not logged in or ordering as a guest.
-  userId             String?
-  user               User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  totalPriceInCents  Decimal
-  shippingFeeInCents Decimal       @default(0)
-  taxRate            Float?
-  taxesPaid          Decimal?
-  createdAt          DateTime      @default(now())
-  updatedAt          DateTime      @updatedAt
-  status             orderStatus   @default(CREATED)
-  paymentStatus      paymentStatus @default(PENDING)
-  phoneNumber        String
-  orderEmail         String
-  trxref             String        @unique
-  deliveryNote       String?
+  id                   String        @id @default(uuid())
+  fullName             String? // only if user is not logged in or ordering as a guest.
+  userId               String?
+  user                 User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalPriceInCents    Decimal
+  shippingFeeInCents   Decimal       @default(0)
+  taxRate              Float?
+  taxesPaid            Decimal?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  status               orderStatus   @default(CREATED)
+  paymentStatus        paymentStatus @default(PENDING)
+  phoneNumber          String
+  orderEmail           String
+  trxref               String        @unique
+  deliveryNote         String?
+  paystackCheckoutCode String?
 
   orderItems            OrderItem[]
-  FulfillmentType       String      @default("PICKUP")
+  FulfillmentType       FulfillmentType @default(PICKUP)
   pickUpPersonFirstName String?
   pickUpPersonLastName  String?
 
