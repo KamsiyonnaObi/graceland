@@ -9,10 +9,11 @@ import SelectInputField from "../components/form-fields/SelectInputField";
 import { RadioInputField } from "../components/form-fields/RadioInputField";
 import { TextInputField } from "../components/form-fields/TextInputField";
 import { TextAreaField } from "../components/form-fields/TextAreaField";
+import { useCartStore } from "@/store/useCartStore";
 
 const DeliveryDetailsForm = () => {
   const { form, loading, onSubmit } = useCheckoutForm();
-
+  const { isPickUp } = useCartStore();
   return (
     <>
       <DeliveryRadioGroup />
@@ -21,19 +22,26 @@ const DeliveryDetailsForm = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="checkout-card-containers"
         >
-          <h2 className="text-lg font-bold">Pick up details</h2>
-          <RadioInputField
-            formControl={form.control}
-            name="pickUpPerson"
-            label="Pick-up options"
-            options={[
-              { value: "customer", label: "I will collect the order myself" },
-              {
-                value: "someoneElse",
-                label: "Someone else will collect the order for me",
-              },
-            ]}
-          />
+          {isPickUp && (
+            <>
+              <h2 className="text-lg font-bold">Pick up details</h2>
+              <RadioInputField
+                formControl={form.control}
+                name="pickUpPerson"
+                label="Pick-up options"
+                options={[
+                  {
+                    value: "customer",
+                    label: "I will collect the order myself",
+                  },
+                  {
+                    value: "someoneElse",
+                    label: "Someone else will collect the order for me",
+                  },
+                ]}
+              />
+            </>
+          )}
           {/* Ask for name if someone else will pick up order */}
           {form.watch("pickUpPerson") === "someoneElse" && (
             <section className="space-y-4">
@@ -57,7 +65,8 @@ const DeliveryDetailsForm = () => {
 
           {/* Billing Details */}
           <section className="space-y-4">
-            <h3 className="text-base font-bold">Billing Details</h3>
+            <h3 className="text-base font-bold">Contact Details</h3>
+
             <div className="grid grid-cols-2 gap-4">
               <TextInputField
                 formControl={form.control}
@@ -70,11 +79,7 @@ const DeliveryDetailsForm = () => {
                 label="Last Name"
               />
             </div>
-            <TextInputField
-              formControl={form.control}
-              name="address"
-              label="Address"
-            />
+
             <div className="grid grid-cols-2 gap-4">
               <TextInputField
                 formControl={form.control}
@@ -90,30 +95,41 @@ const DeliveryDetailsForm = () => {
                 prefix="+234"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <SelectInputField
-                control={form.control}
-                name="state"
-                label="State"
-                options={[{ value: "lagos", label: "Lagos" }]}
-                placeholder="Select a state"
-              />
-              <SelectInputField
-                control={form.control}
-                name="country"
-                label="Country"
-                options={[{ value: "nigeria", label: "Nigeria" }]}
-                placeholder="Select a country"
-              />
-            </div>
-            <TextAreaField
-              formControl={form.control}
-              name={"deliveryNote"}
-              label="Delivery Instructions"
-              placeholder="Include delivery instructions. If you have any"
-              description="Your instructions help us deliver your packages to your expectations"
-            />
           </section>
+          {!isPickUp && (
+            <section className="space-y-4">
+              <h3 className="text-base font-bold">Shipping Details</h3>
+              <TextInputField
+                formControl={form.control}
+                name="address"
+                label="Address"
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <SelectInputField
+                  control={form.control}
+                  name="state"
+                  label="State"
+                  options={[{ value: "lagos", label: "Lagos" }]}
+                  placeholder="Select a state"
+                />
+                <SelectInputField
+                  control={form.control}
+                  name="country"
+                  label="Country"
+                  options={[{ value: "nigeria", label: "Nigeria" }]}
+                  placeholder="Select a country"
+                />
+              </div>
+            </section>
+          )}
+          <TextAreaField
+            formControl={form.control}
+            name={"deliveryNote"}
+            label="Delivery Instructions"
+            placeholder="Include delivery instructions. If you have any"
+            description="Your instructions help us deliver your packages to your expectations"
+          />
+
           <Button disabled={loading} type="submit" className="w-full font-bold">
             {loading ? "Please wait..." : "Confirm and Pay"}
           </Button>
