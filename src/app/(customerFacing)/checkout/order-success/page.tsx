@@ -38,12 +38,14 @@ const OrderSuccessPage = async ({
               </p>
             </div>
           </div>
-          <div className="rounded-xl border p-6">
+          <div className="rounded-xl border p-4">
             <OrderStatus
               status={orderData.status}
               orderUpdatedAt={orderData?.updatedAt}
+              orderfulfilmentType={orderData?.FulfillmentType}
               pickUpPersonFirstName={orderData.pickUpPersonFirstName}
               pickUpPersonLastName={orderData.pickUpPersonLastName}
+              billingName={orderData.fullName}
             />
             {orderData.deliveryNote && (
               <div className="mt-2">
@@ -66,29 +68,36 @@ const OrderSuccessPage = async ({
               />
             ))}
           </div>
-          <div className="rounded-xl border p-6">
-            <div className="grid grid-cols-2 gap-4">
-              <BillingInfo
-                shippingAddressId={orderData.shippingAddressId}
-                billingAddress={orderData.billingAddress.address}
-                billingCountry={orderData.billingAddress.country}
-                billingState={orderData.billingAddress.state}
-                billingZip={orderData.billingAddress.zipCode}
-                phoneNumber={orderData.phoneNumber}
-              />
-            </div>
-            {orderData.paymentInfo && (
-              <>
-                <Separator className="my-4" />
-                <div className="grid gap-3">
-                  <PaymentInfo
-                    cardNumberLast4={orderData.paymentInfo.cardNumberLast4}
-                    cardType={orderData.paymentInfo.cardType}
-                  />
-                </div>
-              </>
+          <div className="flex justify-between rounded-xl border p-4">
+            {orderData.shippingAddress && (
+              <div className="grid grid-cols-2 gap-4">
+                <BillingInfo
+                  shippingAddressId={orderData.shippingAddressId}
+                  billingAddress={orderData.shippingAddress.address}
+                  billingCountry={orderData.shippingAddress.country}
+                  billingState={orderData.shippingAddress.state}
+                  billingZip={orderData.shippingAddress.zipCode}
+                  phoneNumber={orderData.phoneNumber}
+                />
+              </div>
             )}
+            <div className="text-sm">
+              <p className="font-semibold">Contact details</p>
+              <p>{orderData.fullName}</p>
+              <p>{orderData.orderEmail}</p>
+              <p>+234{orderData.phoneNumber}</p>
+            </div>
           </div>
+          {orderData.paymentInfo && (
+            <div className="rounded-xl border p-6">
+              <div className="grid gap-3">
+                <PaymentInfo
+                  cardNumberLast4={orderData.paymentInfo.cardNumberLast4}
+                  cardType={orderData.paymentInfo.cardType}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="h-fit w-full self-start lg:sticky lg:top-4 lg:mb-[275px] lg:w-[375px]">
