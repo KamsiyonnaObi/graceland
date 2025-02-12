@@ -8,7 +8,7 @@ import { OrderDetails, Address } from "@/types";
 import { PaymentInfo } from "@prisma/client";
 import { getCurrentUser } from "./user.actions";
 import { orderStatuses } from "@/constants";
-import { orderStatus } from "@prisma/client";
+import { Order_Status } from "@prisma/client";
 import { CartItem } from "@/store/useCartStore";
 
 interface Authorization {
@@ -143,7 +143,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
 
     await db.order.update({
       where: { id: order.id },
-      data: { status: "CONFIRMED", paymentStatus: "SUCCESS" },
+      data: { status: "CONFIRMED", payment_status: "SUCCESS" },
     });
 
     if (!authorization || !authorization.last4 || !authorization.card_type) {
@@ -179,7 +179,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
 
 export async function updateOrderStatus(
   orderId: string,
-  newStatus: orderStatus,
+  newStatus: Order_Status,
 ) {
   if (!orderStatuses.includes(newStatus)) {
     return { success: false, message: "Invalid Status" };
@@ -205,12 +205,12 @@ export async function getUserOrders({ page }: { page?: number }) {
   try {
     const skip = (page - 1) * resultsPerPage;
     const totalRecords = await db.order.count({
-      where: { userId: currentUserId.id, paymentStatus: "SUCCESS" },
+      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
     });
     const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
     const usersOrders = await db.order.findMany({
-      where: { userId: currentUserId.id, paymentStatus: "SUCCESS" },
+      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
       orderBy: { createdAt: "desc" },
       take: resultsPerPage,
       skip,
