@@ -17,19 +17,9 @@ const BillingInfo = ({
 }: BillingInfoProps) => {
   return (
     <>
-      {shippingAddressId && (
-        <div className="grid gap-3">
-          <div className="font-semibold">Shipping Information</div>
-          <address className="grid gap-0.5 not-italic text-muted-foreground">
-            <span>Liam Johnson</span>
-            <span>1234 Main St.</span>
-            <span>Anytown, CA 12345</span>
-          </address>
-        </div>
-      )}
-      <div className="grid auto-rows-max gap-3">
-        <div className="font-semibold">Billing Information</div>
-        <address className="grid gap-0.5 not-italic text-muted-foreground">
+      <div>
+        <p className="text-sm font-semibold">Shipping to</p>
+        <address className="grid text-sm">
           <span>{billingAddress}</span>
           <span>
             {billingState}, {billingCountry} {billingZip}

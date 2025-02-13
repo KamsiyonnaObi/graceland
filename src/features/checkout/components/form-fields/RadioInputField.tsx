@@ -15,8 +15,8 @@ export const RadioInputField = ({
 }: {
   formControl: any;
   name: string;
-  label: string;
-  options: { value: string; label: string }[];
+  label?: string;
+  options: { value: string; label: string; subtext?: string }[];
 }) => (
   <FormField
     control={formControl}
@@ -33,12 +33,17 @@ export const RadioInputField = ({
             {options.map((option) => (
               <FormItem
                 key={option.value}
-                className="flex items-center space-x-3 space-y-0"
+                className="flex items-start space-x-3 space-y-0"
               >
                 <FormControl>
                   <RadioGroupItem value={option.value} />
                 </FormControl>
-                <FormLabel className="font-normal">{option.label}</FormLabel>
+                <div className="flex flex-col gap-2">
+                  <FormLabel className="">{option.label}</FormLabel>
+                  {option.subtext && (
+                    <p className="text-sm">{option.subtext}</p>
+                  )}
+                </div>
               </FormItem>
             ))}
           </RadioGroup>

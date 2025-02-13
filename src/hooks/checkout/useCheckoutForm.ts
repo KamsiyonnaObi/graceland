@@ -16,9 +16,6 @@ export const useCheckoutForm = () => {
   const form = useForm<z.infer<typeof checkoutDetailsSchema>>({
     resolver: zodResolver(checkoutDetailsSchema),
     defaultValues: {
-      pickUpPersonFirstName: "",
-      pickUpPersonLastName: "",
-      pickUpPerson: "customer",
       billingFirstName: "",
       billingLastName: "",
       address: "",
@@ -30,13 +27,12 @@ export const useCheckoutForm = () => {
     },
   });
 
-  const { shippingFee, totalPriceWithFees, totalPrice, cartItems } =
+  const { shippingFee, totalPriceWithFees, totalPrice, cartItems, isPickUp } =
     useCartStore();
 
   const initializeTransaction = async (email: string, reference: string) => {
     setLoading(true);
     try {
-      // Send a POST request to your server to create a Paystack checkout session
       const response = await axios.post(
         "/api/paystack/create-checkout-session",
         {
@@ -49,7 +45,6 @@ export const useCheckoutForm = () => {
 
       const { checkoutURL } = response.data;
 
-      // Redirect to Paystack payment page in the same tab
       window.location.href = checkoutURL;
     } catch (error) {
       console.error("Error initializing payment:", error);
@@ -60,17 +55,23 @@ export const useCheckoutForm = () => {
 
   const onSubmit = async (values: z.infer<typeof checkoutDetailsSchema>) => {
     const { tax } = calculateTotals(totalPrice, shippingFee);
-    const billingAddress = {
-      address: values.address,
-      state: values.state,
-      country: values.country,
-    };
+    // Only include shipping address if fulfilment type is SHIPPING
+    const shippingAddress =
+      values.fulfilmentType === "SHIPPING"
+        ? {
+            address: values.address!,
+            state: values.state!,
+            country: values.country!,
+          }
+        : undefined;
 
     const orderDetails = {
-      totalPriceWithFees,
       shippingFee,
+      totalPriceWithFees,
+      paystackCheckoutCode: "",
       taxesPaid: tax,
       taxRate: 0.075,
+      fulfilmentType: values.fulfilmentType,
       orderEmail: values.email,
       phoneNumber: values.phone,
       pickUpPersonFirstName: values.pickUpPersonFirstName,
@@ -85,7 +86,7 @@ export const useCheckoutForm = () => {
       const customerOrder = await createOrder(
         orderDetails,
         cartItems,
-        billingAddress,
+        shippingAddress,
       );
 
       if (!customerOrder?.createdOrder?.id) {

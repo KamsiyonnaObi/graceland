@@ -8,13 +8,6 @@ const errorMessages = {
   deliveryNoteMax: "Note must be less than 300 words",
 };
 
-const stateSchema = z.string();
-const countrySchema = z.string();
-const addressSchema = z
-  .string()
-  .min(5, errorMessages.addressMin)
-  .max(50, errorMessages.addressMax);
-
 export const phoneSchema = z
   .string()
   .min(10, errorMessages.phone)
@@ -26,39 +19,56 @@ export const editPhoneSchema = z.object({
 
 export const checkoutDetailsSchema = z
   .object({
-    pickUpPerson: z.enum(["customer", "someoneElse"], {
-      required_error: "You need to select a pickup person.",
+    fulfilmentType: z.enum(["PICKUP", "SHIPPING"], {
+      required_error: "You need to select a fufilment option.",
     }),
+    pickUpPerson: z.enum(["customer", "someoneElse"]).optional(),
     pickUpPersonLastName: z.string().optional(),
     pickUpPersonFirstName: z.string().optional(),
     billingFirstName: nameSchema,
     billingLastName: nameSchema,
-    address: addressSchema,
+    address: z.string().optional(),
     email: emailSchema,
     phone: phoneSchema,
-    state: stateSchema,
-    country: countrySchema,
+    state: z.string().optional(),
+    country: z.string().optional(),
     deliveryNote: z.string().max(50, errorMessages.deliveryNoteMax).optional(),
   })
-  .superRefine((data, refinementContext) => {
-    if (
-      data.pickUpPerson === "someoneElse" &&
-      data.pickUpPersonFirstName === ""
-    ) {
-      return refinementContext.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Pickup person first name is required",
-        path: ["pickUpPersonFirstName"],
-      });
-    }
-    if (
-      data.pickUpPerson === "someoneElse" &&
-      data.pickUpPersonLastName === ""
-    ) {
-      return refinementContext.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Pickup person last name is required",
-        path: ["pickUpPersonLastName"],
-      });
-    }
-  });
+  .refine(
+    (data) =>
+      data.fulfilmentType === "SHIPPING"
+        ? data.address && data.state && data.country
+        : true,
+    {
+      message: "Address, state, and country are required for shipping.",
+      path: ["address"],
+    },
+  )
+  .refine(
+    (data) => {
+      if (data.fulfilmentType === "PICKUP") {
+        return data.pickUpPerson !== undefined;
+      }
+      return true;
+    },
+    {
+      message: "You need to select a pickup person for pickup orders.",
+      path: ["pickUpPerson"],
+    },
+  )
+  .refine(
+    (data) => {
+      if (
+        data.fulfilmentType === "PICKUP" &&
+        data.pickUpPerson === "someoneElse"
+      ) {
+        return data.pickUpPersonFirstName && data.pickUpPersonLastName;
+      }
+      return true;
+    },
+    {
+      message:
+        "Pickup person first and last name are required when someone else is picking up.",
+      path: ["pickUpPersonFirstName"],
+    },
+  );

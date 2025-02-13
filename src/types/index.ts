@@ -21,11 +21,13 @@ export interface OrderDetails {
   taxesPaid: number;
   phoneNumber: string;
   orderEmail: string;
-  pickUpPersonFirstName: string | undefined;
-  pickUpPersonLastName: string | undefined;
+  fulfilmentType: "PICKUP" | "SHIPPING";
+  pickUpPersonFirstName?: string;
+  pickUpPersonLastName?: string;
   billingFirstName: string;
   billingLastName: string;
   deliveryNote: string;
+  paystackCheckoutCode: string; // to initialize paystack checkout session if user did not complete payment
   trxref: string;
 }
 
