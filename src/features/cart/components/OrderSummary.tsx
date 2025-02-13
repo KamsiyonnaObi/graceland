@@ -16,6 +16,7 @@ import { useCartStore } from "@/store/useCartStore";
 
 import { CartSummaryItem, TaxAndShippingSummary } from "./CartDetails";
 import { formatCurrency } from "@/lib/formatters";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type OrderSummaryProps = {
   isCheckout?: boolean;
@@ -74,13 +75,17 @@ const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
           </Button>
         )}
         {!isPickUp && (
-          <div className="w-fill flex items-center gap-3">
-            <Info size={28} />
-            <i className="text-xs">
-              Shipping fees are paid on delivery. Your fees will be calculated
-              when order is shipped.
-            </i>
-          </div>
+          <Alert className="w-fill flex items-center gap-3 border-none p-2">
+            <AlertTitle>
+              <Info size={16} />
+            </AlertTitle>
+            <AlertDescription>
+              <i className="text-xs">
+                Shipping fees are paid on delivery. Your fees will be calculated
+                when order is shipped.
+              </i>
+            </AlertDescription>
+          </Alert>
         )}
       </CardFooter>
     </Card>
