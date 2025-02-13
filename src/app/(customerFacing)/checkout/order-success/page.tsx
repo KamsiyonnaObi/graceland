@@ -104,6 +104,8 @@ const OrderSuccessPage = async ({
           <PurchasedOrderSummary
             taxesPaid={orderData.taxesPaid}
             orderItems={orderData.orderItems}
+            orderStatus={orderData.status}
+            fulfilmentType={orderData.FulfillmentType}
             shippingFeeInCents={orderData.shippingFeeInCents}
             totalPriceInCents={orderData.totalPriceInCents}
           />

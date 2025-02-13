@@ -5,11 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { CartSummaryItem } from "@/features/cart/components/CartDetails";
 
 import { formatCurrency } from "@/lib/formatters";
+import { orderStatus } from "@prisma/client";
+import { Info } from "lucide-react";
 
 type OrderItems = {
   id: string;
@@ -19,18 +21,26 @@ type OrderItems = {
 };
 
 interface PurchasedOrderSummary {
+  fulfilmentType: "PICKUP" | "SHIPPING";
   shippingFeeInCents: number;
   taxesPaid: number | null;
   totalPriceInCents: number;
   orderItems: OrderItems[];
+  orderStatus: orderStatus;
 }
 
 const PurchasedOrderSummary = ({
   shippingFeeInCents,
-  taxesPaid,
   totalPriceInCents,
+  fulfilmentType,
+  taxesPaid,
   orderItems,
+  orderStatus,
 }: PurchasedOrderSummary) => {
+  const isShipping = fulfilmentType === "SHIPPING";
+  const isShippingFeeAssigned =
+    shippingFeeInCents !== null && shippingFeeInCents > 0;
+  const isOrderCompleted = orderStatus === "DELIVERED";
   return (
     <Card className="w-full shadow-none">
       <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">
@@ -50,14 +60,16 @@ const PurchasedOrderSummary = ({
           ))}
           <Separator className="my-2" />
           <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Shipping</span>
-              <span>
-                {shippingFeeInCents === 0
-                  ? "FREE"
-                  : formatCurrency(shippingFeeInCents / 100)}
-              </span>
-            </li>
+            {isShipping && (
+              <li className="flex items-center justify-between">
+                <span className="text-muted-foreground">Shipping</span>
+                <span>
+                  {isShippingFeeAssigned
+                    ? formatCurrency(shippingFeeInCents! / 100)
+                    : "TBD"}
+                </span>
+              </li>
+            )}
             {taxesPaid && (
               <li className="flex items-center justify-between">
                 <span className="text-muted-foreground">VAT (7.5%)</span>
@@ -67,11 +79,29 @@ const PurchasedOrderSummary = ({
           </ul>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col gap-2">
         <div className="flex w-full items-center justify-between font-semibold">
           <span className="text-muted-foreground">Total</span>
           <span>{formatCurrency(totalPriceInCents / 100)}</span>
         </div>
+
+        {isShipping && !isOrderCompleted && (
+          <Alert
+            className="w-fill flex items-center gap-3 border-none p-2"
+            variant="destructive"
+          >
+            <AlertTitle>
+              <Info size={16} />
+            </AlertTitle>
+            <AlertDescription className="text-xs">
+              {isShippingFeeAssigned ? (
+                <i>Shipping fee will be paid on delivery.</i>
+              ) : (
+                <i>Shipping fee will be added and paid on delivery. Fee TBD.</i>
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
       </CardFooter>
     </Card>
   );
