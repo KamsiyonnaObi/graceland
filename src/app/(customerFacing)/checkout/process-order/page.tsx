@@ -32,7 +32,8 @@ const ProcessOrderLoader = () => {
   return (
     <section className="page-container">
       <div className="flex-center flex-col">
-        <h1 className="mb-5 text-3xl font-semibold">Creating your order</h1>
+        <h1 className="text-3xl font-semibold">Confirming your payment</h1>
+        <h5 className="mb-5">Please do not refresh your page</h5>
         <Loader size={75} className="animate-spin" />
       </div>
     </section>
