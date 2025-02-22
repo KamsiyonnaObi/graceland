@@ -24,15 +24,16 @@ export async function POST(req: NextRequest) {
         callback_url: `${process.env.BASE_URL}/checkout/process-order`,
         subaccount: "ACCT_0tw0ts52tn08utw",
         metadata: {
+          cancel_action: `${process.env.BASE_URL}/checkout/process-order?reference=${reference}`,
           products: formattedProducts,
         },
       },
       { headers: { Authorization: `Bearer ${secret}` } },
     );
 
-    const authorizationUrl = response.data.data.authorization_url;
+    const { authorization_url, access_code } = response.data.data;
     return NextResponse.json(
-      { checkoutURL: authorizationUrl },
+      { checkoutURL: authorization_url, checkoutCode: access_code },
       { status: 200 },
     );
   } catch (error) {
