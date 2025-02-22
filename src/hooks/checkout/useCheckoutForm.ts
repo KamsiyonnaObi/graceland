@@ -43,9 +43,11 @@ export const useCheckoutForm = () => {
         },
       );
 
-      const { checkoutURL } = response.data;
+      const { checkoutURL, checkoutCode } = response.data;
 
       window.location.href = checkoutURL;
+
+      return checkoutCode;
     } catch (error) {
       console.error("Error initializing payment:", error);
     } finally {
@@ -83,8 +85,12 @@ export const useCheckoutForm = () => {
     };
 
     try {
+      const paystackCheckoutCode = await initializeTransaction(
+        values.email,
+        orderDetails.trxref,
+      );
       const customerOrder = await createOrder(
-        orderDetails,
+        { ...orderDetails, paystackCheckoutCode },
         cartItems,
         shippingAddress,
       );
@@ -92,8 +98,6 @@ export const useCheckoutForm = () => {
       if (!customerOrder?.createdOrder?.id) {
         throw new Error("Failed to create order");
       }
-
-      initializeTransaction(values.email, orderDetails.trxref);
     } catch (error) {
       toast.error("Order creation failed");
       console.error(error);
