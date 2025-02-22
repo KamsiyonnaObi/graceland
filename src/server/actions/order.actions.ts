@@ -202,12 +202,12 @@ export async function getUserOrders({ page }: { page?: number }) {
   try {
     const skip = (page - 1) * resultsPerPage;
     const totalRecords = await db.order.count({
-      where: { userId: currentUserId.id, paymentStatus: "SUCCESS" },
+      where: { userId: currentUserId.id },
     });
     const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
     const usersOrders = await db.order.findMany({
-      where: { userId: currentUserId.id, paymentStatus: "SUCCESS" },
+      where: { userId: currentUserId.id },
       orderBy: { createdAt: "desc" },
       take: resultsPerPage,
       skip,
