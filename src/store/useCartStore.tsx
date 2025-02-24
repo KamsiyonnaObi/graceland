@@ -11,6 +11,7 @@ export interface CartItem {
 
 interface CartState {
   showCart: boolean;
+  isPickUp: boolean;
   orderEmail: string;
   cartItems: CartItem[];
   shippingFee: number;
@@ -19,6 +20,7 @@ interface CartState {
   totalPriceWithFees: number;
   qty: number;
   setShowCart: (show: boolean) => void;
+  toggleIsPickUp: (isOrderPickedUp: boolean) => void;
   setShippingFee: (shippingFee: number) => void;
   setTotalPriceWithFees: (totalPrice: number) => void;
   setOrderEmail: (newOrderEmail: string) => void;
@@ -32,6 +34,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       showCart: false,
+      isPickUp: false,
       orderEmail: "",
       cartItems: [],
       shippingFee: 0,
@@ -41,6 +44,8 @@ export const useCartStore = create<CartState>()(
       qty: 1,
 
       setShowCart: (show) => set({ showCart: show }),
+
+      toggleIsPickUp: (pickUp) => set({ isPickUp: pickUp }),
 
       setOrderEmail: (newOrderEmail) => set({ orderEmail: newOrderEmail }),
 

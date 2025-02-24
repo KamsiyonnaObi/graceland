@@ -267,7 +267,7 @@ export async function getUserLatestOrders() {
     select: {
       firstName: true,
       orders: {
-        where: { payment_status: "SUCCESS" },
+        where: { paymentStatus: "SUCCESS" },
         orderBy: { createdAt: "desc" },
         select: {
           createdAt: true,

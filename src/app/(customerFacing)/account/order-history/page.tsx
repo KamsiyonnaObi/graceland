@@ -32,7 +32,7 @@ const AccountPage = async ({
             <TableHeader>
               <TableRow>
                 <TableHead>Reference</TableHead>
-                <TableHead className="max-sm:hidden">Date</TableHead>
+                <TableHead className="max-sm:hidden">Ordered at</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Price Paid</TableHead>
               </TableRow>
@@ -44,7 +44,7 @@ const AccountPage = async ({
                   status={order.status}
                   orderId={order.id}
                   trxref={order.trxref}
-                  updatedAt={order.updatedAt}
+                  createdAt={order.createdAt}
                   totalPriceInCents={order.totalPriceInCents}
                 />
               ))}
