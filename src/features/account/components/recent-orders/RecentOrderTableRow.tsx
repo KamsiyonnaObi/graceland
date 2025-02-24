@@ -10,7 +10,7 @@ import { formatCurrency } from "@/lib/formatters";
 interface RecentOrderTableRowProps {
   orderId: string;
   trxref: string;
-  updatedAt: Date;
+  createdAt: Date;
   status: string;
   totalPriceInCents: number;
 }
@@ -18,7 +18,7 @@ interface RecentOrderTableRowProps {
 const RecentOrderTableRow = ({
   orderId,
   trxref,
-  updatedAt,
+  createdAt,
   status,
   totalPriceInCents,
 }: RecentOrderTableRowProps) => {
@@ -37,7 +37,7 @@ const RecentOrderTableRow = ({
           </Link>
         </TableCell>
         <TableCell className="max-sm:hidden">
-          {updatedAt.toLocaleString("en-US", {
+          {createdAt.toLocaleString("en-US", {
             dateStyle: "medium",
           })}
         </TableCell>

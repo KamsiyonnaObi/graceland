@@ -57,49 +57,61 @@ enum Role {
 }
 
 model Order {
-  id                 String         @id @default(uuid())
-  totalPriceInCents  Int
-  shippingFeeInCents Int
-  taxRate            Float?
-  taxesPaid          Float?
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @updatedAt
-  status             Order_Status   @default(CREATED)
-  payment_status     Payment_Status @default(PENDING)
-  orderEmail         String         @default("Guest Order")
-  userId             String?
-  user               User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orderItems         OrderItem[]
+  id                   String        @id @default(uuid())
+  fullName             String? // only if user is not logged in or ordering as a guest.
+  userId               String?
+  user                 User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalPriceInCents    Int
+  shippingFeeInCents   Int           @default(0)
+  taxRate              Float?
+  taxesPaid            Float?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  status               orderStatus   @default(CREATED)
+  paymentStatus        paymentStatus @default(PENDING)
+  phoneNumber          String
+  orderEmail           String
+  trxref               String        @unique
+  deliveryNote         String?
+  paystackCheckoutCode String?
 
-  deliveryNote          String?  @db.VarChar(300)
-  phoneNumber           String?
+  orderItems            OrderItem[]
+  FulfillmentType       FulfillmentType @default(PICKUP)
   pickUpPersonFirstName String?
   pickUpPersonLastName  String?
   shippingAddressId     String?
-  shippingAddress       Address? @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddress       Address?        @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
 
-  billingAddressId String
-  billingAddress   Address @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  trackingId String?
+  tracking   TrackingInfo? @relation(fields: [trackingId], references: [id])
 
-  trxref        String       @unique
   paymentInfoId String?
   paymentInfo   PaymentInfo? @relation(fields: [paymentInfoId], references: [id])
 
-  addressType String @default("PICKUP")
+  billingAddressId String?
+  billingAddress   Address? @relation("BillingAddress", fields: [billingAddressId], references: [id])
 }
 
-enum Order_Status {
+enum orderStatus {
   CREATED
   PENDING
   CONFIRMED
   SHIPPED
   DELIVERED
+  CANCELED
+  REFUNDED
 }
 
-enum Payment_Status {
+enum paymentStatus {
   PENDING
   SUCCESS
   FAILED
+  REFUNDED
+}
+
+enum FulfillmentType {
+  PICKUP
+  SHIPPING
 }
 
 model OrderItem {
@@ -135,6 +147,23 @@ model PaymentInfo {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Order     Order[]
+}
+
+model TrackingInfo {
+  id             String         @id @default(cuid())
+  courierName    String
+  trackingNumber String?
+  status         TrackingStatus
+  lastUpdated    DateTime       @default(now())
+  driverName     String?
+  Order          Order[]
+}
+
+enum TrackingStatus {
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  READY_FOR_PICKUP
+  DELIVERED
 }
 
 model Token {

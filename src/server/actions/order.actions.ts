@@ -8,7 +8,7 @@ import { OrderDetails, Address } from "@/types";
 import { PaymentInfo } from "@prisma/client";
 import { getCurrentUser } from "./user.actions";
 import { orderStatuses } from "@/constants";
-import { Order_Status } from "@prisma/client";
+import { orderStatus } from "@prisma/client";
 import { CartItem } from "@/store/useCartStore";
 
 interface Authorization {
@@ -27,9 +27,8 @@ interface WebhookData {
 export async function createOrder(
   orderDetails: OrderDetails,
   cartItems: CartItem[],
-  billingAddress: Address,
-  paymentInfo?: PaymentInfo,
   shippingAddress?: Address,
+  paymentInfo?: PaymentInfo,
 ) {
   const {
     totalPriceWithFees,
@@ -42,8 +41,10 @@ export async function createOrder(
     billingFirstName,
     billingLastName,
     trxref,
+    fulfilmentType,
     orderEmail,
     deliveryNote,
+    paystackCheckoutCode,
   } = orderDetails;
 
   try {
@@ -73,24 +74,21 @@ export async function createOrder(
       });
     }
 
-    const createdBillingAddress = await db.address.create({
-      data: billingAddress,
-    });
-
     const createdOrder = await db.order.create({
       data: {
         totalPriceInCents: totalPriceWithFees,
         shippingFeeInCents: shippingFee,
         pickUpPersonFirstName:
-          pickUpPersonFirstName === ""
-            ? billingFirstName
-            : pickUpPersonFirstName,
+          fulfilmentType === "PICKUP" ? pickUpPersonFirstName : "",
         pickUpPersonLastName:
-          pickUpPersonLastName === "" ? billingLastName : pickUpPersonLastName,
+          fulfilmentType === "PICKUP" ? pickUpPersonLastName : "",
+        fullName: billingFirstName + " " + billingLastName,
         phoneNumber,
         taxesPaid,
         taxRate,
         trxref,
+        paystackCheckoutCode,
+        FulfillmentType: fulfilmentType,
         orderEmail,
         deliveryNote,
         orderItems: { create: createdOrderItems },
@@ -100,7 +98,6 @@ export async function createOrder(
         user: loggedInUserId
           ? { connect: { id: loggedInUserId.id } }
           : undefined,
-        billingAddress: { connect: { id: createdBillingAddress.id } },
       },
     });
 
@@ -143,7 +140,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
 
     await db.order.update({
       where: { id: order.id },
-      data: { status: "CONFIRMED", payment_status: "SUCCESS" },
+      data: { status: "CONFIRMED", paymentStatus: "SUCCESS" },
     });
 
     if (!authorization || !authorization.last4 || !authorization.card_type) {
@@ -179,7 +176,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
 
 export async function updateOrderStatus(
   orderId: string,
-  newStatus: Order_Status,
+  newStatus: orderStatus,
 ) {
   if (!orderStatuses.includes(newStatus)) {
     return { success: false, message: "Invalid Status" };
@@ -205,12 +202,12 @@ export async function getUserOrders({ page }: { page?: number }) {
   try {
     const skip = (page - 1) * resultsPerPage;
     const totalRecords = await db.order.count({
-      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
+      where: { userId: currentUserId.id },
     });
     const totalPages = Math.ceil(totalRecords / resultsPerPage);
 
     const usersOrders = await db.order.findMany({
-      where: { userId: currentUserId.id, payment_status: "SUCCESS" },
+      where: { userId: currentUserId.id },
       orderBy: { createdAt: "desc" },
       take: resultsPerPage,
       skip,
@@ -226,7 +223,7 @@ export async function getUserOrders({ page }: { page?: number }) {
     return { status: 401, message: "Unauthorized" };
   }
 }
-// Function to update order with transaction reference
+
 export const updateOrderTransactionReference = async (
   orderId: string,
   trxref: string,
@@ -255,7 +252,7 @@ export const getOrderByTrxref = async (trxref: string) => {
           },
         },
         paymentInfo: true,
-        billingAddress: true,
+        shippingAddress: true,
       },
     });
 

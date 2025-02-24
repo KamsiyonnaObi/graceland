@@ -3,6 +3,8 @@ import { Separator } from "@/components/ui/separator";
 interface OrderStatusProps {
   status: string;
   orderUpdatedAt: Date;
+  orderfulfilmentType: "PICKUP" | "SHIPPING";
+  billingName: string | null;
   pickUpPersonFirstName: string | null;
   pickUpPersonLastName: string | null;
 }
@@ -10,8 +12,10 @@ interface OrderStatusProps {
 const OrderStatus = ({
   status,
   orderUpdatedAt,
+  orderfulfilmentType,
   pickUpPersonFirstName,
   pickUpPersonLastName,
+  billingName,
 }: OrderStatusProps) => {
   return (
     <>
@@ -22,7 +26,7 @@ const OrderStatus = ({
         })}
         .
       </p>
-      {pickUpPersonFirstName && (
+      {orderfulfilmentType === "PICKUP" && (
         <>
           <Separator className="my-2" />
           <div className="mb-4">
@@ -31,9 +35,13 @@ const OrderStatus = ({
           </div>
           <div>
             <p className="text-[14px] font-bold">Pickup Person</p>
-            <p className="text-[14px]">
-              {pickUpPersonFirstName} {pickUpPersonLastName}
-            </p>
+            {pickUpPersonFirstName ? (
+              <p className="text-[14px]">
+                {pickUpPersonFirstName} {pickUpPersonLastName}
+              </p>
+            ) : (
+              <p className="text-[14px]">{billingName}</p>
+            )}
           </div>
         </>
       )}
