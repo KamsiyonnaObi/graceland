@@ -72,7 +72,9 @@ const PurchasedOrderSummary = ({
             )}
             {taxesPaid && (
               <li className="flex items-center justify-between">
-                <span className="text-muted-foreground">VAT (7.5%)</span>
+                <span className="text-muted-foreground">
+                  Taxes & Fees (7.5%)
+                </span>
                 <span>{formatCurrency(taxesPaid / 100)}</span>
               </li>
             )}
