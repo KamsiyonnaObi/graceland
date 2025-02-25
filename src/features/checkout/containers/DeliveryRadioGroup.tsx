@@ -4,13 +4,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useCartStore } from "@/store/useCartStore";
 
 export function DeliveryRadioGroup() {
-  const { setShippingFee } = useCartStore();
+  const { isPickUp, toggleIsPickUp } = useCartStore();
 
   const handleDeliveryRadioGroup = (deliveryOption: string) => {
     if (deliveryOption === "delivery") {
-      setShippingFee(150000);
+      toggleIsPickUp(false);
     } else if (deliveryOption === "pick-up") {
-      setShippingFee(0);
+      toggleIsPickUp(true);
     }
   };
   return (
@@ -18,21 +18,20 @@ export function DeliveryRadioGroup() {
       <h2 className="text-lg font-bold">Delivery or Pick Up</h2>
       <RadioGroup
         className="space-y-3"
-        defaultValue="pick-up"
+        defaultValue={isPickUp ? "pick-up" : "delivery"}
         onValueChange={handleDeliveryRadioGroup}
       >
         <div className="flex items-start space-x-3">
           <RadioGroupItem value="pick-up" id="pick-up" />
           <div className="flex flex-col gap-2">
             <Label htmlFor="pick-up">Pick up at store</Label>
-            <p className="text-sm">Earliest pick tomorrow 10 AM</p>
+            <p className="text-sm">pick up at our store in Idumota, Lagos</p>
           </div>
         </div>
         <div className="flex items-start space-x-3">
-          <RadioGroupItem value="delivery" id="delivery" disabled />
+          <RadioGroupItem value="delivery" id="delivery" />
           <div className="flex flex-col gap-2">
             <Label htmlFor="delivery">Ship to your address</Label>
-            <p className="text-sm">Comming soon</p>
           </div>
         </div>
       </RadioGroup>

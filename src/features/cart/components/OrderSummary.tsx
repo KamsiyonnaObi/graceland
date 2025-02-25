@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 
-import { ShieldCheck } from "lucide-react";
+import { Info, ShieldCheck } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -16,13 +16,14 @@ import { useCartStore } from "@/store/useCartStore";
 
 import { CartSummaryItem, TaxAndShippingSummary } from "./CartDetails";
 import { formatCurrency } from "@/lib/formatters";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type OrderSummaryProps = {
   isCheckout?: boolean;
 };
 
 const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
-  const { shippingFee, cartItems, totalPrice } = useCartStore();
+  const { shippingFee, cartItems, totalPrice, isPickUp } = useCartStore();
   return (
     <Card className="w-full shadow-none max-lg:p-4">
       <CardHeader className="rounded-t-lg bg-muted/50 py-3 max-lg:hidden">
@@ -48,6 +49,7 @@ const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
             </li>
             {isCheckout ? (
               <TaxAndShippingSummary
+                isPickUp={isPickUp}
                 subtotal={totalPrice}
                 shipping={shippingFee}
               />
@@ -60,8 +62,8 @@ const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
           </ul>
         </div>
       </CardContent>
-      {!isCheckout && (
-        <CardFooter className="max-lg:px-0 max-lg:pt-6">
+      <CardFooter className="flex flex-col gap-4 max-lg:px-0 max-lg:pt-6">
+        {!isCheckout && (
           <Button
             asChild
             size="lg"
@@ -71,8 +73,21 @@ const OrderSummary = ({ isCheckout }: OrderSummaryProps) => {
               <ShieldCheck className="mr-2 h-5 w-5" /> Continue to Checkout
             </Link>
           </Button>
-        </CardFooter>
-      )}
+        )}
+        {!isPickUp && (
+          <Alert className="w-fill flex items-center gap-3 border-none p-2">
+            <AlertTitle>
+              <Info size={16} />
+            </AlertTitle>
+            <AlertDescription>
+              <i className="text-xs">
+                Shipping fees are paid on delivery. Your fees will be calculated
+                when order is shipped.
+              </i>
+            </AlertDescription>
+          </Alert>
+        )}
+      </CardFooter>
     </Card>
   );
 };

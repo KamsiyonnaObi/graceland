@@ -22,11 +22,11 @@ const StatusPill = ({ status }: StatusPillProps) => {
   return (
     <span
       className={cn(
-        "inline-block rounded px-3 py-1 text-xs font-semibold",
+        "inline-block rounded-full px-2 py-1 text-xs font-semibold",
         colorClass,
       )}
     >
-      {status}
+      {status.toLowerCase()}
     </span>
   );
 };
