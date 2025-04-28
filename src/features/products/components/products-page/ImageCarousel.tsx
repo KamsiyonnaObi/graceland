@@ -22,7 +22,7 @@ interface ImageCarouselProps {
 
 export function ImageCarousel({ productName, images }: ImageCarouselProps) {
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel className="">
       <CarouselContent>
         {images.map((image) => (
           <CarouselItem key={image.id}>
