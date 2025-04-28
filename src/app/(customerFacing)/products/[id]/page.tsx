@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
-
-import AddToCart from "@/features/products/components/AddToCartButton";
 import { ImageCarousel } from "@/features/products/components/products-page/ImageCarousel";
 
 import { formatCurrency } from "@/lib/formatters";
 import { getProduct } from "@/server/actions/products";
+import AddToCartContainer from "@/features/products/containers/products-page/AddToCart.container";
 
 const ProductDetailPage = async ({
   params: { id },
@@ -17,36 +16,35 @@ const ProductDetailPage = async ({
   return (
     <div className="page-container max-w-[1440px] lg:min-h-fit">
       {/* <BackButton /> */}
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Info Section */}
-        <section className="space-y-2">
-          <h1 className="text-2xl font-bold">{product.name}</h1>
-          {product.description && (
-            <div className="">
-              <p className="">{product.description}</p>
-            </div>
-          )}
-        </section>
-
+      <div className="grid lg:grid-cols-5">
         {/* Image Carousel */}
-        <section className="flex-center">
+        <section className="mx-auto aspect-square max-w-[350px] rounded-lg shadow-lg md:max-w-[500px] lg:col-span-3 lg:max-w-[400px] xl:max-w-[500px]">
           <ImageCarousel productName={product.name} images={product.images} />
         </section>
+        {/* Info Section */}
+        <section className="space-y-2 px-4 lg:col-span-2">
+          <h2 className="text-lg font-bold max-lg:pt-4">{product.name}</h2>
 
-        {/* Add To Cart Section */}
-        <section className="flex flex-col gap-4 lg:justify-center">
-          <p className="text-xl font-bold">
-            From {formatCurrency(product.priceInCents / 100)}
+          {/* Reviews Section */}
+          {/* <p className="">reviews</p> */}
+          <p className="text-lg">
+            {formatCurrency(product.priceInCents / 100)}
           </p>
-
-          <div>
-            <AddToCart
+          {/* Add To Cart Section */}
+          <section className="flex flex-col py-4 lg:justify-center lg:py-6">
+            <AddToCartContainer
               productId={product.id}
               productName={product.name}
               price={product.priceInCents}
               imagePath={product.imagePath}
             />
-          </div>
+          </section>
+          {product.description && (
+            <div className="py-3 lg:py-6">
+              <h4 className="mb-3 text-xl font-bold">Overview</h4>
+              <p className="">{product.description}</p>
+            </div>
+          )}
         </section>
       </div>
     </div>
