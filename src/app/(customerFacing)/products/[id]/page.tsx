@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-
-import AddToCart from "@/features/products/components/AddToCartButton";
 import { ImageCarousel } from "@/features/products/components/products-page/ImageCarousel";
 
 import { formatCurrency } from "@/lib/formatters";
