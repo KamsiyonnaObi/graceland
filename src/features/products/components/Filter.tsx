@@ -1,24 +1,14 @@
-"use client";
-
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-import { CheckboxFilters } from "./filters/checkbox/CheckboxFilters";
+// import { CheckboxFilters } from "./filters/checkbox/CheckboxFilters";
 import PriceFilters from "./filters/price/PriceFilters";
 
+/**
+ *  !TODO -- uncomment checkbox filters after products
+ *  !TODO -- have been categorized in the DB
+ */
 const Filter = () => {
-  const pathname = usePathname();
-
   return (
     <aside className="flex w-full flex-col border-r">
-      <div className="mr-2 flex justify-end">
-        {/* <Link className="text-destructive" href={pathname}>
-          clear
-        </Link> */}
-      </div>
-
-      <CheckboxFilters />
+      {/*<CheckboxFilters />*/}
       <PriceFilters />
     </aside>
   );
