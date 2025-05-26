@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 
 import { CircleCheck } from "lucide-react";
 
-import { Separator } from "@/components/ui/separator";
-
 import { getOrderByTrxref } from "@/server/actions/order.actions";
 
 import OrderStatus from "@/features/checkout/components/order-success/OrderStatus";
