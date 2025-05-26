@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 
 import { CircleCheck } from "lucide-react";
 
-import { Separator } from "@/components/ui/separator";
-
 import { getOrderByTrxref } from "@/server/actions/order.actions";
 
 import OrderStatus from "@/features/checkout/components/order-success/OrderStatus";
@@ -96,7 +94,9 @@ const OrderSuccessPage = async ({
             <div className="grid gap-3">
               <PaymentInfo
                 cardNumberLast4={orderData.paymentInfo.cardNumberLast4}
+                channel={orderData.paymentInfo.channel}
                 cardType={orderData.paymentInfo.cardType}
+                bank={orderData.paymentInfo.bank}
               />
             </div>
           </div>

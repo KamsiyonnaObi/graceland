@@ -12,8 +12,11 @@ import { orderStatus } from "@prisma/client";
 import { CartItem } from "@/store/useCartStore";
 
 interface Authorization {
+  bank: string;
   last4: string;
+  channel: string;
   card_type: string;
+  country_code: string;
 }
 
 interface WebhookData {
@@ -143,7 +146,7 @@ export async function updateOrderStatusAndSavePaymentInfo(
       data: { status: "CONFIRMED", paymentStatus: "SUCCESS" },
     });
 
-    if (!authorization || !authorization.last4 || !authorization.card_type) {
+    if (!authorization) {
       return {
         ok: true,
         message: "Order confirmed but Incomplete payment info",
@@ -152,8 +155,11 @@ export async function updateOrderStatusAndSavePaymentInfo(
 
     await db.paymentInfo.create({
       data: {
-        cardNumberLast4: authorization.last4,
-        cardType: authorization.card_type,
+        cardNumberLast4: authorization.last4 ?? "",
+        cardType: authorization.card_type ?? "",
+        countryCode: authorization.country_code,
+        bank: authorization.bank,
+        channel: authorization.channel,
         Order: {
           connect: {
             id: order.id,
@@ -162,8 +168,6 @@ export async function updateOrderStatusAndSavePaymentInfo(
       },
     });
 
-    revalidatePath("/admin/orders");
-    console.log("Order confirmed and payment info saved");
     return { ok: true, message: "Order confirmed and payment info saved" };
   } catch (error) {
     console.error("Failed to update order and save payment info:", error);
