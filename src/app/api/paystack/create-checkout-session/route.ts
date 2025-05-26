@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         reference,
         currency: "NGN",
         callback_url: `${process.env.BASE_URL}/checkout/process-order`,
-        subaccount: "ACCT_thy6lr67l5za86n",
+        subaccount: process.env.PAYSTACK_SUBACCOUNT_CODE,
         bearer: "subaccount",
         metadata: {
           cancel_action: `${process.env.BASE_URL}/checkout/process-order?reference=${reference}`,
