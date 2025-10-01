@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,82 +11,144 @@ datasource db {
 model Product {
   id                     String      @id @default(uuid())
   name                   String
-  slug                   String      @unique @default(uuid())
-  imagePath              String
   priceInCents           Int
-  color                  String?
+  imagePath              String
   description            String
-  category               String[]    @default(["all"])
   isAvailableForPurchase Boolean     @default(false)
-  paystack_product_code  String?
   createdAt              DateTime    @default(now())
   updatedAt              DateTime    @updatedAt
-  orderItems             OrderItem[]
+  color                  String?
+  paystack_product_code  String?
+  slug                   String?     @unique
+  categoryId             String?
+  category               Category?   @relation(fields: [categoryId], references: [id])
   images                 Image[]
+  orderItems             OrderItem[]
+}
+
+model Category {
+  id               String     @id @default(uuid())
+  name             String
+  slug             String     @unique
+  parentCategoryId String?
+  parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subcategories    Category[] @relation("CategoryToCategory")
+
+  Product Product[]
 }
 
 model Image {
   id        Int     @id @default(autoincrement())
   url       String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model User {
   id            String    @id @default(cuid())
   role          Role      @default(BASIC)
   email         String    @unique
-  verifiedEmail Boolean   @default(false)
   firstName     String    @default("")
   lastName      String?
   password      String?
-  phoneNumber   String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  orders        Order[]
+  verifiedEmail Boolean   @default(false)
+  phoneNumber   String?
   addresses     Address[]
+  orders        Order[]
   Token         Token[]
+}
+
+model Order {
+  id                    String          @id @default(uuid())
+  totalPriceInCents     Int
+  shippingFeeInCents    Int             @default(0)
+  taxRate               Float?
+  taxesPaid             Float?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  userId                String?
+  phoneNumber           String
+  pickUpPersonFirstName String?
+  pickUpPersonLastName  String?
+  shippingAddressId     String?
+  billingAddressId      String?
+  trxref                String          @unique
+  paymentInfoId         String?
+  orderEmail            String
+  deliveryNote          String?
+  fullName              String?
+  paymentStatus         paymentStatus   @default(PENDING)
+  trackingId            String?
+  status                orderStatus     @default(CREATED)
+  paystackCheckoutCode  String?
+  FulfillmentType       FulfillmentType @default(PICKUP)
+  billingAddress        Address?        @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  paymentInfo           PaymentInfo?    @relation(fields: [paymentInfoId], references: [id])
+  shippingAddress       Address?        @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  tracking              TrackingInfo?   @relation(fields: [trackingId], references: [id])
+  user                  User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems            OrderItem[]
+}
+
+model OrderItem {
+  id           String  @id @default(uuid())
+  quantity     Int
+  priceInCents Int
+  productId    String
+  orderId      String
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product @relation(fields: [productId], references: [id])
+}
+
+model Address {
+  id             String   @id @default(uuid())
+  address        String
+  state          String
+  country        String
+  zipCode        String?
+  userId         String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User?    @relation(fields: [userId], references: [id])
+  billingOrders  Order[]  @relation("BillingAddress")
+  shippingOrders Order[]  @relation("ShippingAddress")
+}
+
+model PaymentInfo {
+  id              String   @id @default(uuid())
+  cardNumberLast4 String
+  cardType        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  bank            String?
+  channel         String?
+  countryCode     String?
+  Order           Order[]
+}
+
+model TrackingInfo {
+  id             String         @id @default(cuid())
+  courierName    String
+  trackingNumber String?
+  status         TrackingStatus
+  lastUpdated    DateTime       @default(now())
+  driverName     String?
+  Order          Order[]
+}
+
+model Token {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
   BASIC
   ADMIN
-}
-
-model Order {
-  id                   String        @id @default(uuid())
-  fullName             String? // only if user is not logged in or ordering as a guest.
-  userId               String?
-  user                 User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  totalPriceInCents    Int
-  shippingFeeInCents   Int           @default(0)
-  taxRate              Float?
-  taxesPaid            Float?
-  createdAt            DateTime      @default(now())
-  updatedAt            DateTime      @updatedAt
-  status               orderStatus   @default(CREATED)
-  paymentStatus        paymentStatus @default(PENDING)
-  phoneNumber          String
-  orderEmail           String
-  trxref               String        @unique
-  deliveryNote         String?
-  paystackCheckoutCode String?
-
-  orderItems            OrderItem[]
-  FulfillmentType       FulfillmentType @default(PICKUP)
-  pickUpPersonFirstName String?
-  pickUpPersonLastName  String?
-  shippingAddressId     String?
-  shippingAddress       Address?        @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
-
-  trackingId String?
-  tracking   TrackingInfo? @relation(fields: [trackingId], references: [id])
-
-  paymentInfoId String?
-  paymentInfo   PaymentInfo? @relation(fields: [paymentInfoId], references: [id])
-
-  billingAddressId String?
-  billingAddress   Address? @relation("BillingAddress", fields: [billingAddressId], references: [id])
 }
 
 enum orderStatus {
@@ -114,65 +173,9 @@ enum FulfillmentType {
   SHIPPING
 }
 
-model OrderItem {
-  id           String  @id @default(uuid())
-  quantity     Int
-  priceInCents Int
-  productId    String
-  product      Product @relation(fields: [productId], references: [id], onDelete: Restrict)
-  orderId      String
-  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-}
-
-model Address {
-  id      String  @id @default(uuid())
-  address String
-  state   String
-  country String
-  zipCode String?
-  userId  String?
-  user    User?   @relation(fields: [userId], references: [id])
-
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  shippingOrders Order[]  @relation("ShippingAddress")
-  billingOrders  Order[]  @relation("BillingAddress")
-}
-
-model PaymentInfo {
-  id              String   @id @default(uuid())
-  cardNumberLast4 String
-  cardType        String
-  channel         String?
-  countryCode     String?
-  bank            String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  Order           Order[]
-}
-
-model TrackingInfo {
-  id             String         @id @default(cuid())
-  courierName    String
-  trackingNumber String?
-  status         TrackingStatus
-  lastUpdated    DateTime       @default(now())
-  driverName     String?
-  Order          Order[]
-}
-
 enum TrackingStatus {
   IN_TRANSIT
   OUT_FOR_DELIVERY
   READY_FOR_PICKUP
   DELIVERED
-}
-
-model Token {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  expiresAt DateTime
-  createdAt DateTime @default(now())
 }
