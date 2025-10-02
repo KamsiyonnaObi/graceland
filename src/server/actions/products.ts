@@ -33,9 +33,9 @@ export async function getAllProducts(params: GetAllProductsParams) {
     filterConditions.name = { contains: name, mode: "insensitive" };
   }
 
-  if (category) {
+  if (category && category.length > 0) {
     filterConditions.category = {
-      hasSome: Array.isArray(category) ? category : [category],
+      slug: { in: category },
     };
   }
 
@@ -66,6 +66,17 @@ export async function getAllProducts(params: GetAllProductsParams) {
       orderBy: { [validatedSortField]: validatedSortOrder },
       skip,
       take: resultsPerPage,
+      include: {
+        category: {
+          include: {
+            parentCategory: {
+              include: {
+                parentCategory: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return { products, totalPages };
@@ -86,6 +97,7 @@ export async function getProduct(id: string) {
         name: true,
         priceInCents: true,
         images: { select: { id: true, url: true } },
+        category: { select: { name: true, slug: true } },
       },
     });
     return { error: null, product };
