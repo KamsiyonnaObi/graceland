@@ -136,7 +136,7 @@ export const footerLinks = [
         name: "info.gracelandng@gmail.com",
         link: "mailto:info.gracelandng@gmail.com",
       },
-      { name: "+2348034461024", link: "tel:+2348034461024" },
+      { name: "+234 816 601 0412", link: "tel:+2348166010412" },
     ],
   },
 ];

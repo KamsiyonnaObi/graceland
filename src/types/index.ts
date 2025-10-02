@@ -48,3 +48,11 @@ export interface UserParams {
   phoneNumber: string;
   verifiedEmail: boolean;
 }
+
+export interface ProductCategoryType {
+  id: string;
+  name: string;
+  slug: string;
+  parentCategoryId: string | null;
+  parentCategory?: ProductCategoryType | null;
+}
