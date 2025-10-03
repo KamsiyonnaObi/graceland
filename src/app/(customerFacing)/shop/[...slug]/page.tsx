@@ -76,6 +76,7 @@ async function ProductsSuspense({
       key={product.id}
       id={product.id}
       name={product.name}
+      slug={product.slug ?? product.name.toLowerCase().replace(/\s+/g, "-")}
       priceInCents={product.priceInCents}
       description={product.description}
       imagePath={product.imagePath}

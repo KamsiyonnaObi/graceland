@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ProductCategoryType } from "@/types";
 
 type ProductCardProps = {
   id: string;
@@ -17,16 +18,18 @@ type ProductCardProps = {
   priceInCents: number;
   description?: string;
   imagePath: string;
+  slug: string;
 };
 
 export function ProductCard({
   id,
   name,
   priceInCents,
+  slug,
   imagePath,
 }: ProductCardProps) {
   return (
-    <Link href={`/products/${id}`} className="h-fit">
+    <Link href={`/products/${slug}/${id}`} className="h-fit">
       <Card className="flex cursor-pointer flex-col overflow-hidden rounded-md border-none shadow-none">
         <div className="relative h-[200px]">
           <Image src={imagePath} fill alt={name} className="object-contain" />
