@@ -24,8 +24,13 @@ export default async function ProductsPage({
 
   return (
     <div className="page-container">
-      <div className="flex justify-between">
-        <h1 className="font-palanquin text-3xl font-bold">All Products</h1>
+      <div className="mb-2 flex items-center justify-between">
+        <div>
+          <h1 className="hero-title">All Products</h1>
+          <p className="hero-description">
+            Best selling Baby products in Lagos, Nigeria
+          </p>
+        </div>
         <div className="max-lg:hidden">
           <SortByFilters />
         </div>
