@@ -72,6 +72,13 @@ async function ProductsSuspense({
     return <p>no products found</p>;
   }
   return products.map((product) => (
-    <ProductCard key={product.id} {...product} />
+    <ProductCard
+      key={product.id}
+      id={product.id}
+      name={product.name}
+      priceInCents={product.priceInCents}
+      description={product.description}
+      imagePath={product.imagePath}
+    />
   ));
 }

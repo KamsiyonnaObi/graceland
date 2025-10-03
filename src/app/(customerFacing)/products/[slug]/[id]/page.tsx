@@ -15,22 +15,15 @@ const ProductDetailPage = async ({
   if (product == null) return notFound();
   return (
     <div className="page-container max-w-[1440px] lg:min-h-fit">
-      {/* <BackButton /> */}
       <div className="grid lg:grid-cols-5">
-        {/* Image Carousel */}
         <section className="mx-auto aspect-square max-w-[350px] rounded-lg shadow-lg md:max-w-[500px] lg:col-span-3 lg:max-w-[400px] xl:max-w-[500px]">
           <ImageCarousel productName={product.name} images={product.images} />
         </section>
-        {/* Info Section */}
         <section className="space-y-2 px-4 lg:col-span-2">
           <h2 className="text-lg font-bold max-lg:pt-4">{product.name}</h2>
-
-          {/* Reviews Section */}
-          {/* <p className="">reviews</p> */}
           <p className="text-lg">
             {formatCurrency(product.priceInCents / 100)}
           </p>
-          {/* Add To Cart Section */}
           <section className="flex flex-col py-4 lg:justify-center lg:py-6">
             <AddToCartContainer
               productId={product.id}
