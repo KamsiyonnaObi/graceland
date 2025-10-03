@@ -22,7 +22,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/#explore", label: "About Us" },
   { href: "/#testimonials", label: "Reviews" },
-  { href: "/products", label: "Shop" },
+  { href: "/shop/all", label: "Shop" },
 ];
 
 export const heroProducts = [
@@ -113,12 +113,12 @@ export const footerLinks = [
   {
     title: "Products",
     links: [
-      { name: "Baby Carrier", link: "/products" },
-      { name: "Baby Walker", link: "/products" },
-      { name: "Stroller", link: "/products" },
-      { name: "Playpen", link: "/products" },
-      { name: "Baby Bouncer", link: "/products" },
-      { name: "Baby Playmat", link: "/products" },
+      { name: "Baby Carrier", link: "/shop/baby-carriers" },
+      { name: "Baby Walker", link: "/shop/baby-walkers" },
+      { name: "Stroller", link: "/shop/strollers" },
+      { name: "Playpen", link: "/shop/playpens" },
+      { name: "Baby Bouncer", link: "/shop/bouncers" },
+      { name: "Baby Playmat", link: "/shop/playmats" },
     ],
   },
   {

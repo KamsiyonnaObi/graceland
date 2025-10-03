@@ -29,7 +29,7 @@ export default function Layout({
             <NavLink href="/">Home</NavLink>
             <NavLink href="/#explore">About us</NavLink>
             <NavLink href="/#testimonials">Reviews</NavLink>
-            <NavLink href="/products">Shop</NavLink>
+            <NavLink href="/shop/all">Shop</NavLink>
           </div>
           <div className="flex items-center">
             <UserNavbar />

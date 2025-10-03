@@ -26,7 +26,7 @@ const SuperQuality = () => {
           explore a wide range of essentials that deliver exceptional value and
           satisfaction.
         </p>
-        <Link href={"/products"} className="mt-11">
+        <Link href={"/shop/all"} className="mt-11">
           <MainButton label="Explore Products" />
         </Link>
       </div>
