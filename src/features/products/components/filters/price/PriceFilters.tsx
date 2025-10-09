@@ -23,7 +23,7 @@ const PriceFilters = () => {
   const { form, onFilterByPrice } = useQueryString();
 
   return (
-    <Accordion type="single" collapsible>
+    <Accordion className="w-full" type="single" collapsible>
       <AccordionItem value="price">
         <AccordionTrigger className="text-sm font-bold">Price</AccordionTrigger>
         <AccordionContent className="px-2">

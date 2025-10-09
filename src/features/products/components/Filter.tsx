@@ -7,10 +7,10 @@ import PriceFilters from "./filters/price/PriceFilters";
  */
 const Filter = () => {
   return (
-    <aside className="flex w-full flex-col border-r">
+    <>
       {/*<CheckboxFilters />*/}
       <PriceFilters />
-    </aside>
+    </>
   );
 };
 
