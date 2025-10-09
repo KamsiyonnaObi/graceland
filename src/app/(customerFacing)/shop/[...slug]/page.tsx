@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-
-import Filter from "@/features/products/components/Filter";
 import { getAllProducts } from "@/server/actions/products";
 import {
   ProductCard,
@@ -9,47 +7,46 @@ import {
 
 import { getSortOptions } from "@/utils/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";
-import { SortByFilters } from "@/features/products/components/filters/sort/SortByFilters";
-import MobileFilters from "@/features/products/components/MobileFilters";
+import { getCategoryBySlug } from "@/server/actions/category.actions";
+import NoProductsFoundCard from "@/features/products/components/not-found/NoProductsFoundCard";
 
 export default async function ProductsPage({
   searchParams,
+  params,
 }: {
   searchParams: { [key: string]: string };
+  params: { slug: string[] };
 }) {
   let _options = getSortOptions({ searchParams });
   const page = parseInt(searchParams.page) || 1;
   const options = { ...searchParams, ..._options, page };
   const { totalPages } = await getAllProducts(options);
 
+  const slug = params.slug?.[0];
+  let categoryName = "All Products";
+
+  if (slug) {
+    const category = await getCategoryBySlug(slug);
+    if (category) {
+      categoryName = category.name;
+    }
+  }
+
+  const title = `${categoryName}`;
+  const description = `Discover best selling Baby ${categoryName} in Lagos, Nigeria.`;
   return (
-    <div className="page-container">
-      <div className="mb-2 flex items-center justify-between">
-        <div>
-          <h1 className="hero-title">All Products</h1>
-          <p className="hero-description">
-            Best selling Baby products in Lagos, Nigeria
-          </p>
-        </div>
-        <div className="max-lg:hidden">
-          <SortByFilters />
-        </div>
-        <MobileFilters />
+    <>
+      <div className="mb-4 px-2 md:px-6">
+        <h1 className="hero-title">{title} </h1>
+        <p className="hero-description">{description}</p>
       </div>
-      <div className="flex">
-        <section className="flex w-1/5 max-lg:hidden">
-          <Filter />
-        </section>
-        <section className="mx-auto w-full lg:w-4/5">
-          <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-            <Suspense fallback={<LoadingSkeletons count={6} />}>
-              <ProductsSuspense options={options} />
-            </Suspense>
-          </div>
-          <PaginationComponent totalPages={totalPages} />
-        </section>
+      <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-3">
+        <Suspense fallback={<LoadingSkeletons count={6} />}>
+          <ProductsSuspense options={options} />
+        </Suspense>
       </div>
-    </div>
+      <PaginationComponent totalPages={totalPages} />
+    </>
   );
 }
 
@@ -74,7 +71,7 @@ async function ProductsSuspense({
   const { products } = await getAllProducts(options);
 
   if (products.length < 1) {
-    return <p>no products found</p>;
+    return <NoProductsFoundCard />;
   }
   return products.map((product) => (
     <ProductCard

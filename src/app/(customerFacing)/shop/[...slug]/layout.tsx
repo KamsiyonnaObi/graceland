@@ -8,7 +8,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const slug = params.slug?.[0];
   let categoryName = "All Products";
-
   if (slug) {
     const category = await getCategoryBySlug(slug);
     categoryName = category?.name ?? "All Products";
