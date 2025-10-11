@@ -1,5 +1,3 @@
-
-
 export const OrderCancelledPrePaymentProcessed = () => {
     return (
       <div>
