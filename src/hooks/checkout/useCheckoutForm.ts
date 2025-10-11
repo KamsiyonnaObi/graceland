@@ -98,7 +98,7 @@ export const useCheckoutForm = () => {
 
       await sendEmail({
         to: values.email,
-          subject: "Order Confirmation - Graceland",
+          subject: "Order Placed - Graceland",
           template: "order-placed",
           data: { }
       })

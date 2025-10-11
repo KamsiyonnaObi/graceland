@@ -1,8 +1,4 @@
-// interface VerifyEmailProps {
-//     token: string;
-//   }
-  
-  export const OrderPaymentReceived = () => {
+export const OrderPaymentReceived = () => {
     return (
       <div>
         <p>Hi there,</p>
