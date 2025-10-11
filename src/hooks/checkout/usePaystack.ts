@@ -3,6 +3,7 @@ import { usePaystackPayment } from "react-paystack";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { clearCart } from "@/utils/checkoutHelpers";
+import { sendEmail } from "@/server/actions/notifications.actions";
 
 type PaystackConfig = {
   reference: string;
@@ -35,6 +36,13 @@ export const usePaystack = (config: PaystackConfig) => {
           duration: 2000,
         });
         setTransactionReference(reference.trxref);
+
+         sendEmail({
+          to: config.email,
+          subject: "Order Payment Received - Graceland",
+          template: "order-payment-received",
+          data: { }
+      })
         console.log("Payment successful: ", reference);
       },
 
