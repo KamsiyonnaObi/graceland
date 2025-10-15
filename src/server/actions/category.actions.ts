@@ -15,7 +15,9 @@ export async function getCategoryBySlug(slug: string) {
   }
 }
 
-export async function getSubcategories(parentSlug?: string): Promise<Result<CategoryDto[]>> {
+export async function getSubcategories(
+  parentSlug?: string,
+): Promise<Result<CategoryDto[]>> {
   try {
     const slug = parentSlug ? parentSlug.trim().toLowerCase() : undefined;
 
@@ -34,7 +36,10 @@ export async function getSubcategories(parentSlug?: string): Promise<Result<Cate
     });
 
     if (!parentCategory) {
-      return { data: [], error: `Parent category with slug "${slug}" not found` };
+      return {
+        data: [],
+        error: `Parent category with slug "${slug}" not found`,
+      };
     }
 
     const subCategories = await db.category.findMany({
