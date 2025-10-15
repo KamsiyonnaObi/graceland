@@ -1,6 +1,5 @@
 import { SortByFilters } from "@/features/products/components/filters/sort/SortByFilters";
 import MobileFilters from "@/features/products/components/MobileFilters";
-import Filter from "@/features/products/components/Filter";
 
 export const metadata = {
   title: "All Products - Graceland Baby Products",
@@ -28,12 +27,7 @@ export default function ShopLayout({
         </div>
         <MobileFilters />
       </div>
-      <div className="flex">
-        <aside className="flex w-1/5 border-r max-lg:hidden">
-          <Filter />
-        </aside>
-        <section className="mx-auto w-full lg:w-4/5">{children}</section>
-      </div>
+      <div className="flex">{children}</div>
     </div>
   );
 }

@@ -9,6 +9,8 @@ import { getSortOptions } from "@/utils/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";
 import { getCategoryBySlug } from "@/server/actions/category.actions";
 import NoProductsFoundCard from "@/features/products/components/not-found/NoProductsFoundCard";
+import PriceFilters from "@/features/products/components/filters/price/PriceFilters";
+import CategoryFilters from "@/features/products/containers/filters/CategoryFilters";
 
 export default async function ProductsPage({
   searchParams,
@@ -24,6 +26,8 @@ export default async function ProductsPage({
 
   const slug = params.slug?.[0];
   let categoryName = "All Products";
+  let categoryNum = params.slug?.length ?? 0;
+  let categorySlug = params.slug[categoryNum - 1];
 
   if (slug) {
     const category = await getCategoryBySlug(slug);
@@ -36,16 +40,22 @@ export default async function ProductsPage({
   const description = `Discover best selling Baby ${categoryName} in Lagos, Nigeria.`;
   return (
     <>
-      <div className="mb-4 px-2 md:px-6">
-        <h1 className="hero-title">{title} </h1>
-        <p className="hero-description">{description}</p>
-      </div>
-      <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-3">
-        <Suspense fallback={<LoadingSkeletons count={6} />}>
-          <ProductsSuspense options={options} />
-        </Suspense>
-      </div>
-      <PaginationComponent totalPages={totalPages} />
+      <aside className="flex w-1/5 flex-col border-r max-lg:hidden">
+        <CategoryFilters categorySlug={categorySlug} />
+        <PriceFilters />
+      </aside>
+      <section>
+        <div className="mb-4 px-2 md:px-6">
+          <h1 className="hero-title">{title} </h1>
+          <p className="hero-description">{description}</p>
+        </div>
+        <div className="grid min-h-[60vh] w-full grid-cols-2 gap-6 md:grid-cols-3">
+          <Suspense fallback={<LoadingSkeletons count={6} />}>
+            <ProductsSuspense options={options} />
+          </Suspense>
+        </div>
+        <PaginationComponent totalPages={totalPages} />
+      </section>
     </>
   );
 }
