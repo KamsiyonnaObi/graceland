@@ -12,10 +12,10 @@ export default async function CategoryFilters({
 }: {
   categorySlug: string | undefined;
 }) {
-  const categories = await getSubcategories(categorySlug);
+  const { data: categories } = await getSubcategories(categorySlug);
 
   return (
-    categories.length > 0 && (
+    categories && categories.length > 0 && (
       <Accordion type="single" collapsible>
         <AccordionItem value="categories">
           <AccordionTrigger className="text-sm font-bold">

@@ -1,5 +1,7 @@
 import db from "@/server/db/db";
-import { redirect } from "next/navigation";
+
+type CategoryDto = { name: string; slug: string };
+type Result<T> = { data: T | null; error: string | null };
 
 export async function getCategoryBySlug(slug: string) {
   try {
@@ -13,23 +15,36 @@ export async function getCategoryBySlug(slug: string) {
   }
 }
 
-export async function getSubcategories(parentSlug?: string) {
+export async function getSubcategories(parentSlug?: string): Promise<Result<CategoryDto[]>> {
   try {
-    if (parentSlug) {
-      const parent = await db.category.findUnique({
-        where: { slug: parentSlug },
+    const slug = parentSlug ? parentSlug.trim().toLowerCase() : undefined;
+
+    if (!slug) {
+      const topLevelCategories = await db.category.findMany({
+        where: { parentCategoryId: null },
+        select: { name: true, slug: true },
       });
 
-      if (!parent) redirect("/shop");
-      return db.category.findMany({ where: { parentCategoryId: parent.id } });
+      return { data: topLevelCategories, error: null };
     }
-    // Top-level categories
-    return db.category.findMany({
-      where: { parentCategoryId: null },
+
+    const parentCategory = await db.category.findUnique({
+      where: { slug },
+      select: { id: true },
+    });
+
+    if (!parentCategory) {
+      return { data: [], error: `Parent category with slug "${slug}" not found` };
+    }
+
+    const subCategories = await db.category.findMany({
+      where: { parentCategoryId: parentCategory.id },
       select: { name: true, slug: true },
     });
-  } catch (error) {
-    console.error("Error fetching sub category by slug", error);
-    return [];
+
+    return { data: subCategories, error: null };
+  } catch (err) {
+    console.error("Error fetching subcategories", err);
+    return { data: [], error: "Internal server error" };
   }
 }
