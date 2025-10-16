@@ -21,13 +21,13 @@ export default async function ProductsPage({
 }) {
   let _options = getSortOptions({ searchParams });
   const page = parseInt(searchParams.page) || 1;
-  const options = { ...searchParams, ..._options, page };
+  const options = { ...searchParams, ..._options, category: params.slug, page };
   const { totalPages } = await getAllProducts(options);
 
   const slug = params.slug?.[0];
   let categoryName = "All Products";
-  let categoryNum = params.slug?.length ?? 0;
-  let categorySlug = params.slug[categoryNum - 1];
+  const categoryNum = params.slug?.length ?? 0;
+  const categorySlug = params.slug[categoryNum - 1];
 
   if (slug) {
     const category = await getCategoryBySlug(slug);
