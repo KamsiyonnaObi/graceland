@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import { getAllProducts } from "@/server/actions/products";
 import {
   ProductCard,
@@ -31,9 +32,10 @@ export default async function ProductsPage({
 
   if (slug) {
     const category = await getCategoryBySlug(slug);
-    if (category) {
-      categoryName = category.name;
+    if (!category) {
+      redirect("/shop");
     }
+    categoryName = category.name;
   }
 
   const title = `${categoryName}`;
