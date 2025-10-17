@@ -21,7 +21,7 @@ export default async function ProductsPage({
   const { products, totalPages } = await getAllProducts(options);
 
   return (
-    <>
+    <div className="flex">
       <aside className="flex w-1/5 flex-col border-r max-lg:hidden">
         <CategoryFilters categorySlug={""} />
         <PriceFilters />
@@ -57,7 +57,7 @@ export default async function ProductsPage({
         </div>
         <PaginationComponent totalPages={totalPages} />
       </section>
-    </>
+    </div>
   );
 }
 

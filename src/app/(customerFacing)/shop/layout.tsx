@@ -27,7 +27,7 @@ export default function ShopLayout({
         </div>
         <MobileFilters />
       </div>
-      <div className="flex">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
