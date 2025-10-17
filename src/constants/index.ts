@@ -22,7 +22,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/#explore", label: "About Us" },
   { href: "/#testimonials", label: "Reviews" },
-  { href: "/shop/all", label: "Shop" },
+  { href: "/shop", label: "Shop" },
 ];
 
 export const heroProducts = [
