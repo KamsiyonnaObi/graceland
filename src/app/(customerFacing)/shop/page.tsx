@@ -7,7 +7,7 @@ import { PaginationComponent } from "@/components/shared/Pagination";
 import PriceFilters from "@/features/products/components/filters/price/PriceFilters";
 import CategoryFilters from "@/features/products/containers/filters/CategoryFilters";
 
-import { getSortOptions } from "@/utils/productFilterHelpers";
+import { getSortOptions } from "@/utils/productHelpers/productFilterHelpers";
 import { getAllProducts } from "@/server/actions/products";
 
 export default async function ProductsPage({

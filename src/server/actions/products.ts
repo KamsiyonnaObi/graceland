@@ -1,6 +1,6 @@
 "use server";
 import db from "@/server/db/db";
-import { validateSortParams } from "@/utils/productFilterHelpers";
+import { validateSortParams } from "@/utils/productHelpers/productFilterHelpers";
 
 interface GetAllProductsParams {
   name?: string;

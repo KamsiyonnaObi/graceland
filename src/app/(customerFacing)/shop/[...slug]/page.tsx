@@ -6,14 +6,14 @@ import {
   ProductCardSkeleton,
 } from "@/features/products/components/ProductCard";
 
-import { getSortOptions } from "@/utils/productFilterHelpers";
+import { getSortOptions } from "@/utils/productHelpers/productFilterHelpers";
 import { PaginationComponent } from "@/components/shared/Pagination";
 import { getCategoryBySlug } from "@/server/actions/category.actions";
 import NoProductsFoundCard from "@/features/products/components/not-found/NoProductsFoundCard";
 import PriceFilters from "@/features/products/components/filters/price/PriceFilters";
 import CategoryFilters from "@/features/products/containers/filters/CategoryFilters";
 import { BreadcrumbNavigation } from "@/components/shared/BreadcrumbNavigation";
-import { formatCategoryName } from "@/utils/generateProductUrls";
+import { formatCategoryName } from "@/utils/productHelpers";
 
 export default async function ProductsPage({
   searchParams,
