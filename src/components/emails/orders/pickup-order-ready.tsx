@@ -1,4 +1,4 @@
-export const OrderReady = () => {
+export const PickupOrderReady = () => {
     return (
       <div>
         <p>Hi there,</p>

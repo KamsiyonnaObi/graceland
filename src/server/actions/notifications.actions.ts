@@ -8,7 +8,7 @@ import { OrderDelivered } from '@/components/emails/orders/order-delivered';
 import { OrderPaymentReceived } from '@/components/emails/orders/order-payment-received';
 import { OrderPlaced } from '@/components/emails/orders/order-placed';
 import { OrderShipped } from '@/components/emails/orders/order-shipped';
-import { OrderReady } from '@/components/emails/orders/order-ready';
+import { PickupOrderReady } from '@/components/emails/orders/pickup-order-ready';
 import { OrderCancelledPostPayment } from '@/components/emails/orders/order-cancelled-post-payment';
 import { OrderCancelledPrePaymentProcessed } from '@/components/emails/orders/order-cancelled-pre-payment-processed';
 import { OrderCancelledRefund } from '@/components/emails/orders/order-cancelled-refund';
@@ -53,8 +53,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
     case 'order-shipped':
       emailComponent = OrderShipped({trackingId : data.trackingId});
       break;
-    case 'order-ready':
-      emailComponent = OrderReady();
+    case 'pickup-order-ready':
+      emailComponent = PickupOrderReady();
       break;
     case 'order-cancelled-post-payment':
       emailComponent = OrderCancelledPostPayment();

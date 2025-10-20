@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { NextResponse, NextRequest } from "next/server";
-
+import { sendEmail } from "@/server/actions/notifications.actions";
 import { updateOrderStatusAndSavePaymentInfo } from "@/server/actions/order.actions";
 
 export async function POST(req: NextRequest) {
@@ -27,6 +27,14 @@ export async function POST(req: NextRequest) {
 
     if (event === "charge.success") {
       await updateOrderStatusAndSavePaymentInfo(data);
+
+
+      sendEmail({
+        to: data.email,
+        subject: "Order Payment Received - Graceland",
+        template: "order-payment-received",
+        data: { }
+    })
 
       return NextResponse.json({ message: "Success" }, { status: 200 });
     } else {
