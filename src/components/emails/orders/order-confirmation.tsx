@@ -1,24 +1,5 @@
 import React from 'react';
 
-interface OrderConfirmationProps {
-  order: {
-    id: string;
-    total: number;
-    items: Array<{
-      name: string;
-      quantity: number;
-      price: number;
-    }>;
-    customerName: string;
-    orderDate: string;
-    shippingAddress: {
-      street: string;
-      city: string;
-      state: string;
-      zipCode: string;
-    };
-  };
-}
 
   export const OrderConfirmation = () => {
     return (
