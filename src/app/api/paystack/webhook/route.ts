@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       await updateOrderStatusAndSavePaymentInfo(data);
 
 
-      sendEmail({
+    await sendEmail({
         to: data.email,
         subject: "Order Payment Received - Graceland",
         template: "order-payment-received",

@@ -29,9 +29,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 }) => {
   try {
 
+    const templateName = template?.toString().toLowerCase().trim() || 'default';
 
   let emailComponent;
-  switch (template) {
+  switch (templateName) {
     case 'verify-email':
       emailComponent = VerifyEmail({ token: data.token || "default-token" });
       break;
@@ -66,7 +67,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
       emailComponent = OrderCancelledRefund({refundAmount : data.refundAmount});
       break;
     default:
-      emailComponent = EmailTemplate({firstName : 'Graceland'});
+      console.error(`Invalid email template: "${template}"`);
+      return { success: false, error: `Invalid email template: ${template}` };
   }
 
 
