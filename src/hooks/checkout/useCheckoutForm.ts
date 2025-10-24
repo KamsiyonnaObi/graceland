@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { checkoutDetailsSchema } from "@/lib/validations/index";
 import { createOrder } from "@/server/actions/order.actions";
 import { calculateTotals } from "@/utils/checkoutHelpers";
+import { sendEmail } from "@/server/actions/notifications.actions";
 
 export const useCheckoutForm = () => {
   const [loading, setLoading] = useState<boolean | undefined>(false);
@@ -95,9 +96,19 @@ export const useCheckoutForm = () => {
         shippingAddress,
       );
 
+   
+    
+        
       if (!customerOrder?.createdOrder?.id) {
         throw new Error("Failed to create order");
       }
+
+         await sendEmail({
+        to: values.email,
+          subject: "Order Placed - Graceland",
+          template: "order-placed",
+          data: { }
+      })
     } catch (error) {
       toast.error("Order creation failed");
       console.error(error);

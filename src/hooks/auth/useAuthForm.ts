@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { authFormSchema } from "@/lib/validations/index";
 import { newUser } from "@/server/actions/user.actions";
 import { createToken } from "@/server/actions/token.actions";
-import { sendEmailVerification } from "@/server/actions/notifications.actions";
+import { sendEmail } from "@/server/actions/notifications.actions";
 
 export const useAuthForm = () => {
   const formSchema = authFormSchema("signup");
@@ -34,10 +34,14 @@ export const useAuthForm = () => {
       if (signInResponse?.status === 200) {
         const emailVerificationToken = await createToken({ email: data.email });
         if (emailVerificationToken.success) {
-          await sendEmailVerification({
-            email: data.email,
-            token: emailVerificationToken.message,
-          });
+        await sendEmail({
+            to: data.email,
+            subject: "Email Verification - Graceland",
+            template: "verify-email",
+            data: { token : emailVerificationToken.message }
+        })
+
+        
         }
         toast("Sign up successful.", {
           description: "Verification email sent. Please check your inbox.",
