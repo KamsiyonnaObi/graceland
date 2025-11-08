@@ -35,6 +35,7 @@ export const usePaystack = (config: PaystackConfig) => {
           duration: 2000,
         });
         setTransactionReference(reference.trxref);
+
         console.log("Payment successful: ", reference);
       },
 

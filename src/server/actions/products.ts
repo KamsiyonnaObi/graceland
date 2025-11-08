@@ -1,6 +1,6 @@
 "use server";
 import db from "@/server/db/db";
-import { validateSortParams } from "@/utils/productFilterHelpers";
+import { validateSortParams } from "@/utils/productHelpers/productFilterHelpers";
 
 interface GetAllProductsParams {
   name?: string;
@@ -33,10 +33,10 @@ export async function getAllProducts(params: GetAllProductsParams) {
     filterConditions.name = { contains: name, mode: "insensitive" };
   }
 
-  if (category) {
-    filterConditions.category = {
-      hasSome: Array.isArray(category) ? category : [category],
-    };
+  if (category && category.length > 0) {
+    const slug =
+      category.length === 1 ? category[0] : category[category.length - 1];
+    filterConditions.category = { slug };
   }
 
   const parsedMinPrice = parseFloat(minPrice || "0");
@@ -66,6 +66,17 @@ export async function getAllProducts(params: GetAllProductsParams) {
       orderBy: { [validatedSortField]: validatedSortOrder },
       skip,
       take: resultsPerPage,
+      include: {
+        category: {
+          include: {
+            parentCategory: {
+              include: {
+                parentCategory: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return { products, totalPages };
@@ -86,6 +97,7 @@ export async function getProduct(id: string) {
         name: true,
         priceInCents: true,
         images: { select: { id: true, url: true } },
+        category: { select: { name: true, slug: true } },
       },
     });
     return { error: null, product };
