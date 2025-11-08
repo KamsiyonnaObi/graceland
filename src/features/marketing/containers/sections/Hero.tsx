@@ -30,7 +30,7 @@ const Hero = () => {
           Discover eco-friendly, safe, and affordable baby essentials designed
           for comfort, style, and innovation. Trusted by parents nationwide.
         </p>
-        <Link href={"/products"}>
+        <Link href={"/shop"}>
           <MainButton label="Shop Now" iconURL={arrowRight} />
         </Link>
         {/* <div className="justify-starts mt-20 flex w-full flex-wrap items-start gap-16">
