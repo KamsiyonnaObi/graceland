@@ -28,7 +28,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
   data?: any;
 }) => {
   try {
-
     const templateName = template?.toString().toLowerCase().trim() || 'default';
 
   let emailComponent;
@@ -49,10 +48,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
       emailComponent = OrderPaymentReceived();
       break;
     case 'order-placed':
-      emailComponent = OrderPlaced();
+      emailComponent = OrderPlaced({order : data.order});
       break;
     case 'order-shipped':
-      emailComponent = OrderShipped({trackingId : data.trackingId});
+      emailComponent = OrderShipped({order : data.order});
       break;
     case 'pickup-order-ready':
       emailComponent = PickupOrderReady();
