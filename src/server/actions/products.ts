@@ -1,6 +1,6 @@
 "use server";
 import db from "@/server/db/db";
-import { validateSortParams } from "@/utils/productFilterHelpers";
+import { validateSortParams } from "@/utils/productHelpers/productFilterHelpers";
 
 interface GetAllProductsParams {
   name?: string;
@@ -34,9 +34,9 @@ export async function getAllProducts(params: GetAllProductsParams) {
   }
 
   if (category && category.length > 0) {
-    filterConditions.category = {
-      slug: { in: category },
-    };
+    const slug =
+      category.length === 1 ? category[0] : category[category.length - 1];
+    filterConditions.category = { slug };
   }
 
   const parsedMinPrice = parseFloat(minPrice || "0");

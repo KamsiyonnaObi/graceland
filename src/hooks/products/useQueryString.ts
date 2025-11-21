@@ -13,6 +13,9 @@ const useQueryString = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const clearAllFilters = useCallback(() => {
+    router.push(pathname);
+  }, [router, pathname]);
 
   const form = useForm<z.infer<typeof PriceFilterFormSchema>>({
     resolver: zodResolver(PriceFilterFormSchema),
@@ -87,6 +90,7 @@ const useQueryString = () => {
     updateQueryString,
     handleCheckboxChange,
     searchParams,
+    clearAllFilters,
   };
 };
 

@@ -16,3 +16,10 @@ export function generateProductUrl(
 
   return `/shop/${segments.join("/")}`;
 }
+
+export function formatCategoryName(slug: string): string {
+  // Replace hyphens/underscores with spaces and capitalize each word
+  return slug
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
