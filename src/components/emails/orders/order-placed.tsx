@@ -4,10 +4,7 @@ import { Tailwind, Img } from "@react-email/components";
 
 interface OrderProps {
   order: {
-    pickUpPersonFirstName: string;
-    pickUpPersonLastName: string;
-    billingLastName: string;
-    billingFirstName: string;
+   fullName: string;
     phoneNumber: string;
     createdAt: Number;
     orderEmail: string;
@@ -52,8 +49,7 @@ export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
 
           <div>
             <p style={{ margin: "0" }}>
-              {order.pickUpPersonFirstName ?? order.billingFirstName},{""}{" "}
-              {order.pickUpPersonLastName ?? order.billingLastName}
+            {order.fullName}
             </p>
             <p style={{ margin: "1" }}> {order.orderEmail}</p>
             <p> {order.phoneNumber}</p>
