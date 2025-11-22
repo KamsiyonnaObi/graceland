@@ -1,6 +1,5 @@
 import React from "react";
 import { formatCurrency } from "@/lib/formatters";
-import { Tailwind, Img } from "@react-email/components";
 
 interface OrderProps {
   order: {
@@ -23,7 +22,7 @@ interface OrderProps {
 export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
   return (
       <div>
-        <Img
+        <img
           src="https://gracelandng.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FgracelandLogo.7ac6d2ec.png&w=96&q=75"
           alt="logo"
           width={90}
@@ -105,7 +104,7 @@ export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
                 alignItems: "center",
               }}
             >
-              <Img
+              <img
                 src={item.imagePath}
                 alt=""
                 width={90}
