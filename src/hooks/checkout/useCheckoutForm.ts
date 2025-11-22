@@ -103,11 +103,11 @@ export const useCheckoutForm = () => {
         throw new Error("Failed to create order");
       }
 
-         await sendEmail({
+      await sendEmail({
         to: values.email,
           subject: "Order Placed - Graceland",
           template: "order-placed",
-          data: { }
+          data: { order: customerOrder.createdOrder , items : cartItems}
       })
     } catch (error) {
       toast.error("Order creation failed");
