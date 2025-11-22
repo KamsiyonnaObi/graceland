@@ -79,7 +79,7 @@ export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
             marginTop: "2",
           }}
         >
-          <p style={{ margin: "0 40px 0 0", fontWeight: "bold" }}>
+          <p style={{ margin: "0 42px 0 0", fontWeight: "bold" }}>
             {" "}
             Pickup Documents:{" "}
           </p>
