@@ -22,7 +22,6 @@ interface OrderProps {
 
 export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
   return (
-    <Tailwind>
       <div>
         <Img
           src="https://gracelandng.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FgracelandLogo.7ac6d2ec.png&w=96&q=75"
@@ -138,6 +137,6 @@ export const OrderPlaced: React.FC<OrderProps> = ({ order, items }) => {
         </a>
         <p>Best,</p> <p>The Graceland Team.</p>
       </div>
-    </Tailwind>
+
   );
 };
