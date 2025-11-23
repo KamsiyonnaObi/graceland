@@ -31,6 +31,19 @@ export const OrderPlaced: React.FC<OrderProps> = ({
   items,
   shippingAddress,
 }) => {
+  const getBaseUrl = () => {
+    const baseUrl = process.env.BASE_URL || "https://www.gracelandng.com";
+    if (baseUrl.includes("localhost")) {
+      return baseUrl.replace(/^https?:\/\//, "http://");
+    }
+    if (!process.env.BASE_URL && process.env.NODE_ENV === "development") {
+      return "http://localhost:3000";
+    }
+    return baseUrl;
+  };
+
+  const baseUrl = getBaseUrl();
+
   return (
     <div>
       <img
@@ -195,7 +208,7 @@ export const OrderPlaced: React.FC<OrderProps> = ({
       ></div>
       <a
         className="underline"
-        href={`/checkout/order-success?reference=${order.trxref}`}
+        href={`${baseUrl}/checkout/order-success?reference=${order.trxref}`}
       >
         You can view your order summary here
       </a>
