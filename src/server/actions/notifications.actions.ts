@@ -48,7 +48,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
       emailComponent = OrderPaymentReceived();
       break;
     case 'order-placed':
-      emailComponent = OrderPlaced({order : data.order , items : data.items});
+      emailComponent = OrderPlaced({order : data.order , items : data.items , shippingAddress : data.shippingAddress});
       break;
     case 'order-shipped':
       emailComponent = OrderShipped({order : data.order});

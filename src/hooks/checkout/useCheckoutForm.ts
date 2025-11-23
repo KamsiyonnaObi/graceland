@@ -107,7 +107,7 @@ export const useCheckoutForm = () => {
         to: values.email,
           subject: "Order Placed - Graceland",
           template: "order-placed",
-          data: { order: customerOrder.createdOrder , items : cartItems}
+          data: { order: customerOrder.createdOrder , items : cartItems , shippingAddress : shippingAddress}
       })
     } catch (error) {
       toast.error("Order creation failed");
