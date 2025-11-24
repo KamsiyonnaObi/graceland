@@ -174,7 +174,7 @@ export const OrderPlaced: React.FC<OrderProps> = ({
       ></div>
       <p style={{ fontSize: "16px", fontWeight: "bold" }}> Order Summary </p>
       {items.map((item, index) => (
-        <div>
+        <div  key={item.name}>
           <div
             style={{
               display: "flex",
