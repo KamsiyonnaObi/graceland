@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getCategoryBySlug } from "@/server/actions/category.actions";
 
+const BASE_URL = process.env.BASE_URL || "https://www.gracelandng.com";
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,6 +17,8 @@ export async function generateMetadata({
 
   const title = `${categoryName} - Graceland Baby Products`;
   const description = `Browse ${categoryName} and discover best selling baby products in Lagos, Nigeria.`;
+  const path = `/shop/${params.slug?.join("/") ?? ""}`;
+  const canonical = `${BASE_URL}${path}`;
 
   return {
     title,
@@ -22,8 +26,11 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `/shop/${params.slug?.join("/") ?? ""}`,
+      url: canonical,
       siteName: "Graceland Baby Products",
+    },
+    alternates: {
+      canonical,
     },
   };
 }
