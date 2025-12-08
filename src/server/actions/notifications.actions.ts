@@ -28,7 +28,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
   data?: any;
 }) => {
   try {
-
     const templateName = template?.toString().toLowerCase().trim() || 'default';
 
   let emailComponent;
@@ -49,10 +48,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
       emailComponent = OrderPaymentReceived();
       break;
     case 'order-placed':
-      emailComponent = OrderPlaced();
+      emailComponent = OrderPlaced({order : data.order , items : data.items , shippingAddress : data.shippingAddress});
       break;
     case 'order-shipped':
-      emailComponent = OrderShipped({trackingId : data.trackingId});
+      emailComponent = OrderShipped({order : data.order});
       break;
     case 'pickup-order-ready':
       emailComponent = PickupOrderReady();
@@ -71,6 +70,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
       return { success: false, error: `Invalid email template: ${template}` };
   }
 
+  if (!emailComponent) {
+    return { success: false, error: `Failed to generate email component for template: ${template}` };
+  }
 
     const { data: result , error } = await resend.emails.send({
       from: "Graceland <no-reply@gracelandng.com>",
