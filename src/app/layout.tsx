@@ -21,37 +21,23 @@ const montserrat = Montserrat({
 const BASE_URL = process.env.BASE_URL || "https://www.gracelandng.com";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
   title: "Graceland Nigeria - Top Baby Products Online",
   description:
-    "Discover premium baby products in Lagos, Nigeria at Graceland. Shop eco-friendly, safe, and affordable essentials for your little one. Trusted by parents worldwide.",
+    "Discover premium baby products at Graceland. Shop eco-friendly, safe, and affordable essentials for your little one. Trusted by parents worldwide.",
   keywords: [
-    "baby products Lagos",
-    "baby store Lagos",
-    "buy baby products Lagos",
-    "baby products Nigeria",
-    "newborn essentials Lagos",
-    "car seats Lagos",
-    "strollers Lagos",
-    "baby walker Lagos",
-    "baby gear Lagos",
-    "high chairs Lagos",
-    "baby gifts Lagos",
-    "organic baby products Lagos",
-    "affordable baby products Lagos",
-    "premium baby products Lagos",
-    "baby safety products Lagos",
+    "baby products",
+    "newborn essentials",
+    "organic baby gear",
+    "baby shower gifts",
+    "safe baby items",
+    "affordable baby supplies",
     "Graceland baby store",
-    "buy baby gear online Lagos",
-    "child car seats Nigeria",
-    "stroller shop Lagos",
-    "baby accessories Lagos",
-    "same day delivery Lagos",
+    "top-rated baby products",
   ],
   openGraph: {
     title: "Graceland - Premium Baby Products",
     description:
-      "Shop premium baby products in Lagos, Nigeria at Graceland. Safe, eco-friendly, and perfect for your little one. Trusted by parents everywhere!",
+      "Shop premium baby products at Graceland. Safe, eco-friendly, and perfect for your little one. Trusted by parents everywhere!",
     url: BASE_URL,
     type: "website",
     images: [
@@ -65,7 +51,6 @@ export const metadata: Metadata = {
   },
   robots: "index, follow",
   alternates: {
-    canonical: BASE_URL,
     languages: {
       en: BASE_URL,
     },

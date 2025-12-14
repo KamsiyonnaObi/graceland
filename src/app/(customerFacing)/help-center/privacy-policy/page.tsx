@@ -1,11 +1,3 @@
-export const metadata = {
-  title: "Privacy Policy - Graceland Nigeria",
-  description:
-    "Read Graceland Nigeria's privacy policy to learn how we collect, use, and protect your personal information.",
-  alternates: {
-    canonical: "https://www.gracelandng.com/help-center/privacy-policy",
-  },
-};
 import React from "react";
 
 const PrivacyPolicy = () => {

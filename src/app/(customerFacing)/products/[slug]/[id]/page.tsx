@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 
 import AddToCartContainer from "@/features/products/containers/products-page/AddToCart.container";
 import { ImageCarousel } from "@/features/products/components/products-page/ImageCarousel";
@@ -7,41 +6,6 @@ import { BreadcrumbNavigation } from "@/components/shared/BreadcrumbNavigation";
 
 import { formatCurrency } from "@/lib/formatters";
 import { getProduct } from "@/server/actions/products";
-
-const BASE_URL = process.env.BASE_URL || "https://www.gracelandng.com";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string; slug?: string };
-}): Promise<Metadata> {
-  const { id, slug } = params;
-  const { product } = await getProduct(id);
-
-  if (!product) {
-    return {
-      title: "Product Not Found - Graceland Nigeria",
-      description: "Product not found.",
-    };
-  }
-
-  const productSlug = slug ?? product.name.toLowerCase().replace(/\s+/g, "-");
-  const canonical = `products/${productSlug}/${product.id}`;
-
-  return {
-    title: `${product.name} - Graceland Nigeria`,
-    description:
-      product.description ?? `Buy ${product.name} in Lagos, Nigeria.`,
-    openGraph: {
-      title: `${product.name} - Graceland Nigeria`,
-      description:
-        product.description ?? `Buy ${product.name} in Lagos, Nigeria.`,
-      url: `${BASE_URL}/${canonical}`,
-      images: product.imagePath ? [`${product.imagePath}`] : undefined,
-    },
-    alternates: { canonical },
-  };
-}
 
 const ProductDetailPage = async ({
   params: { id },
