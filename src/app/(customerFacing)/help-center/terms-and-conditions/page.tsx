@@ -1,11 +1,3 @@
-export const metadata = {
-  title: "Terms and Conditions - Graceland Nigeria",
-  description:
-    "Read the terms and conditions for using Graceland Nigeria's website and services.",
-  alternates: {
-    canonical: "https://www.gracelandng.com/help-center/terms-and-conditions",
-  },
-};
 import Link from "next/link";
 import React from "react";
 

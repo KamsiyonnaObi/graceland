@@ -106,16 +106,3 @@ export async function getProduct(id: string) {
     return { error: "Failed to fetch product.", product: null };
   }
 }
-
-export async function getAllProductSlugs(): Promise<
-  { id: string; slug: string; updatedAt: Date }[]
-> {
-  const rows = await db.product.findMany({
-    select: { slug: true, updatedAt: true, id: true },
-  });
-  // Return only rows that have a non-empty string slug, typed accordingly
-  return rows.filter(
-    (r): r is { id: string; slug: string; updatedAt: Date } =>
-      typeof r.slug === "string" && r.slug.length > 0,
-  );
-}

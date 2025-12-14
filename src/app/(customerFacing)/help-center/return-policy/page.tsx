@@ -1,11 +1,3 @@
-export const metadata = {
-  title: "Return Policy - Graceland Nigeria",
-  description:
-    "Review Graceland Nigeria's return policy for information on returns, exchanges, and refunds.",
-  alternates: {
-    canonical: "https://www.gracelandng.com/help-center/return-policy",
-  },
-};
 import React from "react";
 
 const ReturnPolicy = () => {
