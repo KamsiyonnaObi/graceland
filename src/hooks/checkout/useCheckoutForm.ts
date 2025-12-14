@@ -104,6 +104,9 @@ export const useCheckoutForm = () => {
         shippingAddress,
       );
 
+   
+    
+        
       if (!customerOrder?.createdOrder?.id) {
         throw new Error("Failed to create order");
       }
