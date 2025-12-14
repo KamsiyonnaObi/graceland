@@ -46,9 +46,7 @@ export const useCheckoutForm = () => {
 
       const { checkoutURL, checkoutCode } = response.data;
 
-      window.location.href = checkoutURL;
-
-      return checkoutCode;
+      return { checkoutCode: checkoutCode, checkoutURL: checkoutURL };
     } catch (error) {
       console.error("Error initializing payment:", error);
     } finally {
@@ -86,12 +84,22 @@ export const useCheckoutForm = () => {
     };
 
     try {
-      const paystackCheckoutCode = await initializeTransaction(
+      const paystackCodes = await initializeTransaction(
         values.email,
         orderDetails.trxref,
       );
+
+      if (!paystackCodes?.checkoutCode) {
+        throw new Error("Failed to create checkout code");
+      } else if (!paystackCodes?.checkoutURL) {
+        throw new Error("Failed to create checkout Url");
+      }
+
       const customerOrder = await createOrder(
-        { ...orderDetails, paystackCheckoutCode },
+        {
+          ...orderDetails,
+          paystackCheckoutCode: paystackCodes.checkoutCode,
+        },
         cartItems,
         shippingAddress,
       );
@@ -103,12 +111,18 @@ export const useCheckoutForm = () => {
         throw new Error("Failed to create order");
       }
 
-         await sendEmail({
+      await sendEmail({
         to: values.email,
-          subject: "Order Placed - Graceland",
-          template: "order-placed",
-          data: { }
-      })
+        subject: "Order Placed - Graceland",
+        template: "order-placed",
+        data: {
+          order: customerOrder.createdOrder,
+          items: cartItems,
+          shippingAddress: shippingAddress,
+        },
+      });
+
+      window.location.href = paystackCodes.checkoutURL;
     } catch (error) {
       toast.error("Order creation failed");
       console.error(error);
